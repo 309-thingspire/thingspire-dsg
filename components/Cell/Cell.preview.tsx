@@ -58,18 +58,44 @@ export default function CellPreviewPage() {
           <Cell expandable={expandable} />
         </section>
 
+        {/* Variants — mirroring Figma carbonscope CellItem matrix
+            (file vsK9x80KMmYCfjkSOnaixv, node 2616:10469) so the doc
+            page demonstrates the full state grid at a glance. */}
         <section
           style={{
             border: `1px solid ${colors.primitive.palette.gray['2']}`,
             borderRadius: spacing.scale['12'],
             padding: spacing.scale['24'],
             backgroundColor: colors.primitive.palette.base.white,
-            display: 'flex',
-            gap: spacing.scale['24'],
+            display: 'grid',
+            gridTemplateColumns: `repeat(2, minmax(${spacing.scale['224']}px, 1fr))`,
+            gap: spacing.scale['16'],
           }}
         >
-          <Cell expandable={false} />
-          <Cell expandable={true} />
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>Default</span>
+            <Cell expandable={false} />
+          </div>
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>With badge</span>
+            <Cell expandable={false} badge />
+          </div>
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>With tail icons</span>
+            <Cell expandable={false} tailIcon1 tailIcon2 />
+          </div>
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>Active</span>
+            <Cell expandable={false} active />
+          </div>
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>Expandable, collapsed</span>
+            <Cell expandable defaultExpanded={false} />
+          </div>
+          <div style={{ display: 'grid', gap: spacing.scale['8'] }}>
+            <span style={{ color: colors.primitive.palette.gray['9a'], fontSize: 12 }}>Expandable, expanded</span>
+            <Cell expandable defaultExpanded />
+          </div>
         </section>
       </section>
     </main>

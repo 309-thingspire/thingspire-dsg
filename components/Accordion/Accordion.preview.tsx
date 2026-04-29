@@ -277,6 +277,7 @@ export default function AccordionPreviewPage() {
               description={showDescription ? 'Description' : undefined}
               size={size}
               expanded={expanded}
+              onExpandedChange={setExpanded}
               disabled={disabled}
               forceState={forceState}
               showLeadingIcon={showLeadingIcon}

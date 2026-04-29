@@ -435,7 +435,9 @@ export function SelectInput({
       ? textStatus.destructive
       : textBase.staticDarkTertiary;
 
-  const controlShadow = componentDisabled ? 'none' : shadows.elevation.xs.css;
+  // Per Figma carbonscope: form-field controls render flat, no elevation
+  // shadow. Focus ring still applies elsewhere via the focused state.
+  const controlShadow = 'none';
 
   const fieldTypography = toTypographyStyle(typography.scale.captionL.regular);
   const mediumTypography = toTypographyStyle(typography.scale.captionL.medium);

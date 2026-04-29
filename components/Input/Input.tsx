@@ -252,7 +252,8 @@ export function Input({
   const tertiaryTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
   const secondaryTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
 
-  const containerShadow = componentDisabled ? 'none' : shadows.elevation.xs.css;
+  // Per Figma carbonscope: form fields render flat, no elevation shadow.
+  const containerShadow = 'none';
   const sideBorderColor = componentDisabled ? palette.gray['2'] : palette.gray['3'];
 
   const handleMouseEnter: React.MouseEventHandler<HTMLDivElement> = (event) => {

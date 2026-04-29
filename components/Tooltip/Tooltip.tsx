@@ -56,7 +56,10 @@ const TRIGGER_SIZE = spacing.scale['24'];
 const TRIGGER_ICON_SIZE = spacing.scale['14'];
 const TRIGGER_TOOLTIP_OFFSET = spacing.scale['24'] + spacing.scale['6'];
 
-const boxBackground = colors.semantic.theme.background.surface.default;
+// Tooltip surface is always white with dark text per Figma carbonscope:
+// the previous `surface.default` resolved to #0b0c0e dark, which combined
+// with the dark text made the tooltip body unreadable.
+const boxBackground = colors.primitive.palette.base.white;
 const boxBorderColor = border.color.theme.action.normal;
 const textBase = colors.semantic.theme.text.base;
 const iconBase = colors.semantic.theme.icon.base;
@@ -113,10 +116,14 @@ function TooltipArrow({
   backgroundColor: string;
   borderColor: string;
 }) {
+  // Arrow paths are intentionally open (no closing Z) so the stroke only
+  // draws the two slanted sides; the side that abuts the bubble stays
+  // unstroked, letting the arrow + bubble read as one continuous outline.
+  // SVG fill still closes the shape implicitly.
   if (direction === 'up') {
     return (
       <svg width={ARROW_WIDTH} height={ARROW_HEIGHT} viewBox={`0 0 ${ARROW_WIDTH} ${ARROW_HEIGHT}`} aria-hidden="true" style={{ display: 'block' }}>
-        <path d={`M 0 ${ARROW_HEIGHT} L ${ARROW_WIDTH / 2} 0 L ${ARROW_WIDTH} ${ARROW_HEIGHT} Z`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} />
+        <path d={`M 0 ${ARROW_HEIGHT} L ${ARROW_WIDTH / 2} 0 L ${ARROW_WIDTH} ${ARROW_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
       </svg>
     );
   }
@@ -124,7 +131,7 @@ function TooltipArrow({
   if (direction === 'down') {
     return (
       <svg width={ARROW_WIDTH} height={ARROW_HEIGHT} viewBox={`0 0 ${ARROW_WIDTH} ${ARROW_HEIGHT}`} aria-hidden="true" style={{ display: 'block' }}>
-        <path d={`M 0 0 L ${ARROW_WIDTH / 2} ${ARROW_HEIGHT} L ${ARROW_WIDTH} 0 Z`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} />
+        <path d={`M 0 0 L ${ARROW_WIDTH / 2} ${ARROW_HEIGHT} L ${ARROW_WIDTH} 0`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
       </svg>
     );
   }
@@ -138,7 +145,7 @@ function TooltipArrow({
         aria-hidden="true"
         style={{ display: 'block' }}
       >
-        <path d={`M ${ARROW_SIDE_WIDTH} 0 L 0 ${ARROW_SIDE_HEIGHT / 2} L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT} Z`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} />
+        <path d={`M ${ARROW_SIDE_WIDTH} 0 L 0 ${ARROW_SIDE_HEIGHT / 2} L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
       </svg>
     );
   }
@@ -151,7 +158,7 @@ function TooltipArrow({
       aria-hidden="true"
       style={{ display: 'block' }}
     >
-      <path d={`M 0 0 L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT / 2} L 0 ${ARROW_SIDE_HEIGHT} Z`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} />
+      <path d={`M 0 0 L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT / 2} L 0 ${ARROW_SIDE_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
     </svg>
   );
 }

@@ -568,13 +568,16 @@ input, select, textarea {
 /* Hide the redundant page-level title and description (the doc page already
  * shows the component name + lead description above the Examples tab). */
 .pc-tabs__preview > main > section > header { display: none !important; }
-/* Legacy previews wrap their showcase content in <section> / nested <div>
- * with `backgroundColor: colors.semantic.theme.background.surface.{neutral|default}`,
- * which resolves to dark hex (#14151a / #0b0c0e) regardless of the site
- * theme. Neutralise just the wrapper backgrounds (NOT borders, NOT the
- * components themselves) so the docs page reads on a light or dark site
- * surface without the designer's standalone dark canvas leaking through. */
-.pc-tabs__preview > main > section > section,
+/* Legacy previews wrap their showcase content in <section> / <div> with
+ * `backgroundColor: colors.semantic.theme.background.surface.{…}`, which
+ * resolves to dark hex (#14151a / #0b0c0e / #1f2228) regardless of the
+ * site theme. Some previews (TabMenu, etc.) nest these wrappers several
+ * layers deep, so neutralise *all* section / div wrappers under the
+ * preview <main>. Real components are <button>/<input>/<table>/etc. —
+ * those are not affected. Borders intentionally untouched. */
+.pc-tabs__preview > main section,
+.pc-tabs__preview > main > section > div,
+.pc-tabs__preview > main > section > section > div,
 .pc-tabs__preview > main > section > section > div > div {
   background: transparent !important;
 }

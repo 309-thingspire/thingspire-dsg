@@ -333,7 +333,7 @@ export function Dropdown({
           borderColor: palette.gray['3'],
           borderRadius: radius.scale.xl,
           backgroundColor: palette.base.white,
-          boxShadow: triggerFocused ? shadows.focusRing.light.css : shadows.elevation.xs.css,
+          boxShadow: triggerFocused ? shadows.focusRing.light.css : 'none',
           color: textBase.staticDark,
           cursor: triggerDisabled ? 'not-allowed' : 'pointer',
           boxSizing: 'border-box',

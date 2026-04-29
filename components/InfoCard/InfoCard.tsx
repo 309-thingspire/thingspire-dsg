@@ -61,7 +61,7 @@ export function InfoCard({
       style={{
         width: SIDEBAR_WIDTH,
         boxSizing: 'border-box',
-        paddingInline: spacing.scale['16'],
+        padding: spacing.scale['16'],
         display: 'flex',
         flexDirection: 'column',
         ...style,

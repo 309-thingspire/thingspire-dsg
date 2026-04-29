@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import { colors, spacing, typography } from '../../style-tokens';
 import { IconAddLine } from '../icons';
+import { Badge } from '../Badge/Badge';
 
 import { Button } from './Button';
 import type { ButtonShape, ButtonSize, ButtonType, ButtonVariant, ButtonVisualState } from './Button.types';
@@ -27,24 +28,8 @@ function toTitle(value: string): string {
   return value.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
 }
 
-function BadgeDot({ tone = 'destructive' }: { tone?: 'destructive' | 'neutral' }) {
-  const bg =
-    tone === 'destructive'
-      ? colors.semantic.theme.text.status.destructive
-      : colors.semantic.theme.text.base.staticDarkSecondary;
-  return (
-    <span
-      aria-hidden="true"
-      style={{
-        width: 6,
-        height: 6,
-        borderRadius: '50%',
-        backgroundColor: bg,
-        display: 'inline-block',
-      }}
-    />
-  );
-}
+// Use the actual Badge component for the badge slot rather than a local dot,
+// so the toggle reflects what consumers will see when they pass a Badge in.
 
 export default function ButtonPreviewPage() {
   const [variant, setVariant] = useState<ButtonVariant>('primary');
@@ -61,7 +46,7 @@ export default function ButtonPreviewPage() {
   const forceState = useMemo(() => (state === 'default' ? undefined : state), [state]);
   const leadIconNode = showLeadIcon ? <IconAddLine /> : undefined;
   const tailIconNode = showTailIcon ? <IconAddLine /> : undefined;
-  const badgeNode = showBadge ? <BadgeDot /> : undefined;
+  const badgeNode = showBadge ? <Badge color="red" size="xs">3</Badge> : undefined;
 
   return (
     <main
