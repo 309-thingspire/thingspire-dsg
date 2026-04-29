@@ -27,6 +27,25 @@ function toTitle(value: string): string {
   return value.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
 }
 
+function BadgeDot({ tone = 'destructive' }: { tone?: 'destructive' | 'neutral' }) {
+  const bg =
+    tone === 'destructive'
+      ? colors.semantic.theme.text.status.destructive
+      : colors.semantic.theme.text.base.staticDarkSecondary;
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        width: 6,
+        height: 6,
+        borderRadius: '50%',
+        backgroundColor: bg,
+        display: 'inline-block',
+      }}
+    />
+  );
+}
+
 export default function ButtonPreviewPage() {
   const [variant, setVariant] = useState<ButtonVariant>('primary');
   const [size, setSize] = useState<ButtonSize>('md');
@@ -35,8 +54,14 @@ export default function ButtonPreviewPage() {
   const [state, setState] = useState<'default' | ButtonVisualState>('default');
   const [disabled, setDisabled] = useState(false);
   const [fullWidth, setFullWidth] = useState(false);
+  const [showLeadIcon, setShowLeadIcon] = useState(true);
+  const [showTailIcon, setShowTailIcon] = useState(false);
+  const [showBadge, setShowBadge] = useState(false);
 
   const forceState = useMemo(() => (state === 'default' ? undefined : state), [state]);
+  const leadIconNode = showLeadIcon ? <IconAddLine /> : undefined;
+  const tailIconNode = showTailIcon ? <IconAddLine /> : undefined;
+  const badgeNode = showBadge ? <BadgeDot /> : undefined;
 
   return (
     <main
@@ -247,6 +272,63 @@ export default function ButtonPreviewPage() {
             <span>Full Width</span>
             <input type="checkbox" checked={fullWidth} onChange={(event) => setFullWidth(event.target.checked)} />
           </label>
+
+          <label
+            style={{
+              minHeight: spacing.scale['40'],
+              borderStyle: 'solid',
+              borderWidth: spacing.scale['1'],
+              borderColor: colors.semantic.theme.border.base.neutral,
+              borderRadius: spacing.scale['8'],
+              paddingInline: spacing.scale['12'],
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: spacing.scale['8'],
+              backgroundColor: colors.semantic.theme.background.input.normal,
+            }}
+          >
+            <span>Lead Icon</span>
+            <input type="checkbox" checked={showLeadIcon} onChange={(event) => setShowLeadIcon(event.target.checked)} />
+          </label>
+
+          <label
+            style={{
+              minHeight: spacing.scale['40'],
+              borderStyle: 'solid',
+              borderWidth: spacing.scale['1'],
+              borderColor: colors.semantic.theme.border.base.neutral,
+              borderRadius: spacing.scale['8'],
+              paddingInline: spacing.scale['12'],
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: spacing.scale['8'],
+              backgroundColor: colors.semantic.theme.background.input.normal,
+            }}
+          >
+            <span>Tail Icon</span>
+            <input type="checkbox" checked={showTailIcon} onChange={(event) => setShowTailIcon(event.target.checked)} />
+          </label>
+
+          <label
+            style={{
+              minHeight: spacing.scale['40'],
+              borderStyle: 'solid',
+              borderWidth: spacing.scale['1'],
+              borderColor: colors.semantic.theme.border.base.neutral,
+              borderRadius: spacing.scale['8'],
+              paddingInline: spacing.scale['12'],
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: spacing.scale['8'],
+              backgroundColor: colors.semantic.theme.background.input.normal,
+            }}
+          >
+            <span>Badge</span>
+            <input type="checkbox" checked={showBadge} onChange={(event) => setShowBadge(event.target.checked)} />
+          </label>
         </div>
 
         <section
@@ -283,7 +365,9 @@ export default function ButtonPreviewPage() {
               forceState={forceState}
               disabled={disabled}
               fullWidth={fullWidth}
-              leftIcon={<IconAddLine />}
+              leftIcon={leadIconNode}
+              rightIcon={tailIconNode}
+              badge={badgeNode}
             >
               {toTitle(variant)} Button
             </Button>
@@ -355,7 +439,9 @@ export default function ButtonPreviewPage() {
                   forceState={forceState}
                   disabled={disabled}
                   fullWidth
-                  leftIcon={<IconAddLine />}
+                  leftIcon={leadIconNode}
+                  rightIcon={tailIconNode}
+                  badge={badgeNode}
                 >
                   {toTitle(item)}
                 </Button>
@@ -415,10 +501,10 @@ export default function ButtonPreviewPage() {
                 >
                   {toTitle(v)}
                 </span>
-                <Button variant={v} size="md" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" forceState="hover" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" forceState="focus" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" disabled leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" forceState="hover" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" forceState="focus" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" disabled leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
               </React.Fragment>
             ))}
           </div>
@@ -476,7 +562,7 @@ export default function ButtonPreviewPage() {
                   {toTitle(v)}
                 </span>
                 {SIZES.map((s) => (
-                  <Button key={`${v}-${s}`} variant={v} size={s} leftIcon={<IconAddLine />}>
+                  <Button key={`${v}-${s}`} variant={v} size={s} leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>
                     {toTitle(v)}
                   </Button>
                 ))}
@@ -539,8 +625,8 @@ export default function ButtonPreviewPage() {
                 >
                   {toTitle(v)}
                 </span>
-                <Button variant={v} shape="rounded" leftIcon={<IconAddLine />}>Rounded</Button>
-                <Button variant={v} shape="pill" leftIcon={<IconAddLine />}>Pill</Button>
+                <Button variant={v} shape="rounded" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Rounded</Button>
+                <Button variant={v} shape="pill" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Pill</Button>
               </div>
             ))}
           </div>

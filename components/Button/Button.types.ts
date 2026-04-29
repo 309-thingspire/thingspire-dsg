@@ -25,5 +25,11 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   forceState?: ButtonVisualState;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  /**
+   * Optional badge node rendered between the children and the right icon
+   * (e.g. an unread dot, numeric counter, or Badge component).
+   * Ignored when `type` is 'iconOnly'.
+   */
+  badge?: ReactNode;
   fullWidth?: boolean;
 }

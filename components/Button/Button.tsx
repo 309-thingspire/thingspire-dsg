@@ -91,6 +91,14 @@ const DESTRUCTIVE_VARIANTS: ReadonlySet<ButtonVariant> = new Set([
   'destructiveGhost',
 ]);
 
+// Ghost variants render without a visible resting border per the Figma
+// carbonscope spec — only the focus ring color is allowed to surface so
+// keyboard focus stays accessible.
+const GHOST_VARIANTS: ReadonlySet<ButtonVariant> = new Set([
+  'ghost',
+  'destructiveGhost',
+]);
+
 const STATE_COLOR_MAP: Record<ButtonVariant, { default: string; hover: string; disabled: string }> = {
   primary: {
     default: buttonBackgroundTokens.primary,
@@ -182,6 +190,12 @@ function getBorderColor(variant: ButtonVariant, interactionState: InteractionSta
 
   if (interactionState === 'focus') {
     return destructive ? buttonBorderTokens.focusDestructive : buttonBorderTokens.focus;
+  }
+
+  // Ghost variants are intentionally borderless in default/hover/disabled
+  // states. Focus ring above already short-circuited so a11y is preserved.
+  if (GHOST_VARIANTS.has(variant)) {
+    return 'transparent';
   }
 
   if (interactionState === 'hover') {
@@ -288,6 +302,7 @@ export function Button({
   forceState,
   leftIcon,
   rightIcon,
+  badge,
   fullWidth = false,
   disabled = false,
   style,
@@ -389,6 +404,19 @@ export function Button({
       ) : null}
 
       {!iconOnly ? <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{children}</span> : null}
+
+      {!iconOnly && badge ? (
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          {badge}
+        </span>
+      ) : null}
 
       {!iconOnly && rightIcon ? (
         <span
