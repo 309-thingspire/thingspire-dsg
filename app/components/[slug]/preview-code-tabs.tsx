@@ -17,8 +17,8 @@ export default function PreviewCodeTabs({
   const Preview = getPreviewComponent(slug)
 
   return (
-    <div className="pc-tabs" role="tablist" aria-label="Component preview and code">
-      <div className="pc-tabs__bar">
+    <div className="pc-tabs" role="region" aria-label="Component example">
+      <div className="pc-tabs__bar" role="tablist">
         <button
           type="button"
           role="tab"
@@ -47,7 +47,7 @@ export default function PreviewCodeTabs({
         {Preview ? (
           <Preview />
         ) : (
-          <p style={{ color: 'var(--text-muted)' }}>
+          <p style={{ color: 'hsl(var(--muted-foreground))' }}>
             Preview is not available for this component.
           </p>
         )}
@@ -56,11 +56,10 @@ export default function PreviewCodeTabs({
       <div
         role="tabpanel"
         className={`pc-tabs__panel pc-tabs__code${tab === 'code' ? ' is-active' : ''}`}
+        style={{ position: 'relative' }}
       >
-        <div className="code-block code-block--bare">
-          <pre><code>{code}</code></pre>
-          <CopyButton text={code} />
-        </div>
+        <pre><code>{code}</code></pre>
+        <CopyButton text={code} className="code-block__copy" />
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ export default async function ApiReference({ slug }: { slug: string }) {
 
   if (!spec || !spec.props || spec.props.length === 0) {
     return (
-      <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>
+      <p style={{ color: 'hsl(var(--muted-foreground))', fontSize: 13 }}>
         Props 문서 준비 중입니다. (component-spec.json 추가 시 표시됩니다.)
       </p>
     )
@@ -34,7 +34,7 @@ export default async function ApiReference({ slug }: { slug: string }) {
               <td>
                 <code>{prop.name}</code>
                 {prop.required && (
-                  <span style={{ color: 'var(--accent)', marginLeft: 4 }}>*</span>
+                  <span style={{ color: 'hsl(var(--destructive))', marginLeft: 4 }}>*</span>
                 )}
               </td>
               <td><code>{prop.type}</code></td>

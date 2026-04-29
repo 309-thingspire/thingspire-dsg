@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
 const Loading = () => (
-  <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>Loading preview…</div>
+  <div style={{ color: 'hsl(var(--muted-foreground))', fontSize: 13 }}>Loading preview…</div>
 )
 
 const PREVIEWS: Record<string, ComponentType> = {

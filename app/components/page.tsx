@@ -38,7 +38,7 @@ export default function ComponentsIndexPage() {
       </header>
 
       {filtered.length === 0 ? (
-        <p style={{ color: 'var(--text-muted)' }}>No matching components.</p>
+        <p style={{ color: 'hsl(var(--muted-foreground))' }}>No matching components.</p>
       ) : (
         <div className="comp-grid">
           {filtered.map((entry) => (

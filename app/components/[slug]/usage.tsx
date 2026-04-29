@@ -7,11 +7,14 @@ export default function Usage({ slug }: { slug: string }) {
 
   const exportName = entry.folder
   const importPath = `@/components/${slug}/${slug}`
-  const example = `import { ${exportName} } from '${importPath}'
 
-export function Example() {
-  return <${exportName} />
-}`
+  const importExample = `import { ${exportName} } from "${importPath}"`
+  const usageExample = `<${exportName} />`
 
-  return <CodeBlock code={example} language="tsx" />
+  return (
+    <div style={{ display: 'grid', gap: 12 }}>
+      <CodeBlock code={importExample} language="tsx" />
+      <CodeBlock code={usageExample} language="tsx" />
+    </div>
+  )
 }
