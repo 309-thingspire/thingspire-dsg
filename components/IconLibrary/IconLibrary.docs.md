@@ -49,6 +49,41 @@ Meaningful icons — provide a label:
 <IconAlertLine role="img" aria-label="Warning" />
 ```
 
+## When to use IconLibrary vs. inline SVG
+
+**Use IconLibrary** for any general-purpose icon slot:
+
+- `<Button leftIcon={<IconArrowRightLine />}>` — call-to-action chevrons
+- list bullets, badge prefixes, status indicators in cards
+- anything a designer would call "an icon" in the abstract
+
+**Inline SVG inside a component remains acceptable** for shapes that are
+*structurally part of the component itself*:
+
+- Tooltip arrow tip (geometry depends on width/height props)
+- ProgressCircle progress arc (computed from value)
+- TableHeader sort caret (designed against a custom 20×20 viewBox)
+- Breadcrumbs separator (Figma-exported precise proportions)
+
+These shapes aren't reusable icons — they exist only to render that
+component's anatomy. Pulling them out to IconLibrary would force a
+visual regression.
+
+When you author a *new* component, prefer IconLibrary for any
+recognisable icon ("plus", "check", "arrow", "user", etc.). Reserve
+inline SVG for shapes you would not name.
+
+## Installation via CLI
+
+```bash
+npx @thingspire/ui add icons
+```
+
+Pulls the full bundle (`IconLibrary.tsx`, `IconLibrary.types.ts`,
+`IconLibrary.docs.md`, plus `components/icons/*.tsx` and the barrel
+`index.ts` / `types.ts`). Importing only the names you use lets your
+bundler tree-shake the rest.
+
 ## Generator
 
 The 2,278 components are produced by

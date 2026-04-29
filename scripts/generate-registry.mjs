@@ -69,6 +69,30 @@ async function buildItem(entry, category) {
     })
   }
 
+  // Bundle the full generated icon set when packaging the "icons" entry.
+  if (entry.slug === 'icons') {
+    const iconsDir = path.join(COMPONENTS_DIR, 'icons')
+    let names = []
+    try {
+      names = await fs.readdir(iconsDir)
+    } catch {
+      names = []
+    }
+    for (const name of names.sort()) {
+      const isIcon = name.startsWith('icon-') && name.endsWith('.tsx')
+      const isMeta = name === 'index.ts' || name === 'types.ts'
+      if (!isIcon && !isMeta) continue
+      const content = await readIfExists(path.join(iconsDir, name))
+      if (content !== null) {
+        files.push({
+          path: `components/icons/${name}`,
+          type: isIcon ? 'component' : 'types',
+          content,
+        })
+      }
+    }
+  }
+
   return {
     name: entry.label,
     slug: entry.slug,

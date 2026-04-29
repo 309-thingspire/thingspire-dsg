@@ -58,7 +58,44 @@ export async function readComponentFiles(
       })
     }
   }
+
+  // Special case: the "icons" entry bundles the entire generated icon set
+  // (components/icons/*.tsx + index.ts + types.ts) so installing it gives
+  // the consumer the full tree-shakable icon library.
+  if (entry.slug === 'icons') {
+    files.push(...(await readIconsBundleFiles()))
+  }
+
   return files
+}
+
+async function readIconsBundleFiles(): Promise<RegistryFile[]> {
+  const dir = path.join(REPO_ROOT, 'components', 'icons')
+  let entries: string[]
+  try {
+    entries = await fs.readdir(dir)
+  } catch {
+    return []
+  }
+  const out: RegistryFile[] = []
+  for (const name of entries.sort()) {
+    if (
+      !(name.startsWith('icon-') && name.endsWith('.tsx')) &&
+      name !== 'index.ts' &&
+      name !== 'types.ts'
+    ) {
+      continue
+    }
+    const content = await readIfExists(path.join(dir, name))
+    if (content !== null) {
+      out.push({
+        path: `components/icons/${name}`,
+        type: name.startsWith('icon-') ? 'component' : 'types',
+        content,
+      })
+    }
+  }
+  return out
 }
 
 export async function getRegistryItem(
