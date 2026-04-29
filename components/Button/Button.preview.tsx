@@ -363,6 +363,255 @@ export default function ButtonPreviewPage() {
             ))}
           </div>
         </section>
+
+        {/* Variants × States — 8 variants × {default, hover, focus, disabled} */}
+        <section
+          style={{
+            borderStyle: 'solid',
+            borderWidth: spacing.scale['1'],
+            borderColor: colors.semantic.theme.border.base.neutral,
+            borderRadius: spacing.scale['12'],
+            padding: spacing.scale['24'],
+            display: 'grid',
+            gap: spacing.scale['16'],
+            backgroundColor: colors.semantic.theme.background.surface.neutral,
+            overflowX: 'auto',
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: typography.scale.h6.medium.fontFamily,
+              fontSize: typography.scale.h6.medium.fontSize,
+              fontWeight: typography.scale.h6.medium.fontWeight,
+              lineHeight: `${typography.scale.h6.medium.lineHeight}px`,
+              letterSpacing: `${typography.scale.h6.medium.letterSpacing}px`,
+            }}
+          >
+            Variants × States
+          </h2>
+          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, minmax(${spacing.scale['120']}px, 1fr))`, alignItems: 'center' }}>
+            <span />
+            {(['default', 'hover', 'focus', 'disabled'] as const).map((label) => (
+              <span
+                key={label}
+                style={{
+                  color: colors.semantic.theme.text.base.secondary,
+                  fontSize: typography.scale.captionM.regular.fontSize,
+                  textTransform: 'capitalize',
+                }}
+              >
+                {label}
+              </span>
+            ))}
+            {VARIANTS.map((v) => (
+              <React.Fragment key={`states-${v}`}>
+                <span
+                  style={{
+                    color: colors.semantic.theme.text.base.secondary,
+                    fontSize: typography.scale.captionM.regular.fontSize,
+                    paddingRight: spacing.scale['12'],
+                  }}
+                >
+                  {toTitle(v)}
+                </span>
+                <Button variant={v} size="md" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" forceState="hover" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" forceState="focus" leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
+                <Button variant={v} size="md" disabled leftIcon={<IconAddLine />}>{toTitle(v)}</Button>
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* Variants × Sizes — 8 variants × {xs, sm, md, lg} */}
+        <section
+          style={{
+            borderStyle: 'solid',
+            borderWidth: spacing.scale['1'],
+            borderColor: colors.semantic.theme.border.base.neutral,
+            borderRadius: spacing.scale['12'],
+            padding: spacing.scale['24'],
+            display: 'grid',
+            gap: spacing.scale['16'],
+            backgroundColor: colors.semantic.theme.background.surface.neutral,
+            overflowX: 'auto',
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: typography.scale.h6.medium.fontFamily,
+              fontSize: typography.scale.h6.medium.fontSize,
+              fontWeight: typography.scale.h6.medium.fontWeight,
+              lineHeight: `${typography.scale.h6.medium.lineHeight}px`,
+              letterSpacing: `${typography.scale.h6.medium.letterSpacing}px`,
+            }}
+          >
+            Variants × Sizes
+          </h2>
+          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, minmax(${spacing.scale['120']}px, 1fr))`, alignItems: 'center' }}>
+            <span />
+            {SIZES.map((s) => (
+              <span
+                key={s}
+                style={{
+                  color: colors.semantic.theme.text.base.secondary,
+                  fontSize: typography.scale.captionM.regular.fontSize,
+                  textTransform: 'uppercase',
+                }}
+              >
+                {s}
+              </span>
+            ))}
+            {VARIANTS.map((v) => (
+              <React.Fragment key={`sizes-${v}`}>
+                <span
+                  style={{
+                    color: colors.semantic.theme.text.base.secondary,
+                    fontSize: typography.scale.captionM.regular.fontSize,
+                    paddingRight: spacing.scale['12'],
+                  }}
+                >
+                  {toTitle(v)}
+                </span>
+                {SIZES.map((s) => (
+                  <Button key={`${v}-${s}`} variant={v} size={s} leftIcon={<IconAddLine />}>
+                    {toTitle(v)}
+                  </Button>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* Shape: rounded vs pill — for primary, secondary, destructive at md */}
+        <section
+          style={{
+            borderStyle: 'solid',
+            borderWidth: spacing.scale['1'],
+            borderColor: colors.semantic.theme.border.base.neutral,
+            borderRadius: spacing.scale['12'],
+            padding: spacing.scale['24'],
+            display: 'grid',
+            gap: spacing.scale['16'],
+            backgroundColor: colors.semantic.theme.background.surface.neutral,
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: typography.scale.h6.medium.fontFamily,
+              fontSize: typography.scale.h6.medium.fontSize,
+              fontWeight: typography.scale.h6.medium.fontWeight,
+              lineHeight: `${typography.scale.h6.medium.lineHeight}px`,
+              letterSpacing: `${typography.scale.h6.medium.letterSpacing}px`,
+            }}
+          >
+            Shape: Rounded vs Pill
+          </h2>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(auto-fit, minmax(${spacing.scale['224']}px, 1fr))`,
+              gap: spacing.scale['12'],
+            }}
+          >
+            {(['primary', 'secondary', 'destructive', 'destructiveSecondary'] as ButtonVariant[]).map((v) => (
+              <div
+                key={`shape-${v}`}
+                style={{
+                  display: 'grid',
+                  gap: spacing.scale['8'],
+                  borderStyle: 'solid',
+                  borderWidth: spacing.scale['1'],
+                  borderColor: colors.semantic.theme.border.base.neutral,
+                  borderRadius: spacing.scale['10'],
+                  backgroundColor: colors.semantic.theme.background.surface.default,
+                  padding: spacing.scale['12'],
+                }}
+              >
+                <span
+                  style={{
+                    color: colors.semantic.theme.text.base.secondary,
+                    fontSize: typography.scale.captionM.regular.fontSize,
+                  }}
+                >
+                  {toTitle(v)}
+                </span>
+                <Button variant={v} shape="rounded" leftIcon={<IconAddLine />}>Rounded</Button>
+                <Button variant={v} shape="pill" leftIcon={<IconAddLine />}>Pill</Button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* IconOnly variants — all variants as iconOnly at all sizes */}
+        <section
+          style={{
+            borderStyle: 'solid',
+            borderWidth: spacing.scale['1'],
+            borderColor: colors.semantic.theme.border.base.neutral,
+            borderRadius: spacing.scale['12'],
+            padding: spacing.scale['24'],
+            display: 'grid',
+            gap: spacing.scale['16'],
+            backgroundColor: colors.semantic.theme.background.surface.neutral,
+            overflowX: 'auto',
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: typography.scale.h6.medium.fontFamily,
+              fontSize: typography.scale.h6.medium.fontSize,
+              fontWeight: typography.scale.h6.medium.fontWeight,
+              lineHeight: `${typography.scale.h6.medium.lineHeight}px`,
+              letterSpacing: `${typography.scale.h6.medium.letterSpacing}px`,
+            }}
+          >
+            Icon-only × Sizes
+          </h2>
+          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, auto)`, alignItems: 'center', justifyContent: 'start' }}>
+            <span />
+            {SIZES.map((s) => (
+              <span
+                key={s}
+                style={{
+                  color: colors.semantic.theme.text.base.secondary,
+                  fontSize: typography.scale.captionM.regular.fontSize,
+                  textTransform: 'uppercase',
+                  paddingInline: spacing.scale['12'],
+                }}
+              >
+                {s}
+              </span>
+            ))}
+            {VARIANTS.map((v) => (
+              <React.Fragment key={`iconOnly-${v}`}>
+                <span
+                  style={{
+                    color: colors.semantic.theme.text.base.secondary,
+                    fontSize: typography.scale.captionM.regular.fontSize,
+                    paddingRight: spacing.scale['12'],
+                  }}
+                >
+                  {toTitle(v)}
+                </span>
+                {SIZES.map((s) => (
+                  <Button
+                    key={`iconOnly-${v}-${s}`}
+                    variant={v}
+                    size={s}
+                    type="iconOnly"
+                    leftIcon={<IconAddLine />}
+                    aria-label={`${toTitle(v)} ${s}`}
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
       </section>
     </main>
   );
