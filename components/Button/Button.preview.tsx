@@ -476,36 +476,32 @@ export default function ButtonPreviewPage() {
           >
             Variants × States
           </h2>
-          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, minmax(${spacing.scale['120']}px, 1fr))`, alignItems: 'center' }}>
-            <span />
-            {(['default', 'hover', 'focus', 'disabled'] as const).map((label) => (
-              <span
-                key={label}
+          <div style={{ display: 'grid', gap: spacing.scale['12'] }}>
+            {VARIANTS.map((v) => (
+              <div
+                key={`states-${v}`}
                 style={{
-                  color: colors.semantic.theme.text.base.secondary,
-                  fontSize: typography.scale.captionM.regular.fontSize,
-                  textTransform: 'capitalize',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: spacing.scale['12'],
+                  flexWrap: 'wrap',
                 }}
               >
-                {label}
-              </span>
-            ))}
-            {VARIANTS.map((v) => (
-              <React.Fragment key={`states-${v}`}>
                 <span
                   style={{
+                    minWidth: spacing.scale['160'],
+                    flexShrink: 0,
                     color: colors.semantic.theme.text.base.secondary,
                     fontSize: typography.scale.captionM.regular.fontSize,
-                    paddingRight: spacing.scale['12'],
                   }}
                 >
                   {toTitle(v)}
                 </span>
-                <Button variant={v} size="md" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" forceState="hover" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" forceState="focus" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
-                <Button variant={v} size="md" disabled leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>{toTitle(v)}</Button>
-              </React.Fragment>
+                <Button variant={v} size="md" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Default</Button>
+                <Button variant={v} size="md" forceState="hover" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Hover</Button>
+                <Button variant={v} size="md" forceState="focus" leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Focus</Button>
+                <Button variant={v} size="md" disabled leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>Disabled</Button>
+              </div>
             ))}
           </div>
         </section>
@@ -536,37 +532,33 @@ export default function ButtonPreviewPage() {
           >
             Variants × Sizes
           </h2>
-          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, minmax(${spacing.scale['120']}px, 1fr))`, alignItems: 'center' }}>
-            <span />
-            {SIZES.map((s) => (
-              <span
-                key={s}
+          <div style={{ display: 'grid', gap: spacing.scale['12'] }}>
+            {VARIANTS.map((v) => (
+              <div
+                key={`sizes-${v}`}
                 style={{
-                  color: colors.semantic.theme.text.base.secondary,
-                  fontSize: typography.scale.captionM.regular.fontSize,
-                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: spacing.scale['12'],
+                  flexWrap: 'wrap',
                 }}
               >
-                {s}
-              </span>
-            ))}
-            {VARIANTS.map((v) => (
-              <React.Fragment key={`sizes-${v}`}>
                 <span
                   style={{
+                    minWidth: spacing.scale['160'],
+                    flexShrink: 0,
                     color: colors.semantic.theme.text.base.secondary,
                     fontSize: typography.scale.captionM.regular.fontSize,
-                    paddingRight: spacing.scale['12'],
                   }}
                 >
                   {toTitle(v)}
                 </span>
                 {SIZES.map((s) => (
                   <Button key={`${v}-${s}`} variant={v} size={s} leftIcon={leadIconNode} rightIcon={tailIconNode} badge={badgeNode}>
-                    {toTitle(v)}
+                    {s.toUpperCase()}
                   </Button>
                 ))}
-              </React.Fragment>
+              </div>
             ))}
           </div>
         </section>
@@ -658,28 +650,23 @@ export default function ButtonPreviewPage() {
           >
             Icon-only × Sizes
           </h2>
-          <div style={{ display: 'grid', gap: spacing.scale['8'], gridTemplateColumns: `auto repeat(4, auto)`, alignItems: 'center', justifyContent: 'start' }}>
-            <span />
-            {SIZES.map((s) => (
-              <span
-                key={s}
+          <div style={{ display: 'grid', gap: spacing.scale['12'] }}>
+            {VARIANTS.map((v) => (
+              <div
+                key={`iconOnly-${v}`}
                 style={{
-                  color: colors.semantic.theme.text.base.secondary,
-                  fontSize: typography.scale.captionM.regular.fontSize,
-                  textTransform: 'uppercase',
-                  paddingInline: spacing.scale['12'],
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: spacing.scale['12'],
+                  flexWrap: 'wrap',
                 }}
               >
-                {s}
-              </span>
-            ))}
-            {VARIANTS.map((v) => (
-              <React.Fragment key={`iconOnly-${v}`}>
                 <span
                   style={{
+                    minWidth: spacing.scale['160'],
+                    flexShrink: 0,
                     color: colors.semantic.theme.text.base.secondary,
                     fontSize: typography.scale.captionM.regular.fontSize,
-                    paddingRight: spacing.scale['12'],
                   }}
                 >
                   {toTitle(v)}
@@ -694,7 +681,7 @@ export default function ButtonPreviewPage() {
                     aria-label={`${toTitle(v)} ${s}`}
                   />
                 ))}
-              </React.Fragment>
+              </div>
             ))}
           </div>
         </section>
