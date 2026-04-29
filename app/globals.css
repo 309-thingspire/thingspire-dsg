@@ -544,12 +544,14 @@ input, select, textarea {
 .pc-tabs__code { background: hsl(var(--code-bg)); }
 
 /* --- Legacy preview reskin -------------------------------------------------
- * The component .preview.tsx files render a full standalone "preview page"
- * (own <main>, dark background, page title, configuration controls, and two
- * showcase sections). When embedded inside .pc-tabs__preview we want it to
- * feel like a single shadcn-style example: theme-aware, no duplicate title,
- * no controls, compact spacing. The selectors below scope to the preview
- * area so they don't leak. */
+ * Each component .preview.tsx renders its own standalone "preview page" with
+ * a dark <main> background, page title, interactive controls, and showcase
+ * sections. When embedded inside the docs Examples tab we only want to:
+ *   1. neutralise the page-level dark background so the site theme shows,
+ *   2. hide the redundant duplicate title (the doc page already has it).
+ * Keep everything else — the controls, inner section borders, and variant
+ * card decoration — untouched so live previews stay interactive and the
+ * designer-shipped layout reads exactly as intended. */
 .pc-tabs__preview { padding: 0; align-items: stretch; min-height: 0; }
 
 .pc-tabs__preview > main {
@@ -562,38 +564,11 @@ input, select, textarea {
 .pc-tabs__preview > main > section {
   max-width: none !important;
   margin: 0 !important;
-  gap: 16px !important;
 }
-/* Hide the redundant page-level title and description */
+/* Hide the redundant page-level title and description (the doc page already
+ * shows the component name + lead description above the Examples tab). */
 .pc-tabs__preview > main > section > header { display: none !important; }
-/* Hide the configuration controls grid (Variant/Size/Type/State selects) */
-.pc-tabs__preview > main > section > div:first-of-type { display: none !important; }
-/* Reskin the nested showcase sections to follow the theme */
-.pc-tabs__preview > main > section > section {
-  background: hsl(var(--background)) !important;
-  border: 1px solid hsl(var(--border)) !important;
-  border-radius: var(--radius-md) !important;
-  padding: 16px !important;
-  gap: 12px !important;
-}
-.pc-tabs__preview > main > section > section > h2 {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  color: hsl(var(--muted-foreground)) !important;
-  letter-spacing: 0 !important;
-  line-height: 1.4 !important;
-  text-transform: uppercase !important;
-  margin: 0 0 4px !important;
-}
-/* Variant cards inside the matrix */
-.pc-tabs__preview > main > section > section > div > div {
-  background: hsl(var(--card)) !important;
-  border: 1px solid hsl(var(--border)) !important;
-}
-.pc-tabs__preview > main > section > section > div > div > span {
-  color: hsl(var(--muted-foreground)) !important;
-}
-/* Last text-row inside an interactive preview block (when present) */
+/* Normalise embedded form controls so they pick up the site theme. */
 .pc-tabs__preview select,
 .pc-tabs__preview input[type='text'],
 .pc-tabs__preview textarea {
