@@ -2,6 +2,7 @@ import React from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { IconArrowDownSLine } from '../icons';
 
 import type { NavigationBarInteractionState, NavigationBarLinkItem, NavigationBarProps, NavigationBarType } from './NavigationBar.types';
 
@@ -13,8 +14,9 @@ type TypographyToken = {
   letterSpacing: number;
 };
 
+// Brand assets — kept as static images so the existing artwork is preserved.
+// Postbuild mirrors components/NavigationBar/assets/ to public/components/NavigationBar/assets/.
 const LOGO_SRC = '/components/NavigationBar/assets/logo.svg';
-const CHEVRON_DOWN_SRC = '/components/NavigationBar/assets/chevron-down.svg';
 const PRO_ACCESS_ICON_SRC = '/components/NavigationBar/assets/pro-access.svg';
 const DEFAULT_AVATAR_SRC = '/components/NavigationBar/assets/avatar.png';
 
@@ -277,7 +279,12 @@ function NavigationMainItem({
         {item.label}
       </span>
 
-      {hasTrailingChevron ? <IconImage src={CHEVRON_DOWN_SRC} /> : null}
+      {hasTrailingChevron ? (
+        <IconArrowDownSLine
+          aria-hidden
+          style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+        />
+      ) : null}
     </button>
   );
 }
@@ -680,7 +687,10 @@ export function NavigationBar({
             >
               {helpLabel}
             </span>
-            <IconImage src={CHEVRON_DOWN_SRC} />
+            <IconArrowDownSLine
+              aria-hidden
+              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+            />
           </button>
         </div>
       </header>

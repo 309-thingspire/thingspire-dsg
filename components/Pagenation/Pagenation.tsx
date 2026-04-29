@@ -1,5 +1,6 @@
 import React from 'react';
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { IconArrowLeftSLine, IconArrowRightSLine } from '../icons';
 
 import type { PagenationInteractionState, PagenationNumberItem, PagenationProps, PagenationSize, PagenationType } from './Pagenation.types';
 
@@ -25,11 +26,6 @@ type SizeConfig = {
   buttonTypography: TypographyToken;
   numbersContainerWidth: number;
 };
-
-const ARROW_LEFT_ICON_MD_SRC = '/components/Pagenation/assets/arrow-left-md.svg';
-const ARROW_RIGHT_ICON_MD_SRC = '/components/Pagenation/assets/arrow-right-md.svg';
-const ARROW_LEFT_ICON_SM_SRC = '/components/Pagenation/assets/arrow-left-sm.svg';
-const ARROW_RIGHT_ICON_SM_SRC = '/components/Pagenation/assets/arrow-right-sm.svg';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
@@ -114,25 +110,14 @@ function withFocusRing(baseShadow: string, interactionState: PagenationInteracti
 
 function ArrowIcon({ direction, size }: { direction: 'left' | 'right'; size: PagenationSize }) {
   const config = SIZE_CONFIG[size];
-  const iconSrc = direction === 'left'
-    ? size === 'md'
-      ? ARROW_LEFT_ICON_MD_SRC
-      : ARROW_LEFT_ICON_SM_SRC
-    : size === 'md'
-      ? ARROW_RIGHT_ICON_MD_SRC
-      : ARROW_RIGHT_ICON_SM_SRC;
-
+  const Icon = direction === 'left' ? IconArrowLeftSLine : IconArrowRightSLine;
   return (
-    <img
-      src={iconSrc}
-      alt=""
+    <Icon
       aria-hidden="true"
       style={{
         width: config.iconSize,
         height: config.iconSize,
         display: 'block',
-        userSelect: 'none',
-        pointerEvents: 'none',
       }}
     />
   );

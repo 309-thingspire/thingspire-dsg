@@ -1,6 +1,15 @@
 import React, { useId, useMemo, useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import {
+  IconArrowDownSLine,
+  IconArrowRightSLine,
+  IconArrowUpSLine,
+  IconCheckLine,
+  IconFileLine,
+  IconHashtag,
+  IconSettingsLine,
+} from '../icons';
 
 import { Checkbox } from '../Checkbox/Checkbox';
 
@@ -17,14 +26,6 @@ import type {
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
-
-const CHEVRON_DOWN_ICON_SRC = '/components/Dropdown/assets/chevron-down.svg';
-const CHEVRON_UP_ICON_SRC = '/components/Dropdown/assets/chevron-up.svg';
-const CHECK_ICON_SRC = '/components/Dropdown/assets/check.svg';
-const LEAD_FILE_ICON_SRC = '/components/Dropdown/assets/lead-file.svg';
-const LEAD_HASH_ICON_SRC = '/components/Dropdown/assets/lead-hash.svg';
-const TAIL_SETTINGS_ICON_SRC = '/components/Dropdown/assets/tail-settings.svg';
-const TAIL_ARROW_RIGHT_ICON_SRC = '/components/Dropdown/assets/tail-arrow-right.svg';
 
 const MENU_WIDTH_MAP: Record<DropdownMenuWidth, number> = {
   compact: spacing.scale['160'] + spacing.scale['20'],
@@ -148,18 +149,27 @@ function Chevron({ open, disabled }: { open: boolean; disabled: boolean }) {
         justifyContent: 'center',
       }}
     >
-      <img
-        src={open ? CHEVRON_UP_ICON_SRC : CHEVRON_DOWN_ICON_SRC}
-        alt=""
-        style={{
-          width: spacing.scale['10'],
-          height: spacing.scale['6'],
-          display: 'block',
-          userSelect: 'none',
-          pointerEvents: 'none',
-          opacity: disabled ? 0.5 : 1,
-        }}
-      />
+      {open ? (
+        <IconArrowUpSLine
+          aria-hidden
+          style={{
+            width: spacing.scale['16'],
+            height: spacing.scale['16'],
+            display: 'block',
+            opacity: disabled ? 0.5 : 1,
+          }}
+        />
+      ) : (
+        <IconArrowDownSLine
+          aria-hidden
+          style={{
+            width: spacing.scale['16'],
+            height: spacing.scale['16'],
+            display: 'block',
+            opacity: disabled ? 0.5 : 1,
+          }}
+        />
+      )}
     </span>
   );
 }
@@ -176,15 +186,12 @@ function CheckMark({ disabled }: { disabled: boolean }) {
         justifyContent: 'center',
       }}
     >
-      <img
-        src={CHECK_ICON_SRC}
-        alt=""
+      <IconCheckLine
+        aria-hidden
         style={{
           width: '100%',
           height: '100%',
           display: 'block',
-          userSelect: 'none',
-          pointerEvents: 'none',
           opacity: disabled ? 0.4 : 1,
         }}
       />
@@ -477,15 +484,12 @@ export function Dropdown({
                         justifyContent: 'center',
                       }}
                     >
-                      <img
-                        src={LEAD_FILE_ICON_SRC}
-                        alt=""
+                      <IconFileLine
+                        aria-hidden
                         style={{
                           width: '100%',
                           height: '100%',
                           display: 'block',
-                          userSelect: 'none',
-                          pointerEvents: 'none',
                           opacity: isDisabled ? 0.4 : 1,
                         }}
                       />
@@ -494,7 +498,7 @@ export function Dropdown({
                 );
               }
 
-              const leadIconSrc = variant === 'select' ? LEAD_HASH_ICON_SRC : LEAD_FILE_ICON_SRC;
+              const LeadIcon = variant === 'select' ? IconHashtag : IconFileLine;
 
               return (
                 <span
@@ -507,15 +511,12 @@ export function Dropdown({
                     justifyContent: 'center',
                   }}
                 >
-                  <img
-                    src={leadIconSrc}
-                    alt=""
+                  <LeadIcon
+                    aria-hidden
                     style={{
                       width: '100%',
                       height: '100%',
                       display: 'block',
-                      userSelect: 'none',
-                      pointerEvents: 'none',
                       opacity: isDisabled ? 0.4 : 1,
                     }}
                   />
@@ -560,18 +561,27 @@ export function Dropdown({
                     justifyContent: 'center',
                   }}
                 >
-                  <img
-                    src={variant === 'base' ? TAIL_ARROW_RIGHT_ICON_SRC : TAIL_SETTINGS_ICON_SRC}
-                    alt=""
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      display: 'block',
-                      userSelect: 'none',
-                      pointerEvents: 'none',
-                      opacity: isDisabled ? 0.4 : 1,
-                    }}
-                  />
+                  {variant === 'base' ? (
+                    <IconArrowRightSLine
+                      aria-hidden
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'block',
+                        opacity: isDisabled ? 0.4 : 1,
+                      }}
+                    />
+                  ) : (
+                    <IconSettingsLine
+                      aria-hidden
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'block',
+                        opacity: isDisabled ? 0.4 : 1,
+                      }}
+                    />
+                  )}
                 </span>
               );
             })();

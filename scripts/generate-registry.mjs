@@ -140,7 +140,32 @@ async function main() {
     await fs.writeFile(path.join(OUT_DIR, 'tokens.css'), tokens, 'utf-8')
   }
 
-  console.log(`✓ Wrote ${indexItems.length} components to ${path.relative(ROOT, OUT_DIR)}`)
+  // Mirror component-local assets/ folders to public/components/<X>/assets/
+  // so the existing `<img src="/components/<X>/assets/foo.svg">` references
+  // in component code resolve when served by Next.js.
+  const PUBLIC_COMPONENTS_DIR = path.join(ROOT, 'public', 'components')
+  let mirrored = 0
+  for (const dirent of await fs.readdir(COMPONENTS_DIR, { withFileTypes: true })) {
+    if (!dirent.isDirectory()) continue
+    const folder = dirent.name
+    const srcAssets = path.join(COMPONENTS_DIR, folder, 'assets')
+    try {
+      const stat = await fs.stat(srcAssets)
+      if (!stat.isDirectory()) continue
+    } catch {
+      continue
+    }
+    const destAssets = path.join(PUBLIC_COMPONENTS_DIR, folder, 'assets')
+    await fs.mkdir(destAssets, { recursive: true })
+    for (const f of await fs.readdir(srcAssets)) {
+      await fs.copyFile(path.join(srcAssets, f), path.join(destAssets, f))
+      mirrored++
+    }
+  }
+
+  console.log(
+    `✓ Wrote ${indexItems.length} components to ${path.relative(ROOT, OUT_DIR)}; mirrored ${mirrored} component asset files to public/components/`,
+  )
 }
 
 main().catch((err) => {

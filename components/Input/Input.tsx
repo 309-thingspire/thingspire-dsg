@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { IconArrowDownSLine, IconEarthLine, IconInformationLine } from '../icons';
 
 import type { InputProps, InputSize, InputTarget, InputVisualState } from './Input.types';
 
@@ -8,12 +9,11 @@ const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
 const textStatus = colors.semantic.theme.text.status;
 
+// Country-flag composition assets are kept as static images so the existing
+// designer-shipped artwork is preserved. Postbuild mirrors them to public/.
 const FLAG_BASE_SRC = '/components/Input/assets/flag-base.svg';
 const FLAG_GROUP_SRC = '/components/Input/assets/flag-group.svg';
 const FLAG_OVERLAY_SRC = '/components/Input/assets/flag-overlay.svg';
-const EARTH_ICON_SRC = '/components/Input/assets/earth-line.svg';
-const INFO_ICON_SRC = '/components/Input/assets/info-line.svg';
-const CHEVRON_ICON_SRC = '/components/Input/assets/chevron-down.svg';
 
 type TypographyToken = {
   fontFamily: string;
@@ -160,7 +160,15 @@ function FlagIcon({ disabled }: { disabled: boolean }) {
   );
 }
 
-function IconImage({ src, size, disabled }: { src: string; size: number; disabled: boolean }) {
+function IconSlot({
+  size,
+  disabled,
+  children,
+}: {
+  size: number;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <span
       aria-hidden="true"
@@ -172,9 +180,11 @@ function IconImage({ src, size, disabled }: { src: string; size: number; disable
         alignItems: 'center',
         justifyContent: 'center',
         opacity: disabled ? 0.5 : 1,
+        fontSize: size,
+        lineHeight: 1,
       }}
     >
-      <img src={src} alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+      {children}
     </span>
   );
 }
@@ -369,7 +379,7 @@ export function Input({
             }}
           >
             {leadIcon ? (
-              <>{leadIcon ?? <IconImage src={EARTH_ICON_SRC} size={spacing.scale['20']} disabled={componentDisabled} />}</>
+              <>{leadIcon ?? <IconSlot size={spacing.scale['20']} disabled={componentDisabled}><IconEarthLine /></IconSlot>}</>
             ) : null}
             <div
               style={{
@@ -441,7 +451,7 @@ export function Input({
                 >
                   {leadDropdownLabel}
                 </span>
-                <IconImage src={CHEVRON_ICON_SRC} size={spacing.scale['16']} disabled={componentDisabled} />
+                <IconSlot size={spacing.scale['16']} disabled={componentDisabled}><IconArrowDownSLine /></IconSlot>
               </div>
             ) : null}
 
@@ -455,7 +465,7 @@ export function Input({
               }}
             >
               {type !== 'external' && showLeadIcon ? (
-                <>{leadIcon ?? <IconImage src={EARTH_ICON_SRC} size={spacing.scale['20']} disabled={componentDisabled} />}</>
+                <>{leadIcon ?? <IconSlot size={spacing.scale['20']} disabled={componentDisabled}><IconEarthLine /></IconSlot>}</>
               ) : null}
 
               <div
@@ -534,7 +544,7 @@ export function Input({
               </div>
             ) : null}
 
-            {showTailIcon ? <>{tailIcon ?? <IconImage src={INFO_ICON_SRC} size={spacing.scale['20']} disabled={componentDisabled} />}</> : null}
+            {showTailIcon ? <>{tailIcon ?? <IconSlot size={spacing.scale['20']} disabled={componentDisabled}><IconInformationLine /></IconSlot>}</> : null}
 
             {showTailDropdown ? (
               <div
@@ -556,7 +566,7 @@ export function Input({
                 >
                   {tailDropdownLabel}
                 </span>
-                <IconImage src={CHEVRON_ICON_SRC} size={spacing.scale['16']} disabled={componentDisabled} />
+                <IconSlot size={spacing.scale['16']} disabled={componentDisabled}><IconArrowDownSLine /></IconSlot>
               </div>
             ) : null}
           </div>
@@ -609,7 +619,7 @@ export function Input({
             paddingBlock: spacing.scale['2'],
           }}
         >
-          <IconImage src={INFO_ICON_SRC} size={spacing.scale['16']} disabled={componentDisabled} />
+          <IconSlot size={spacing.scale['16']} disabled={componentDisabled}><IconInformationLine /></IconSlot>
           <span
             style={{
               color: helperColor,

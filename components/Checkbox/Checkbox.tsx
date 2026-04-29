@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
 import { border, colors, radius, shadows, spacing } from '../../style-tokens';
+import { IconCheckLine, IconSubtractLine } from '../icons';
 
 import type { CheckboxProps, CheckboxSize, CheckboxType, CheckboxVisualState } from './Checkbox.types';
-
-const CHECK_ICON_SRC = '/components/Checkbox/assets/check.svg';
-const MINUS_ICON_SRC = '/components/Checkbox/assets/minus.svg';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
@@ -197,17 +195,15 @@ export function Checkbox({
             overflow: 'visible',
           }}
         >
-          <img
-            src={icon === 'check' ? CHECK_ICON_SRC : MINUS_ICON_SRC}
-            alt=""
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'block',
-              userSelect: 'none',
-              pointerEvents: 'none',
-            }}
-          />
+          {icon === 'check' ? (
+            <IconCheckLine
+              style={{ width: '100%', height: '100%', display: 'block' }}
+            />
+          ) : (
+            <IconSubtractLine
+              style={{ width: '100%', height: '100%', display: 'block' }}
+            />
+          )}
         </span>
       ) : null}
 

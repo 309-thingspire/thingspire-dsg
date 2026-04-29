@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
 import { colors, radius, spacing, typography } from '../../style-tokens';
+import { IconInformationLine, IconSearchLine } from '../icons';
 
 import type { SearchInputProps, SearchInputState } from './SearchInput.types';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
-
-const SEARCH_ICON_SRC = '/components/SearchInput/assets/search-line.svg';
-const INFO_ICON_SRC = '/components/SearchInput/assets/info-line.svg';
 
 type TypographyToken = {
   fontFamily: string;
@@ -44,7 +42,15 @@ function resolveState(forcedState: SearchInputState | undefined, disabled: boole
   return 'default';
 }
 
-function IconImage({ src, size, disabled }: { src: string; size: number; disabled: boolean }) {
+function IconSlot({
+  size,
+  disabled,
+  children,
+}: {
+  size: number;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <span
       aria-hidden="true"
@@ -56,9 +62,11 @@ function IconImage({ src, size, disabled }: { src: string; size: number; disable
         alignItems: 'center',
         justifyContent: 'center',
         opacity: disabled ? 0.5 : 1,
+        fontSize: size,
+        lineHeight: 1,
       }}
     >
-      <img src={src} alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+      {children}
     </span>
   );
 }
@@ -138,7 +146,15 @@ export function SearchInput({
             minWidth: spacing.scale['0'],
           }}
         >
-          {showLeadIcon ? <>{leadIcon ?? <IconImage src={SEARCH_ICON_SRC} size={spacing.scale['16']} disabled={componentDisabled} />}</> : null}
+          {showLeadIcon ? (
+            <>
+              {leadIcon ?? (
+                <IconSlot size={spacing.scale['16']} disabled={componentDisabled}>
+                  <IconSearchLine />
+                </IconSlot>
+              )}
+            </>
+          ) : null}
 
           <div
             style={{
@@ -210,7 +226,15 @@ export function SearchInput({
           </div>
         </div>
 
-        {showTailIcon ? <>{tailIcon ?? <IconImage src={INFO_ICON_SRC} size={spacing.scale['20']} disabled={componentDisabled} />}</> : null}
+        {showTailIcon ? (
+          <>
+            {tailIcon ?? (
+              <IconSlot size={spacing.scale['20']} disabled={componentDisabled}>
+                <IconInformationLine />
+              </IconSlot>
+            )}
+          </>
+        ) : null}
       </div>
     </div>
   );
