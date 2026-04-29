@@ -542,6 +542,65 @@ input, select, textarea {
   justify-content: center;
 }
 .pc-tabs__code { background: hsl(var(--code-bg)); }
+
+/* --- Legacy preview reskin -------------------------------------------------
+ * The component .preview.tsx files render a full standalone "preview page"
+ * (own <main>, dark background, page title, configuration controls, and two
+ * showcase sections). When embedded inside .pc-tabs__preview we want it to
+ * feel like a single shadcn-style example: theme-aware, no duplicate title,
+ * no controls, compact spacing. The selectors below scope to the preview
+ * area so they don't leak. */
+.pc-tabs__preview { padding: 0; align-items: stretch; min-height: 0; }
+
+.pc-tabs__preview > main {
+  background: transparent !important;
+  color: hsl(var(--foreground)) !important;
+  font-family: var(--font-sans) !important;
+  padding: 32px !important;
+  min-height: 0 !important;
+}
+.pc-tabs__preview > main > section {
+  max-width: none !important;
+  margin: 0 !important;
+  gap: 16px !important;
+}
+/* Hide the redundant page-level title and description */
+.pc-tabs__preview > main > section > header { display: none !important; }
+/* Hide the configuration controls grid (Variant/Size/Type/State selects) */
+.pc-tabs__preview > main > section > div:first-of-type { display: none !important; }
+/* Reskin the nested showcase sections to follow the theme */
+.pc-tabs__preview > main > section > section {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 16px !important;
+  gap: 12px !important;
+}
+.pc-tabs__preview > main > section > section > h2 {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: hsl(var(--muted-foreground)) !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+  margin: 0 0 4px !important;
+}
+/* Variant cards inside the matrix */
+.pc-tabs__preview > main > section > section > div > div {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+.pc-tabs__preview > main > section > section > div > div > span {
+  color: hsl(var(--muted-foreground)) !important;
+}
+/* Last text-row inside an interactive preview block (when present) */
+.pc-tabs__preview select,
+.pc-tabs__preview input[type='text'],
+.pc-tabs__preview textarea {
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
 .pc-tabs__code pre {
   margin: 0;
   padding: 16px 20px;
