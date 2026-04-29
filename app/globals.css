@@ -578,10 +578,15 @@ input, select, textarea {
 .pc-tabs__preview > main > section > section > div > div {
   background: transparent !important;
 }
-/* Normalise embedded form controls so they pick up the site theme. */
+/* Normalise embedded form controls + their wrapper <label> boxes so they
+ * pick up the site theme. Legacy previews paint <label> with a dark
+ * `background.input.normal` (#0b0c0e) and a `border.base.neutral`
+ * white-alpha border, which on the light docs site renders as a dark
+ * slab with an invisible border. Force theme tokens on both. */
 .pc-tabs__preview select,
 .pc-tabs__preview input[type='text'],
-.pc-tabs__preview textarea {
+.pc-tabs__preview textarea,
+.pc-tabs__preview label {
   background: hsl(var(--background)) !important;
   color: hsl(var(--foreground)) !important;
   border-color: hsl(var(--border)) !important;
