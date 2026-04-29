@@ -261,7 +261,14 @@ function TooltipBox({
 function ArrowWrapper({ placement }: { placement: TooltipPlacement }) {
   const align = resolveArrowAlign(placement);
 
+  // Pull the arrow 1px back into the bubble so the arrow's white fill
+  // covers the bubble's 1px border at the connection segment — visually
+  // the bubble + arrow then read as one continuous outlined shape rather
+  // than a bubble with a triangle hanging off of it.
+  const ARROW_OVERLAP = border.width['1'];
+
   if (placement === 'leftSide' || placement === 'rightSide') {
+    const isLeft = placement === 'leftSide';
     return (
       <div
         style={{
@@ -269,11 +276,14 @@ function ArrowWrapper({ placement }: { placement: TooltipPlacement }) {
           alignSelf: 'stretch',
           display: 'inline-flex',
           alignItems: 'center',
-          justifyContent: placement === 'leftSide' ? 'flex-end' : 'flex-start',
-          overflow: 'hidden',
+          justifyContent: isLeft ? 'flex-end' : 'flex-start',
+          marginLeft: isLeft ? 0 : -ARROW_OVERLAP,
+          marginRight: isLeft ? -ARROW_OVERLAP : 0,
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        <TooltipArrow direction={placement === 'leftSide' ? 'left' : 'right'} backgroundColor={boxBackground} borderColor={boxBorderColor} />
+        <TooltipArrow direction={isLeft ? 'left' : 'right'} backgroundColor={boxBackground} borderColor={boxBorderColor} />
       </div>
     );
   }
@@ -290,7 +300,10 @@ function ArrowWrapper({ placement }: { placement: TooltipPlacement }) {
         justifyContent: align,
         paddingLeft: align === 'flex-start' ? ARROW_OFFSET : spacing.scale['0'],
         paddingRight: align === 'flex-end' ? ARROW_OFFSET : spacing.scale['0'],
-        overflow: 'hidden',
+        marginTop: isTop ? 0 : -ARROW_OVERLAP,
+        marginBottom: isTop ? -ARROW_OVERLAP : 0,
+        position: 'relative',
+        zIndex: 1,
         boxSizing: 'border-box',
       }}
     >
