@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { colors, spacing, typography } from '../../style-tokens';
+import { IconAddLine } from '../icons';
 
 import { Button } from './Button';
 import type { ButtonShape, ButtonSize, ButtonType, ButtonVariant, ButtonVisualState } from './Button.types';
@@ -282,7 +283,7 @@ export default function ButtonPreviewPage() {
               forceState={forceState}
               disabled={disabled}
               fullWidth={fullWidth}
-              leftIcon="+"
+              leftIcon={<IconAddLine />}
             >
               {toTitle(variant)} Button
             </Button>
@@ -354,7 +355,7 @@ export default function ButtonPreviewPage() {
                   forceState={forceState}
                   disabled={disabled}
                   fullWidth
-                  leftIcon="+"
+                  leftIcon={<IconAddLine />}
                 >
                   {toTitle(item)}
                 </Button>

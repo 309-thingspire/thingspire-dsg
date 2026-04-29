@@ -4,7 +4,7 @@
     { "slug": "button", "folder": "Button", "label": "Button", "description": "Trigger an action with multiple variants and sizes." },
     { "slug": "checkbox", "folder": "Checkbox", "label": "Checkbox", "description": "Two- or three-state checkable input." },
     { "slug": "checkbox-label", "folder": "CheckboxLabel", "label": "CheckboxLabel", "description": "Checkbox composed with a text label." },
-    { "slug": "icons", "folder": "Icons", "label": "Icons", "description": "Project icon library." },
+    { "slug": "icons", "folder": "IconLibrary", "label": "Icons", "description": "Tree-shakable React icon set (2,278 icons, line + fill variants)." },
     { "slug": "input", "folder": "Input", "label": "Input", "description": "Single-line text input field." },
     { "slug": "progress-bar", "folder": "ProgressBar", "label": "Progress Bar", "description": "Linear progress indicator." },
     { "slug": "progress-circle", "folder": "ProgressCircle", "label": "Progress Circle", "description": "Circular progress indicator." },

@@ -11,6 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "icons:catalog": "node scripts/generate-icon-catalog.mjs",
     "icons:sync": "node scripts/sync-icons.mjs",
+    "icons:components": "node scripts/generate-icon-components.mjs",
     "components:assets:sync": "node scripts/sync-component-assets.mjs",
     "assets:sync": "npm run icons:sync && npm run components:assets:sync",
     "preview:build": "npm run icons:catalog && npx esbuild button-preview-entry.tsx --bundle --platform=browser --format=esm --outfile=dist/button-preview.js && npm run assets:sync",
