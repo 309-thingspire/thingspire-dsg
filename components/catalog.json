@@ -1,0 +1,36 @@
+{
+  "atoms": [
+    { "slug": "badge", "folder": "Badge", "label": "Badge", "description": "Compact status indicator." },
+    { "slug": "button", "folder": "Button", "label": "Button", "description": "Trigger an action with multiple variants and sizes." },
+    { "slug": "checkbox", "folder": "Checkbox", "label": "Checkbox", "description": "Two- or three-state checkable input." },
+    { "slug": "checkbox-label", "folder": "CheckboxLabel", "label": "CheckboxLabel", "description": "Checkbox composed with a text label." },
+    { "slug": "icons", "folder": "Icons", "label": "Icons", "description": "Project icon library." },
+    { "slug": "input", "folder": "Input", "label": "Input", "description": "Single-line text input field." },
+    { "slug": "progress-bar", "folder": "ProgressBar", "label": "Progress Bar", "description": "Linear progress indicator." },
+    { "slug": "progress-circle", "folder": "ProgressCircle", "label": "Progress Circle", "description": "Circular progress indicator." },
+    { "slug": "radio", "folder": "Radio", "label": "Radio", "description": "Single-select radio input." },
+    { "slug": "radio-label", "folder": "RadioLabel", "label": "RadioLabel", "description": "Radio composed with a text label." },
+    { "slug": "toggle", "folder": "Toggle", "label": "Toggle", "description": "Binary on/off switch." },
+    { "slug": "tooltip", "folder": "Tooltip", "label": "Tooltip", "description": "Floating contextual hint on hover." }
+  ],
+  "molecules": [
+    { "slug": "accordion", "folder": "Accordion", "label": "Accordion", "description": "Vertically stacked collapsible sections." },
+    { "slug": "banner", "folder": "Banner", "label": "Banner", "description": "Page- or section-level message strip." },
+    { "slug": "breadcrumbs", "folder": "Breadcrumbs", "label": "Breadcrumbs", "description": "Hierarchical path navigation." },
+    { "slug": "button-group", "folder": "ButtonGroup", "label": "Button Group", "description": "Cluster of related buttons." },
+    { "slug": "calendar", "folder": "Calendar", "label": "Calendar", "description": "Date picker calendar surface." },
+    { "slug": "dropdown", "folder": "Dropdown", "label": "Dropdown", "description": "Menu of selectable items triggered by a button." },
+    { "slug": "feature-card", "folder": "FeatureCard", "label": "Feature Card", "description": "Marketing card highlighting a feature." },
+    { "slug": "pagination", "folder": "Pagenation", "label": "Pagination", "description": "Page navigation controls." },
+    { "slug": "quantity-stepper", "folder": "QuantityStepper", "label": "Quantity Stepper", "description": "Increment/decrement numeric input." },
+    { "slug": "search-input", "folder": "SearchInput", "label": "Search Input", "description": "Input with a search icon affordance." },
+    { "slug": "select-input", "folder": "SelectInput", "label": "Select Input", "description": "Dropdown-based selection input." },
+    { "slug": "table-cell", "folder": "TableCell", "label": "Table Cell", "description": "Single body cell for tabular data." },
+    { "slug": "table-header", "folder": "TableHeader", "label": "Table Header", "description": "Header cell for tabular data." },
+    { "slug": "tab-menu", "folder": "TabMenu", "label": "Tab Menu", "description": "Tabbed switch between views." },
+    { "slug": "task-card", "folder": "TaskCard", "label": "Task Card", "description": "Card surface representing a task." }
+  ],
+  "organisms": [
+    { "slug": "navigation-bar", "folder": "NavigationBar", "label": "Navigation Bar", "description": "Top-level application navigation bar." }
+  ]
+}

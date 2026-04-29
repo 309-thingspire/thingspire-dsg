@@ -23,3 +23,11 @@ dist/.vercel/
 dist/icons/
 dist/components/
 .vercel
+
+# Next.js
+.next/
+next-env.d.ts.bak
+*.tsbuildinfo
+
+# CLI / Registry static output
+public/r/

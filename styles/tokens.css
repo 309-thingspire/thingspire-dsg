@@ -1,0 +1,31 @@
+/* Thingspire UI design tokens
+ *
+ * Copy this file into your project (or include it via the @thingspire/ui CLI).
+ * All component CSS variables are declared on :root so they cascade globally.
+ */
+:root {
+  /* Surfaces */
+  --bg: #09090b;
+  --bg-raised: #111113;
+  --bg-muted: #18181b;
+  --bg-subtle: #0c0c0e;
+
+  /* Borders */
+  --border: #27272a;
+  --border-subtle: #1c1c1f;
+
+  /* Text */
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-xs: #71717a;
+
+  /* Brand / accent */
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --accent-hover: #1d4ed8;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
