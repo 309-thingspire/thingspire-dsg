@@ -61,7 +61,12 @@ export function InfoCard({
       style={{
         width: SIDEBAR_WIDTH,
         boxSizing: 'border-box',
-        padding: spacing.scale['16'],
+        // Horizontal inset only — Top / Middle / Bottom siblings render
+        // edge-to-edge in the sidebar, and the colored card already has
+        // its own internal padding (line below). Adding vertical wrapper
+        // padding here would visually offset InfoCard from sibling rows
+        // when used inside Bottom.
+        paddingInline: spacing.scale['16'],
         display: 'flex',
         flexDirection: 'column',
         ...style,
