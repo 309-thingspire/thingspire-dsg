@@ -1,253 +1,321 @@
 import type { Metadata } from 'next'
+import {
+  colors,
+  spacing as spacingTokens,
+  radius as radiusTokens,
+} from '../../style-tokens'
 
 export const metadata: Metadata = {
   title: 'Design Tokens — Thingspire UI',
   description:
-    'Variables collection. Browse every theme color, typography, spacing, and radius token used by the components.',
+    'Browse every theme color, primitive palette, typography, spacing, and radius variable. Auto-generated from style-tokens.ts.',
 }
 
-type Row = {
+// ─── Recursive token flattener ───────────────────────────────────────────────
+type LeafEntry = {
+  path: string[]
   name: string
-  values: Record<string, string | number>
-  swatch?: { light: string; dark?: string }
+  value: string | number
 }
 
-type Group = {
-  id: string
-  label: string
-  parent: string
-  rows: Row[]
+function flatten(node: unknown, basePath: string[] = []): LeafEntry[] {
+  if (node === null || node === undefined) return []
+  if (typeof node === 'string' || typeof node === 'number') {
+    // Leaf placed at the parent path; the immediate key is the "name"
+    return [{ path: basePath.slice(0, -1), name: basePath.at(-1) ?? '', value: node }]
+  }
+  if (Array.isArray(node) || typeof node !== 'object') return []
+  const out: LeafEntry[] = []
+  for (const [key, value] of Object.entries(node)) {
+    out.push(...flatten(value, [...basePath, key]))
+  }
+  return out
 }
 
-type Collection = {
+function groupByPath(entries: LeafEntry[]): Map<string, LeafEntry[]> {
+  const map = new Map<string, LeafEntry[]>()
+  for (const entry of entries) {
+    const key = entry.path.join(' / ') || '(root)'
+    if (!map.has(key)) map.set(key, [])
+    map.get(key)!.push(entry)
+  }
+  return map
+}
+
+// ─── Build collections ──────────────────────────────────────────────────────
+const colorEntries = flatten(colors).filter(
+  // Skip the `semantic.component.*` duplicate of `semantic.theme.*`.
+  (e) => !(e.path[0] === 'semantic' && e.path[1] === 'component'),
+)
+const colorGroups = groupByPath(colorEntries)
+
+const spacingEntries = flatten(spacingTokens)
+const spacingGroups = groupByPath(spacingEntries)
+
+const radiusEntries = flatten(radiusTokens)
+const radiusGroups = groupByPath(radiusEntries)
+
+// Hardcoded typography scale (the deeper tree is redundant — these are the
+// surface tokens designers refer to)
+const TYPOGRAPHY_GROUPS: Array<{ path: string[]; rows: LeafEntry[] }> = [
+  {
+    path: ['typography', 'family'],
+    rows: [{ path: ['typography', 'family'], name: 'inter', value: 'Pretendard' }],
+  },
+  {
+    path: ['typography', 'weight'],
+    rows: [
+      'Light',
+      'Regular',
+      'Medium',
+      'Semi Bold',
+      'Bold',
+      'Extra Bold',
+      'Black',
+    ].map((label) => ({
+      path: ['typography', 'weight'],
+      name: label.toLowerCase().replace(/\s+/g, '-'),
+      value: label,
+    })),
+  },
+  {
+    path: ['typography', 'size'],
+    rows: [
+      ['display', 96],
+      ['h1', 72],
+      ['h2', 64],
+      ['h3', 48],
+      ['h4', 36],
+      ['h5', 30],
+      ['h6', 24],
+      ['body-l', 20],
+      ['body-m', 18],
+      ['body-s', 16],
+      ['caption-l', 14],
+      ['caption-m', 12],
+      ['caption-s', 10],
+    ].map(([name, value]) => ({
+      path: ['typography', 'size'],
+      name: name as string,
+      value: `${value}px`,
+    })),
+  },
+  {
+    path: ['typography', 'line-height'],
+    rows: [
+      ['display', 100],
+      ['h1', 80],
+      ['h2', 56],
+      ['h3', 44],
+      ['h4', 36],
+      ['h5', 36],
+      ['h6', 32],
+      ['body-l', 28],
+      ['body-m', 26],
+      ['body-s', 24],
+      ['caption-l', 20],
+      ['caption-m', 16],
+      ['caption-s', 14],
+    ].map(([name, value]) => ({
+      path: ['typography', 'line-height'],
+      name: name as string,
+      value: `${value}px`,
+    })),
+  },
+]
+
+// ─── Build sidebar tree ─────────────────────────────────────────────────────
+type SidebarGroup = { id: string; label: string; count: number }
+type SidebarCollection = {
   id: string
   label: string
   count: number
-  groups: Group[]
+  groups: SidebarGroup[]
 }
 
-// ─── Color tokens (CSS variables) ───────────────────────────────────────────
-const COLOR_THEME_ROWS: Row[] = [
-  { name: 'background', values: { Light: '0 0% 100%', Dark: '222 84% 5%' }, swatch: { light: 'hsl(0 0% 100%)', dark: 'hsl(222 84% 5%)' } },
-  { name: 'foreground', values: { Light: '222 84% 5%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 84% 5%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'card', values: { Light: '0 0% 100%', Dark: '222 84% 5%' }, swatch: { light: 'hsl(0 0% 100%)', dark: 'hsl(222 84% 5%)' } },
-  { name: 'card-foreground', values: { Light: '222 84% 5%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 84% 5%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'popover', values: { Light: '0 0% 100%', Dark: '222 84% 5%' }, swatch: { light: 'hsl(0 0% 100%)', dark: 'hsl(222 84% 5%)' } },
-  { name: 'popover-foreground', values: { Light: '222 84% 5%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 84% 5%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'primary', values: { Light: '222 47% 11%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 47% 11%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'primary-foreground', values: { Light: '210 40% 98%', Dark: '222 47% 11%' }, swatch: { light: 'hsl(210 40% 98%)', dark: 'hsl(222 47% 11%)' } },
-  { name: 'secondary', values: { Light: '210 40% 96%', Dark: '217 33% 18%' }, swatch: { light: 'hsl(210 40% 96%)', dark: 'hsl(217 33% 18%)' } },
-  { name: 'secondary-foreground', values: { Light: '222 47% 11%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 47% 11%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'muted', values: { Light: '210 40% 96%', Dark: '217 33% 18%' }, swatch: { light: 'hsl(210 40% 96%)', dark: 'hsl(217 33% 18%)' } },
-  { name: 'muted-foreground', values: { Light: '215 16% 47%', Dark: '215 20% 65%' }, swatch: { light: 'hsl(215 16% 47%)', dark: 'hsl(215 20% 65%)' } },
-  { name: 'accent', values: { Light: '210 40% 96%', Dark: '217 33% 18%' }, swatch: { light: 'hsl(210 40% 96%)', dark: 'hsl(217 33% 18%)' } },
-  { name: 'accent-foreground', values: { Light: '222 47% 11%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(222 47% 11%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'destructive', values: { Light: '0 84% 60%', Dark: '0 63% 31%' }, swatch: { light: 'hsl(0 84% 60%)', dark: 'hsl(0 63% 31%)' } },
-  { name: 'destructive-foreground', values: { Light: '210 40% 98%', Dark: '210 40% 98%' }, swatch: { light: 'hsl(210 40% 98%)', dark: 'hsl(210 40% 98%)' } },
-  { name: 'border', values: { Light: '214 32% 91%', Dark: '217 33% 18%' }, swatch: { light: 'hsl(214 32% 91%)', dark: 'hsl(217 33% 18%)' } },
-  { name: 'input', values: { Light: '214 32% 91%', Dark: '217 33% 18%' }, swatch: { light: 'hsl(214 32% 91%)', dark: 'hsl(217 33% 18%)' } },
-  { name: 'ring', values: { Light: '222 84% 5%', Dark: '213 27% 84%' }, swatch: { light: 'hsl(222 84% 5%)', dark: 'hsl(213 27% 84%)' } },
-  { name: 'code-bg', values: { Light: '220 13% 96%', Dark: '222 30% 13%' }, swatch: { light: 'hsl(220 13% 96%)', dark: 'hsl(222 30% 13%)' } },
-]
+function buildCollection(
+  id: string,
+  label: string,
+  groupMap: Map<string, LeafEntry[]>,
+  pathPrefix?: string,
+): SidebarCollection {
+  const groups: SidebarGroup[] = []
+  for (const [groupKey, rows] of groupMap) {
+    if (pathPrefix && !groupKey.startsWith(pathPrefix)) continue
+    const groupId = `g-${groupKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`
+    groups.push({
+      id: groupId,
+      label: groupKey.replace(/^.+? \/ /, ''),
+      count: rows.length,
+    })
+  }
+  return {
+    id,
+    label,
+    count: groups.reduce((sum, g) => sum + g.count, 0),
+    groups,
+  }
+}
 
-// ─── Typography ─────────────────────────────────────────────────────────────
-const TYPOGRAPHY_FAMILY: Row[] = [{ name: 'inter', values: { Desktop: 'Pretendard', Mobile: 'Pretendard' } }]
-const TYPOGRAPHY_WEIGHT: Row[] = [
-  { name: 'light', values: { Desktop: 'Light', Mobile: 'Light' } },
-  { name: 'regular', values: { Desktop: 'Regular', Mobile: 'Regular' } },
-  { name: 'medium', values: { Desktop: 'Medium', Mobile: 'Medium' } },
-  { name: 'semi-bold', values: { Desktop: 'Semi Bold', Mobile: 'Semi Bold' } },
-  { name: 'bold', values: { Desktop: 'Bold', Mobile: 'Bold' } },
-  { name: 'extra-bold', values: { Desktop: 'Extra Bold', Mobile: 'Extra Bold' } },
-  { name: 'black', values: { Desktop: 'Black', Mobile: 'Black' } },
-]
-const TYPOGRAPHY_SIZE: Row[] = [
-  { name: 'display', values: { Desktop: 96, Mobile: 96 } },
-  { name: 'h1', values: { Desktop: 72, Mobile: 72 } },
-  { name: 'h2', values: { Desktop: 64, Mobile: 48 } },
-  { name: 'h3', values: { Desktop: 48, Mobile: 36 } },
-  { name: 'h4', values: { Desktop: 36, Mobile: 30 } },
-  { name: 'h5', values: { Desktop: 30, Mobile: 30 } },
-  { name: 'h6', values: { Desktop: 24, Mobile: 24 } },
-  { name: 'body-l', values: { Desktop: 20, Mobile: 18 } },
-  { name: 'body-m', values: { Desktop: 18, Mobile: 18 } },
-  { name: 'body-s', values: { Desktop: 16, Mobile: 16 } },
-  { name: 'caption-l', values: { Desktop: 14, Mobile: 14 } },
-  { name: 'caption-m', values: { Desktop: 12, Mobile: 12 } },
-  { name: 'caption-s', values: { Desktop: 10, Mobile: 10 } },
-]
-const TYPOGRAPHY_LINE_HEIGHT: Row[] = [
-  { name: 'display', values: { Desktop: 100, Mobile: 100 } },
-  { name: 'h1', values: { Desktop: 80, Mobile: 80 } },
-  { name: 'h2', values: { Desktop: 56, Mobile: 56 } },
-  { name: 'h3', values: { Desktop: 44, Mobile: 44 } },
-  { name: 'h4', values: { Desktop: 36, Mobile: 36 } },
-  { name: 'h5', values: { Desktop: 36, Mobile: 36 } },
-  { name: 'h6', values: { Desktop: 32, Mobile: 32 } },
-  { name: 'body-l', values: { Desktop: 28, Mobile: 26 } },
-  { name: 'body-m', values: { Desktop: 26, Mobile: 26 } },
-  { name: 'body-s', values: { Desktop: 24, Mobile: 24 } },
-  { name: 'caption-l', values: { Desktop: 20, Mobile: 20 } },
-  { name: 'caption-m', values: { Desktop: 16, Mobile: 16 } },
-  { name: 'caption-s', values: { Desktop: 14, Mobile: 14 } },
-]
-
-// ─── Measurements ───────────────────────────────────────────────────────────
-const SPACING_SCALE: Row[] = [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56, 64, 96, 128, 160, 224, 256, 400, 1024].map(
-  (v) => ({ name: String(v), values: { Value: `${v}px` } }),
-)
-const RADIUS_SCALE: Row[] = [
-  { name: 'xs', values: { Value: '4px' } },
-  { name: 'sm', values: { Value: '6px' } },
-  { name: 'md', values: { Value: '8px' } },
-  { name: 'lg', values: { Value: '10px' } },
-  { name: 'xl', values: { Value: '12px' } },
-  { name: 'full', values: { Value: '999px' } },
-]
-
-const COLLECTIONS: Collection[] = [
-  {
-    id: 'theme',
-    label: 'Theme',
-    count: COLOR_THEME_ROWS.length,
-    groups: [
-      { id: 'theme-colors', label: 'colors', parent: 'theme', rows: COLOR_THEME_ROWS },
-    ],
-  },
+const COLLECTIONS: SidebarCollection[] = [
+  buildCollection('primitive', 'Primitive', colorGroups, 'primitive'),
+  buildCollection('theme', 'Theme', colorGroups, 'semantic / theme'),
   {
     id: 'typography',
     label: 'Typography',
-    count:
-      TYPOGRAPHY_FAMILY.length +
-      TYPOGRAPHY_WEIGHT.length +
-      TYPOGRAPHY_SIZE.length +
-      TYPOGRAPHY_LINE_HEIGHT.length,
-    groups: [
-      { id: 'typography-family', label: 'family', parent: 'typography', rows: TYPOGRAPHY_FAMILY },
-      { id: 'typography-weight', label: 'weight', parent: 'typography', rows: TYPOGRAPHY_WEIGHT },
-      { id: 'typography-size', label: 'size', parent: 'typography', rows: TYPOGRAPHY_SIZE },
-      { id: 'typography-line-height', label: 'line-height', parent: 'typography', rows: TYPOGRAPHY_LINE_HEIGHT },
-    ],
+    count: TYPOGRAPHY_GROUPS.reduce((s, g) => s + g.rows.length, 0),
+    groups: TYPOGRAPHY_GROUPS.map((g) => ({
+      id: `g-${g.path.join('-')}`,
+      label: g.path.at(-1)!,
+      count: g.rows.length,
+    })),
   },
   {
-    id: 'measurements',
-    label: 'Measurements',
-    count: SPACING_SCALE.length + RADIUS_SCALE.length,
-    groups: [
-      { id: 'measurements-spacing', label: 'spacing', parent: 'measurements', rows: SPACING_SCALE },
-      { id: 'measurements-radius', label: 'radius', parent: 'measurements', rows: RADIUS_SCALE },
-    ],
+    id: 'spacing',
+    label: 'Spacing',
+    count: spacingEntries.length,
+    groups: Array.from(spacingGroups, ([key, rows]) => ({
+      id: `g-spacing-${key.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`,
+      label: key.split(' / ').slice(-1).join(''),
+      count: rows.length,
+    })),
+  },
+  {
+    id: 'radius',
+    label: 'Radius',
+    count: radiusEntries.length,
+    groups: Array.from(radiusGroups, ([key, rows]) => ({
+      id: `g-radius-${key.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`,
+      label: key.split(' / ').slice(-1).join('') || 'radius',
+      count: rows.length,
+    })),
   },
 ]
 
-function valueColumns(group: Group): string[] {
-  const first = group.rows[0]
-  return first ? Object.keys(first.values) : []
+// ─── Render helpers ─────────────────────────────────────────────────────────
+function isHexColor(v: unknown): v is string {
+  return typeof v === 'string' && /^#[0-9a-fA-F]{6,8}$/.test(v)
 }
 
-function GroupTable({ group }: { group: Group }) {
-  const cols = valueColumns(group)
+function GroupTable({
+  groupKey,
+  rows,
+  groupId,
+}: {
+  groupKey: string
+  rows: LeafEntry[]
+  groupId: string
+}) {
+  const sample = rows[0]?.value
+  const isColors = isHexColor(sample)
+  const valueLabel = isColors ? 'Value' : 'Value'
+
+  // Display path with last segment bold
+  const parts = groupKey.split(' / ')
+  const last = parts.pop()
+
   return (
-    <div id={group.id} style={{ scrollMarginTop: 80, marginBottom: 48 }}>
+    <div id={groupId} style={{ scrollMarginTop: 80, marginBottom: 40 }}>
       <div
         style={{
           fontSize: 12,
           color: 'hsl(var(--muted-foreground))',
-          marginBottom: 12,
+          marginBottom: 10,
           paddingInline: 16,
         }}
       >
-        {group.parent} / <strong style={{ color: 'hsl(var(--foreground))' }}>{group.label}</strong>
+        {parts.length ? `${parts.join(' / ')} / ` : ''}
+        <strong style={{ color: 'hsl(var(--foreground))' }}>{last}</strong>{' '}
+        <span style={{ color: 'hsl(var(--muted-foreground))' }}>· {rows.length}</span>
       </div>
       <table className="vars-table">
         <thead>
           <tr>
-            <th style={{ width: '32%' }}>Name</th>
-            {cols.map((c) => (
-              <th key={c}>{c}</th>
-            ))}
+            <th style={{ width: '46%' }}>Name</th>
+            <th>{valueLabel}</th>
           </tr>
         </thead>
         <tbody>
-          {group.rows.map((row) => (
-            <tr key={row.name}>
-              <td>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  {row.swatch ? (
-                    <span
-                      aria-hidden
-                      style={{
-                        display: 'inline-block',
-                        width: 18,
-                        height: 18,
-                        borderRadius: 4,
-                        background: row.swatch.light,
-                        border: '1px solid hsl(var(--border))',
-                        flexShrink: 0,
-                      }}
-                    />
-                  ) : (
-                    <span
-                      aria-hidden
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 18,
-                        height: 18,
-                        borderRadius: 3,
-                        border: '1px solid hsl(var(--border))',
-                        fontSize: 10,
-                        color: 'hsl(var(--muted-foreground))',
-                        flexShrink: 0,
-                      }}
-                    >
-                      T
-                    </span>
-                  )}
-                  <code style={{ fontSize: 13 }}>{row.name}</code>
-                </div>
-              </td>
-              {cols.map((c) => (
-                <td key={c}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    {row.swatch ? (
+          {rows.map((row) => {
+            const value = String(row.value)
+            const isColor = isHexColor(row.value)
+            return (
+              <tr key={`${groupId}-${row.name}`}>
+                <td>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    {isColor ? (
                       <span
                         aria-hidden
                         style={{
                           display: 'inline-block',
-                          width: 12,
-                          height: 12,
-                          borderRadius: 2,
-                          background: c === 'Dark' ? row.swatch.dark : row.swatch.light,
+                          width: 18,
+                          height: 18,
+                          borderRadius: 4,
+                          background: value,
                           border: '1px solid hsl(var(--border))',
+                          flexShrink: 0,
                         }}
                       />
-                    ) : null}
-                    <span style={{ fontSize: 13 }}>{row.values[c]}</span>
+                    ) : (
+                      <span
+                        aria-hidden
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: 18,
+                          height: 18,
+                          borderRadius: 3,
+                          border: '1px solid hsl(var(--border))',
+                          fontSize: 10,
+                          color: 'hsl(var(--muted-foreground))',
+                          flexShrink: 0,
+                        }}
+                      >
+                        T
+                      </span>
+                    )}
+                    <code style={{ fontSize: 13 }}>{row.name}</code>
                   </div>
                 </td>
-              ))}
-            </tr>
-          ))}
+                <td>
+                  <code style={{ fontSize: 13 }}>{value}</code>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
   )
 }
 
+// ─── Page ───────────────────────────────────────────────────────────────────
 export default function TokensPage() {
+  // Order: primitive → theme → typography → spacing → radius
+  const orderedColorGroups = Array.from(colorGroups).sort(([a], [b]) => {
+    const aPrim = a.startsWith('primitive')
+    const bPrim = b.startsWith('primitive')
+    if (aPrim !== bPrim) return aPrim ? -1 : 1
+    return a.localeCompare(b)
+  })
+
+  const totalColors = colorEntries.length
+  const totalEntries =
+    totalColors +
+    TYPOGRAPHY_GROUPS.reduce((s, g) => s + g.rows.length, 0) +
+    spacingEntries.length +
+    radiusEntries.length
+
   return (
     <div className="vars-page">
       <aside className="vars-sidebar">
-        <div className="vars-sidebar__heading">
-          <span>Collections</span>
-        </div>
+        <div className="vars-sidebar__heading">Collections</div>
         <nav>
           {COLLECTIONS.map((col) => (
-            <div key={col.id} style={{ marginBottom: 16 }}>
+            <div key={col.id} style={{ marginBottom: 14 }}>
               <a
-                href={`#${col.groups[0].id}`}
+                href={col.groups[0] ? `#${col.groups[0].id}` : '#'}
                 className="vars-sidebar__row vars-sidebar__row--collection"
               >
                 <span>{col.label}</span>
@@ -258,9 +326,12 @@ export default function TokensPage() {
                   key={g.id}
                   href={`#${g.id}`}
                   className="vars-sidebar__row vars-sidebar__row--group"
+                  title={g.label}
                 >
-                  <span>{g.label}</span>
-                  <span className="vars-sidebar__count">{g.rows.length}</span>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {g.label}
+                  </span>
+                  <span className="vars-sidebar__count">{g.count}</span>
                 </a>
               ))}
             </div>
@@ -274,15 +345,63 @@ export default function TokensPage() {
             Variables
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: 'hsl(var(--muted-foreground))' }}>
-            Browse every theme, typography, and measurement token. Light /
-            dark colors map to the same CSS variable, swapped via{' '}
-            <code>data-theme=&quot;dark&quot;</code>.
+            {totalEntries.toLocaleString()} tokens — generated from{' '}
+            <code>style-tokens.ts</code>. Browse by collection on the left.
           </p>
         </header>
 
-        {COLLECTIONS.flatMap((c) => c.groups).map((g) => (
-          <GroupTable key={g.id} group={g} />
-        ))}
+        {/* Color groups (primitive + theme) */}
+        {orderedColorGroups.map(([groupKey, rows]) => {
+          const groupId = `g-${groupKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`
+          return <GroupTable key={groupId} groupId={groupId} groupKey={groupKey} rows={rows} />
+        })}
+
+        {/* Typography */}
+        {TYPOGRAPHY_GROUPS.map((group) => {
+          const groupId = `g-${group.path.join('-')}`
+          return (
+            <GroupTable
+              key={groupId}
+              groupId={groupId}
+              groupKey={group.path.join(' / ')}
+              rows={group.rows}
+            />
+          )
+        })}
+
+        {/* Spacing */}
+        {Array.from(spacingGroups).map(([groupKey, rows]) => {
+          const groupId = `g-spacing-${groupKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`
+          return (
+            <GroupTable
+              key={groupId}
+              groupId={groupId}
+              groupKey={`spacing / ${groupKey}`}
+              rows={rows.map((r) => ({ ...r, value: typeof r.value === 'number' ? `${r.value}px` : r.value }))}
+            />
+          )
+        })}
+
+        {/* Radius */}
+        {Array.from(radiusGroups).map(([groupKey, rows]) => {
+          const groupId = `g-radius-${groupKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`
+          return (
+            <GroupTable
+              key={groupId}
+              groupId={groupId}
+              groupKey={`radius / ${groupKey}`}
+              rows={rows.map((r) => ({
+                ...r,
+                value:
+                  typeof r.value === 'number'
+                    ? r.value === 999
+                      ? '999px (full)'
+                      : `${r.value}px`
+                    : r.value,
+              }))}
+            />
+          )
+        })}
       </main>
     </div>
   )
