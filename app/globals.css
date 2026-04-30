@@ -813,6 +813,116 @@ input, select, textarea {
 .props-table tbody td:nth-child(4) { color: hsl(var(--muted-foreground)); }
 
 /* ==========================================================================
+   Tokens / Variables page (Figma-inspired)
+   ========================================================================== */
+.vars-page {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: calc(100vh - var(--nav-h));
+}
+.vars-sidebar {
+  position: sticky;
+  top: var(--nav-h);
+  align-self: start;
+  height: calc(100vh - var(--nav-h));
+  border-right: 1px solid hsl(var(--border));
+  padding: 20px 12px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+.vars-sidebar__heading {
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.vars-sidebar__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: hsl(var(--muted-foreground));
+  transition: background 0.15s, color 0.15s;
+}
+.vars-sidebar__row:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+.vars-sidebar__row--collection {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+.vars-sidebar__row--group {
+  padding-left: 24px;
+  font-weight: 400;
+}
+.vars-sidebar__count {
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+  font-variant-numeric: tabular-nums;
+}
+
+.vars-main {
+  padding: 24px 32px 64px;
+  min-width: 0;
+}
+.vars-main__header {
+  margin-bottom: 32px;
+}
+
+.vars-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border-top: 1px solid hsl(var(--border));
+}
+.vars-table thead th {
+  text-align: left;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  border-bottom: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / 0.4);
+}
+.vars-table tbody td {
+  padding: 10px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid hsl(var(--border-subtle, var(--border)));
+}
+.vars-table tbody tr:hover {
+  background: hsl(var(--accent) / 0.6);
+}
+.vars-table tbody td code {
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  color: hsl(var(--foreground));
+}
+
+@media (max-width: 960px) {
+  .vars-page {
+    grid-template-columns: 1fr;
+  }
+  .vars-sidebar {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .vars-main {
+    padding: 24px 16px 64px;
+  }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 960px) {
