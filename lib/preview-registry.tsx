@@ -42,6 +42,7 @@ const PREVIEWS: Record<string, ComponentType> = {
   'tab-menu': dynamic(() => import('@/components/TabMenu/TabMenu.preview'), { loading: Loading }),
   'tail-icon': dynamic(() => import('@/components/TailIcon/TailIcon.preview'), { loading: Loading }),
   'task-card': dynamic(() => import('@/components/TaskCard/TaskCard.preview'), { loading: Loading }),
+  'text-blocks': dynamic(() => import('@/components/TextBlocks/TextBlocks.preview'), { loading: Loading }),
   'text-container': dynamic(() => import('@/components/TextContainer/TextContainer.preview'), { loading: Loading }),
   toggle: dynamic(() => import('@/components/Toggle/Toggle.preview'), { loading: Loading }),
   tooltip: dynamic(() => import('@/components/Tooltip/Tooltip.preview'), { loading: Loading }),

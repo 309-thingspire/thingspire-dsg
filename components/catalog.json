@@ -15,6 +15,7 @@
     { "slug": "radio", "folder": "Radio", "label": "Radio", "description": "Single-select radio input." },
     { "slug": "radio-label", "folder": "RadioLabel", "label": "RadioLabel", "description": "Radio composed with a text label." },
     { "slug": "tail-icon", "folder": "TailIcon", "label": "Tail Icon", "description": "Action icon affordance attached to sidebar rows (sm/lg, default/hover/disabled)." },
+    { "slug": "text-blocks", "folder": "TextBlocks", "label": "Text Blocks", "description": "Horizontal stack of equal-width text blocks (dot + title + label, 1-5 blocks)." },
     { "slug": "text-container", "folder": "TextContainer", "label": "Text Container", "description": "Headline + description + caption text block (7 sizes × 2 aligns)." },
     { "slug": "toggle", "folder": "Toggle", "label": "Toggle", "description": "Binary on/off switch." },
     { "slug": "tooltip", "folder": "Tooltip", "label": "Tooltip", "description": "Floating contextual hint on hover." },
