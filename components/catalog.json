@@ -2,6 +2,8 @@
   "atoms": [
     { "slug": "actions", "folder": "Actions", "label": "Actions", "description": "Hero CTA actions: button stack / email input + button / Monthly-Annual tabs (3 types × 2 devices)." },
     { "slug": "additional", "folder": "Additional", "label": "Additional", "description": "Sidebar inline divider, caption, button stack, or label row." },
+    { "slug": "additional-content", "folder": "AdditionalContent", "label": "Additional Content", "description": "Card-content additions: divider, label, caption, button, double button, search input, tags, segmented (8 sub-shapes, 320 wide)." },
+    { "slug": "additional-meta", "folder": "AdditionalMeta", "label": "Additional Meta", "description": "Compact meta indicators: button groups, badges, text, divider, input, tab menu, avatar, icon, rating, pagination, empty (12 sub-shapes, 320 wide)." },
     { "slug": "badge", "folder": "Badge", "label": "Badge", "description": "Compact status indicator." },
     { "slug": "button", "folder": "Button", "label": "Button", "description": "Trigger an action with multiple variants and sizes." },
     { "slug": "cell", "folder": "Cell", "label": "Cell", "description": "Sidebar row group; expandable header with indented children." },
