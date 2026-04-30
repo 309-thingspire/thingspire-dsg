@@ -49,6 +49,55 @@ const colorEntries = flatten(colors).filter(
 )
 const colorGroups = groupByPath(colorEntries)
 
+// ─── Alias resolution ──────────────────────────────────────────────────────
+// style-tokens.ts is fully resolved (every leaf is a hex), so the original
+// Figma alias chain (e.g. background/button/primary → semantic/neutral/12) is
+// flattened away. Reconstruct it by reverse-lookup on hex values: a primitive
+// or semantic.theme.semantic token with the same hex is the source the
+// downstream token most likely references.
+
+const ALIAS_SOURCE_PREFIXES = [
+  ['primitive'],
+  ['semantic', 'theme', 'semantic'],
+]
+
+function isAliasSource(path: string[]): boolean {
+  return ALIAS_SOURCE_PREFIXES.some((prefix) =>
+    prefix.every((segment, i) => path[i] === segment),
+  )
+}
+
+function shortenAliasPath(path: string[], name: string): string {
+  // Strip the verbose root segments so the Figma-style "semantic/neutral/12"
+  // shape comes through.
+  let p = [...path, name]
+  if (p[0] === 'primitive' && p[1] === 'palette') {
+    p = ['palette', ...p.slice(2)]
+  } else if (p[0] === 'semantic' && p[1] === 'theme') {
+    p = p.slice(2)
+  }
+  return p.join('/')
+}
+
+// hex → first-seen source path
+const aliasMap = new Map<string, { displayPath: string; hex: string }>()
+for (const entry of colorEntries) {
+  if (typeof entry.value !== 'string') continue
+  if (!isAliasSource([...entry.path, entry.name])) continue
+  if (!aliasMap.has(entry.value)) {
+    aliasMap.set(entry.value, {
+      displayPath: shortenAliasPath(entry.path, entry.name),
+      hex: entry.value,
+    })
+  }
+}
+
+function getAlias(entry: LeafEntry): { displayPath: string; hex: string } | undefined {
+  if (typeof entry.value !== 'string') return undefined
+  if (isAliasSource([...entry.path, entry.name])) return undefined
+  return aliasMap.get(entry.value)
+}
+
 const spacingEntries = flatten(spacingTokens)
 const spacingGroups = groupByPath(spacingEntries)
 
@@ -279,7 +328,38 @@ function GroupTable({
                   </div>
                 </td>
                 <td>
-                  <code style={{ fontSize: 13 }}>{value}</code>
+                  {(() => {
+                    const alias = getAlias(row)
+                    if (alias) {
+                      return (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span className="vars-alias-chip">
+                            <span
+                              aria-hidden
+                              style={{
+                                display: 'inline-block',
+                                width: 14,
+                                height: 14,
+                                borderRadius: 3,
+                                background: alias.hex,
+                                border: '1px solid hsl(var(--border))',
+                              }}
+                            />
+                            <code style={{ fontSize: 12 }}>{alias.displayPath}</code>
+                          </span>
+                          <code
+                            style={{
+                              fontSize: 12,
+                              color: 'hsl(var(--muted-foreground))',
+                            }}
+                          >
+                            {value}
+                          </code>
+                        </div>
+                      )
+                    }
+                    return <code style={{ fontSize: 13 }}>{value}</code>
+                  })()}
                 </td>
               </tr>
             )

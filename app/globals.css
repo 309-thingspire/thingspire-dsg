@@ -906,6 +906,22 @@ input, select, textarea {
   font-size: 13px;
   color: hsl(var(--foreground));
 }
+.vars-alias-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 6px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-sm);
+  background: hsl(var(--card));
+  max-width: 100%;
+  overflow: hidden;
+}
+.vars-alias-chip code {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 @media (max-width: 960px) {
   .vars-page {
