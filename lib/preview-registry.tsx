@@ -31,6 +31,7 @@ const PREVIEWS: Record<string, ComponentType> = {
   input: dynamic(() => import('@/components/Input/Input.preview'), { loading: Loading }),
   middle: dynamic(() => import('@/components/Middle/Middle.preview'), { loading: Loading }),
   'navigation-bar': dynamic(() => import('@/components/NavigationBar/NavigationBar.preview'), { loading: Loading }),
+  'page-header': dynamic(() => import('@/components/PageHeader/PageHeader.preview'), { loading: Loading }),
   pagination: dynamic(() => import('@/components/Pagenation/Pagenation.preview'), { loading: Loading }),
   'progress-bar': dynamic(() => import('@/components/ProgressBar/ProgressBar.preview'), { loading: Loading }),
   'progress-circle': dynamic(() => import('@/components/ProgressCircle/ProgressCircle.preview'), { loading: Loading }),
