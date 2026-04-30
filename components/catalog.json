@@ -1,5 +1,6 @@
 {
   "atoms": [
+    { "slug": "actions", "folder": "Actions", "label": "Actions", "description": "Hero CTA actions: button stack / email input + button / Monthly-Annual tabs (3 types × 2 devices)." },
     { "slug": "additional", "folder": "Additional", "label": "Additional", "description": "Sidebar inline divider, caption, button stack, or label row." },
     { "slug": "badge", "folder": "Badge", "label": "Badge", "description": "Compact status indicator." },
     { "slug": "button", "folder": "Button", "label": "Button", "description": "Trigger an action with multiple variants and sizes." },

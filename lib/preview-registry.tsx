@@ -9,6 +9,7 @@ const Loading = () => (
 
 const PREVIEWS: Record<string, ComponentType> = {
   accordion: dynamic(() => import('@/components/Accordion/Accordion.preview'), { loading: Loading }),
+  actions: dynamic(() => import('@/components/Actions/Actions.preview'), { loading: Loading }),
   additional: dynamic(() => import('@/components/Additional/Additional.preview'), { loading: Loading }),
   badge: dynamic(() => import('@/components/Badge/Badge.preview'), { loading: Loading }),
   banner: dynamic(() => import('@/components/Banner/Banner.preview'), { loading: Loading }),
