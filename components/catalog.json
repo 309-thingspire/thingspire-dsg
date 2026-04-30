@@ -1,6 +1,9 @@
 {
   "atoms": [
+    { "slug": "actions", "folder": "Actions", "label": "Actions", "description": "Hero CTA actions: button stack / email input + button / Monthly-Annual tabs (3 types × 2 devices)." },
     { "slug": "additional", "folder": "Additional", "label": "Additional", "description": "Sidebar inline divider, caption, button stack, or label row." },
+    { "slug": "additional-content", "folder": "AdditionalContent", "label": "Additional Content", "description": "Card-content additions: divider, label, caption, button, double button, search input, tags, segmented (8 sub-shapes, 320 wide)." },
+    { "slug": "additional-meta", "folder": "AdditionalMeta", "label": "Additional Meta", "description": "Compact meta indicators: button groups, badges, text, divider, input, tab menu, avatar, icon, rating, pagination, empty (12 sub-shapes, 320 wide)." },
     { "slug": "badge", "folder": "Badge", "label": "Badge", "description": "Compact status indicator." },
     { "slug": "button", "folder": "Button", "label": "Button", "description": "Trigger an action with multiple variants and sizes." },
     { "slug": "cell", "folder": "Cell", "label": "Cell", "description": "Sidebar row group; expandable header with indented children." },
@@ -15,6 +18,9 @@
     { "slug": "radio", "folder": "Radio", "label": "Radio", "description": "Single-select radio input." },
     { "slug": "radio-label", "folder": "RadioLabel", "label": "RadioLabel", "description": "Radio composed with a text label." },
     { "slug": "tail-icon", "folder": "TailIcon", "label": "Tail Icon", "description": "Action icon affordance attached to sidebar rows (sm/lg, default/hover/disabled)." },
+    { "slug": "text-blocks", "folder": "TextBlocks", "label": "Text Blocks", "description": "Horizontal stack of equal-width text blocks (dot + title + label, 1-5 blocks)." },
+    { "slug": "text-container", "folder": "TextContainer", "label": "Text Container", "description": "Headline + description + caption text block (7 sizes × 2 aligns)." },
+    { "slug": "text-rows", "folder": "TextRows", "label": "Text Rows", "description": "Vertical stack of title-content rows with dotted divider (up to 10)." },
     { "slug": "toggle", "folder": "Toggle", "label": "Toggle", "description": "Binary on/off switch." },
     { "slug": "tooltip", "folder": "Tooltip", "label": "Tooltip", "description": "Floating contextual hint on hover." },
     { "slug": "user", "folder": "User", "label": "User", "description": "Sidebar user row (avatar, name, handle, optional Pro badge, tail icons)." }
@@ -41,6 +47,7 @@
     { "slug": "top", "folder": "Top", "label": "Top", "description": "Sidebar top region: user + divider + caption (+ optional buttons/label)." }
   ],
   "organisms": [
-    { "slug": "navigation-bar", "folder": "NavigationBar", "label": "Navigation Bar", "description": "Top-level application navigation bar." }
+    { "slug": "navigation-bar", "folder": "NavigationBar", "label": "Navigation Bar", "description": "Top-level application navigation bar." },
+    { "slug": "page-header", "folder": "PageHeader", "label": "Page Header", "description": "Page header with back arrow, headline, description, and top + bottom action rows (800 wide)." }
   ]
 }
