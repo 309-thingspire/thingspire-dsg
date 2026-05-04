@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
-import { IconArrowDownSLine, IconGlobalLine, IconMenuLine } from '../icons';
+import { IconArrowDownSLine, IconCheckLine, IconGlobalLine, IconMenuLine } from '../icons';
 
-import type { NavigationBarInteractionState, NavigationBarLinkItem, NavigationBarProps, NavigationBarType } from './NavigationBar.types';
+import type {
+  NavigationBarInteractionState,
+  NavigationBarLanguageItem,
+  NavigationBarLinkItem,
+  NavigationBarProps,
+  NavigationBarType,
+} from './NavigationBar.types';
 
 type TypographyToken = {
   fontFamily: string;
@@ -54,6 +60,13 @@ const TYPE07_DEFAULT_LINKS: NavigationBarLinkItem[] = [
   { id: 'studio', label: 'Studio' },
   { id: 'pronunciation-dictionary', label: 'Pronunciation Dictionary' },
   { id: 'voice-cloning', label: 'Voice Cloning', hasChevron: true },
+];
+
+const TYPE02_DEFAULT_LANGUAGE_ITEMS: NavigationBarLanguageItem[] = [
+  { id: 'ko', label: '한국어' },
+  { id: 'en', label: 'English' },
+  { id: 'ja', label: '日本語' },
+  { id: 'zh', label: '中文' },
 ];
 
 const TYPE08_DEFAULT_BOTTOM_LINKS: NavigationBarLinkItem[] = [
@@ -409,6 +422,354 @@ function BaseCenterLinks({
   );
 }
 
+interface NavigationBarType02Props {
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
+  commonRootStyle: CSSProperties;
+  interactionState: NavigationBarInteractionState;
+  componentDisabled: boolean;
+  showMenuButton: boolean;
+  languageLabel?: string;
+  languageItems?: NavigationBarLanguageItem[];
+  selectedLanguageId?: string;
+  defaultSelectedLanguageId?: string;
+  languageMenuOpen?: boolean;
+  defaultLanguageMenuOpen: boolean;
+  searchPlaceholder: string;
+  searchShortcutLabel: string;
+  onMenuClick?: () => void;
+  onLanguageClick?: () => void;
+  onLanguageMenuOpenChange?: (open: boolean) => void;
+  onLanguageChange?: (id: string) => void;
+  rest: Record<string, unknown>;
+}
+
+function NavigationBarType02({
+  id,
+  className,
+  style,
+  commonRootStyle,
+  interactionState,
+  componentDisabled,
+  showMenuButton,
+  languageLabel,
+  languageItems,
+  selectedLanguageId,
+  defaultSelectedLanguageId,
+  languageMenuOpen,
+  defaultLanguageMenuOpen,
+  searchPlaceholder,
+  searchShortcutLabel,
+  onMenuClick,
+  onLanguageClick,
+  onLanguageMenuOpenChange,
+  onLanguageChange,
+  rest,
+}: NavigationBarType02Props) {
+  const resolvedItems = languageItems && languageItems.length > 0 ? languageItems : TYPE02_DEFAULT_LANGUAGE_ITEMS;
+
+  const isSelectionControlled = typeof selectedLanguageId === 'string';
+  const [internalSelectedId, setInternalSelectedId] = useState<string>(
+    () => defaultSelectedLanguageId ?? resolvedItems[0]?.id ?? '',
+  );
+  const activeSelectedId = isSelectionControlled ? selectedLanguageId : internalSelectedId;
+
+  const selectedItem =
+    resolvedItems.find((item) => item.id === activeSelectedId) ?? resolvedItems[0];
+  const triggerLabel = languageLabel ?? selectedItem?.label ?? '';
+
+  const isOpenControlled = typeof languageMenuOpen === 'boolean';
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultLanguageMenuOpen);
+  const isOpen = isOpenControlled ? languageMenuOpen : internalOpen;
+
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  const updateOpen = (next: boolean) => {
+    if (!isOpenControlled) {
+      setInternalOpen(next);
+    }
+    onLanguageMenuOpenChange?.(next);
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!wrapperRef.current) {
+        return;
+      }
+      if (!wrapperRef.current.contains(event.target as Node)) {
+        updateOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        updateOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+    // updateOpen is stable for this lifecycle; intentionally skip the deps lint
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, isOpenControlled]);
+
+  const handleTriggerClick = () => {
+    if (componentDisabled) {
+      return;
+    }
+    updateOpen(!isOpen);
+    onLanguageClick?.();
+  };
+
+  const handleItemClick = (id: string) => {
+    if (!isSelectionControlled) {
+      setInternalSelectedId(id);
+    }
+    onLanguageChange?.(id);
+    updateOpen(false);
+  };
+
+  const ghostBorderColor = palette.base.transparent;
+  const languageTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const iconButtonColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const placeholderText = searchPlaceholder === 'Search...' ? 'Placeholder' : searchPlaceholder;
+  const shortcutText = searchShortcutLabel === '/' ? '' : searchShortcutLabel;
+  const triggerBackground = isOpen && !componentDisabled ? palette.gray['1a'] : palette.base.transparent;
+
+  return (
+    <header
+      id={id}
+      className={className}
+      aria-disabled={componentDisabled || undefined}
+      style={{
+        ...commonRootStyle,
+        minHeight: NAV_HEIGHT,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: spacing.scale['16'],
+        paddingRight: spacing.scale['32'],
+        paddingTop: spacing.scale['16'],
+        paddingBottom: spacing.scale['16'],
+        borderBottomStyle: 'solid',
+        borderBottomWidth: border.width['1'],
+        borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
+        backgroundColor: palette.base.white,
+        boxSizing: 'border-box',
+        ...style,
+      }}
+      {...rest}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: spacing.scale['0'],
+        }}
+      >
+        {showMenuButton ? (
+          <button
+            type="button"
+            aria-label="Menu"
+            disabled={componentDisabled}
+            onClick={!componentDisabled ? onMenuClick : undefined}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: spacing.scale['8'],
+              borderStyle: 'solid',
+              borderWidth: border.width['0'],
+              borderColor: ghostBorderColor,
+              borderRadius: radius.scale.lg,
+              backgroundColor: palette.base.transparent,
+              color: iconButtonColor,
+              cursor: componentDisabled ? 'default' : 'pointer',
+              appearance: 'none',
+              outline: 'none',
+              marginRight: spacing.scale['4'],
+            }}
+          >
+            <IconMenuLine
+              aria-hidden
+              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+            />
+          </button>
+        ) : null}
+
+        <LogoMark />
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          gap: spacing.scale['16'],
+        }}
+      >
+        <div style={{ width: spacing.primitive['256'] + spacing.scale['24'] }}>
+          <SearchField
+            placeholder={placeholderText}
+            shortcutLabel={shortcutText}
+            interactionState={interactionState}
+            disabled={componentDisabled}
+          />
+        </div>
+
+        <div ref={wrapperRef} style={{ position: 'relative' }}>
+          <button
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            aria-disabled={componentDisabled || undefined}
+            disabled={componentDisabled}
+            onClick={handleTriggerClick}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: spacing.scale['2'],
+              paddingInline: spacing.scale['10'],
+              paddingBlock: spacing.scale['6'],
+              borderStyle: 'solid',
+              borderWidth: border.width['0'],
+              borderColor: ghostBorderColor,
+              borderRadius: radius.scale.lg,
+              backgroundColor: triggerBackground,
+              color: languageTextColor,
+              cursor: componentDisabled ? 'default' : 'pointer',
+              appearance: 'none',
+              outline: 'none',
+              boxShadow: interactionState === 'focus' && !componentDisabled ? shadows.focusRing.light.css : 'none',
+              transition: 'background-color 120ms ease',
+            }}
+          >
+            <IconGlobalLine
+              aria-hidden
+              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+            />
+            <span
+              style={{
+                paddingInline: spacing.scale['4'],
+                whiteSpace: 'nowrap',
+                ...toTypographyStyle(typography.scale.captionL.medium),
+              }}
+            >
+              {triggerLabel}
+            </span>
+            <IconArrowDownSLine
+              aria-hidden
+              style={{
+                width: ICON_SIZE,
+                height: ICON_SIZE,
+                display: 'block',
+                transform: isOpen ? 'rotate(180deg)' : 'none',
+                transition: 'transform 160ms ease',
+              }}
+            />
+          </button>
+
+          {isOpen ? (
+            <ul
+              role="listbox"
+              aria-label="Language"
+              style={{
+                position: 'absolute',
+                top: `calc(100% + ${spacing.scale['6']}px)`,
+                right: 0,
+                margin: 0,
+                padding: spacing.scale['4'],
+                listStyle: 'none',
+                minWidth: spacing.scale['144'],
+                backgroundColor: palette.base.white,
+                borderStyle: 'solid',
+                borderWidth: border.width['1'],
+                borderColor: palette.gray['3'],
+                borderRadius: radius.scale.lg,
+                boxShadow: shadows.elevation.md.css,
+                zIndex: 50,
+              }}
+            >
+              {resolvedItems.map((item) => {
+                const isActive = item.id === activeSelectedId;
+                return (
+                  <li key={item.id} role="presentation" style={{ margin: 0 }}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={isActive}
+                      onClick={() => handleItemClick(item.id)}
+                      style={{
+                        width: '100%',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: spacing.scale['8'],
+                        paddingInline: spacing.scale['8'],
+                        paddingBlock: spacing.scale['6'],
+                        borderStyle: 'solid',
+                        borderWidth: border.width['0'],
+                        borderRadius: radius.scale.md,
+                        backgroundColor: isActive ? palette.gray['1a'] : palette.base.transparent,
+                        color: textBase.staticDark,
+                        cursor: 'pointer',
+                        appearance: 'none',
+                        outline: 'none',
+                        textAlign: 'left',
+                        ...toTypographyStyle(typography.scale.captionL.medium),
+                      }}
+                      onMouseEnter={(event) => {
+                        if (!isActive) {
+                          event.currentTarget.style.backgroundColor = palette.gray['1a'];
+                        }
+                      }}
+                      onMouseLeave={(event) => {
+                        if (!isActive) {
+                          event.currentTarget.style.backgroundColor = palette.base.transparent;
+                        }
+                      }}
+                    >
+                      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: spacing.scale['2'] }}>
+                        <span style={{ whiteSpace: 'nowrap' }}>{item.label}</span>
+                        {item.caption ? (
+                          <span
+                            style={{
+                              color: textBase.staticDarkSecondary,
+                              ...toTypographyStyle(typography.scale.captionM.regular),
+                            }}
+                          >
+                            {item.caption}
+                          </span>
+                        ) : null}
+                      </span>
+                      {isActive ? (
+                        <IconCheckLine
+                          aria-hidden
+                          style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block', flexShrink: 0 }}
+                        />
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </div>
+      </div>
+    </header>
+  );
+}
+
 export function NavigationBar({
   id,
   className,
@@ -425,9 +786,16 @@ export function NavigationBar({
   helpLabel = 'Help',
   avatarSrc,
   showMenuButton = true,
-  languageLabel = '한국어',
+  languageLabel,
+  languageItems,
+  selectedLanguageId,
+  defaultSelectedLanguageId,
+  languageMenuOpen,
+  defaultLanguageMenuOpen = false,
   onMenuClick,
   onLanguageClick,
+  onLanguageMenuOpenChange,
+  onLanguageChange,
   onLinkClick,
   onCtaClick,
   onBottomLinkClick,
@@ -445,139 +813,32 @@ export function NavigationBar({
   };
 
   if (type === '02') {
-    const ghostBorderColor = palette.base.transparent;
-    const languageTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
-    const iconButtonColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
-    const placeholderText = searchPlaceholder === 'Search...' ? 'Placeholder' : searchPlaceholder;
-    const shortcutText = searchShortcutLabel === '/' ? '' : searchShortcutLabel;
-
     return (
-      <header
+      <NavigationBarType02
         id={id}
         className={className}
-        aria-disabled={componentDisabled || undefined}
-        style={{
-          ...commonRootStyle,
-          minHeight: NAV_HEIGHT,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingLeft: spacing.scale['16'],
-          paddingRight: spacing.scale['32'],
-          paddingTop: spacing.scale['16'],
-          paddingBottom: spacing.scale['16'],
-          borderBottomStyle: 'solid',
-          borderBottomWidth: border.width['1'],
-          borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
-          backgroundColor: palette.base.white,
-          boxSizing: 'border-box',
-          ...style,
-        }}
-        {...props}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: spacing.scale['0'],
-          }}
-        >
-          {showMenuButton ? (
-            <button
-              type="button"
-              aria-label="Menu"
-              disabled={componentDisabled}
-              onClick={!componentDisabled ? onMenuClick : undefined}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: spacing.scale['8'],
-                borderStyle: 'solid',
-                borderWidth: border.width['0'],
-                borderColor: ghostBorderColor,
-                borderRadius: radius.scale.lg,
-                backgroundColor: palette.base.transparent,
-                color: iconButtonColor,
-                cursor: componentDisabled ? 'default' : 'pointer',
-                appearance: 'none',
-                outline: 'none',
-                marginRight: spacing.scale['4'],
-              }}
-            >
-              <IconMenuLine
-                aria-hidden
-                style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
-              />
-            </button>
-          ) : null}
-
-          <LogoMark />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: spacing.scale['16'],
-          }}
-        >
-          <div style={{ width: spacing.primitive['256'] + spacing.scale['24'] }}>
-            <SearchField
-              placeholder={placeholderText}
-              shortcutLabel={shortcutText}
-              interactionState={interactionState}
-              disabled={componentDisabled}
-            />
-          </div>
-
-          <button
-            type="button"
-            aria-label={`Language: ${languageLabel}`}
-            disabled={componentDisabled}
-            onClick={!componentDisabled ? onLanguageClick : undefined}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: spacing.scale['2'],
-              paddingInline: spacing.scale['10'],
-              paddingBlock: spacing.scale['6'],
-              borderStyle: 'solid',
-              borderWidth: border.width['0'],
-              borderColor: ghostBorderColor,
-              borderRadius: radius.scale.lg,
-              backgroundColor: palette.base.transparent,
-              color: languageTextColor,
-              cursor: componentDisabled ? 'default' : 'pointer',
-              appearance: 'none',
-              outline: 'none',
-              boxShadow: interactionState === 'focus' && !componentDisabled ? shadows.focusRing.light.css : 'none',
-            }}
-          >
-            <IconGlobalLine
-              aria-hidden
-              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
-            />
-            <span
-              style={{
-                paddingInline: spacing.scale['4'],
-                whiteSpace: 'nowrap',
-                ...toTypographyStyle(typography.scale.captionL.medium),
-              }}
-            >
-              {languageLabel}
-            </span>
-            <IconArrowDownSLine
-              aria-hidden
-              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
-            />
-          </button>
-        </div>
-      </header>
+        style={style}
+        commonRootStyle={commonRootStyle}
+        interactionState={interactionState}
+        componentDisabled={componentDisabled}
+        showMenuButton={showMenuButton}
+        languageLabel={languageLabel}
+        languageItems={languageItems}
+        selectedLanguageId={selectedLanguageId}
+        defaultSelectedLanguageId={defaultSelectedLanguageId}
+        languageMenuOpen={languageMenuOpen}
+        defaultLanguageMenuOpen={defaultLanguageMenuOpen}
+        searchPlaceholder={searchPlaceholder}
+        searchShortcutLabel={searchShortcutLabel}
+        onMenuClick={onMenuClick}
+        onLanguageClick={onLanguageClick}
+        onLanguageMenuOpenChange={onLanguageMenuOpenChange}
+        onLanguageChange={onLanguageChange}
+        rest={props}
+      />
     );
   }
+
 
   if (type === '07') {
     const ctaTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticWhite;
