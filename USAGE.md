@@ -153,11 +153,50 @@ the rest of the 2,278-icon set. Default rendering:
 - Spreads `{...props}` so you can pass `aria-label`, `className`,
   `style`, `onClick`, etc.
 
-**Naming**: each filename in `assets/icons/` becomes a PascalCase
-component prefixed with `Icon` (e.g. `arrow-right-line.svg` →
-`IconArrowRightLine`). The Remix Icon naming convention applies — for
-chevrons use `arrow-*-s-line` (e.g. `IconArrowDownSLine`). Browse the
-gallery at <https://thingspire-dsg.vercel.app/components/icons>.
+### Finding the right icon from a Figma design
+
+When the design specifies an icon by name (Figma usually shows the
+Remix Icon kebab-case slug like `arrow-right-line`), find the
+matching component three ways:
+
+```bash
+# 1. CLI search
+npx @thingspire/ui search arrow-right
+#   IconArrowRightLine                  arrow-right-line
+#   IconArrowRightFill                  arrow-right-fill
+#   IconArrowRightCircleLine            arrow-right-circle-line
+#   ...
+
+# 2. Multiple terms narrow the result
+npx @thingspire/ui search arrow s line   # chevron-shaped arrows
+
+# 3. Live gallery (search + click to copy the component name)
+open https://thingspire-dsg.vercel.app/components/icons
+```
+
+**Naming convention** — each filename in `assets/icons/` maps to a
+PascalCase component prefixed with `Icon`:
+
+| Figma / Remix slug | Component | Notes |
+|---|---|---|
+| `arrow-right-line` | `IconArrowRightLine` | full arrow |
+| `arrow-right-s-line` | `IconArrowRightSLine` | chevron (the `-s-` is the chevron-shaped variant) |
+| `arrow-down-fill` | `IconArrowDownFill` | filled instead of stroked |
+| `check-line` | `IconCheckLine` | |
+| `close-line` | `IconCloseLine` | also: `IconCloseCircleLine` |
+| `user-3-line` | `IconUser3Line` | digits stay in place |
+| `4k-fill` | `Icon4kFill` | leading digit OK because `Icon` prefix |
+
+Common gotchas:
+
+- **"chevron" doesn't exist as a name** — Remix calls them
+  `arrow-*-s-line` (small/short arrow). `IconArrowDownSLine` is the
+  down-chevron, etc.
+- **`Hash` icon** is `IconHashtag` (single variant, no `-line`/`-fill`
+  suffix).
+- **Some icons only ship one variant** — search will show only what
+  exists. If you need a `-fill` that doesn't exist, fall back to
+  `-line` or pick a similar shape.
 
 **Inline-SVG vs IconLibrary policy** — use IconLibrary for any
 recognisable icon slot. Reserve inline SVG for shapes that are
@@ -238,6 +277,7 @@ npx @thingspire/ui <command> [options]
 | `init` | Create `design-library.json` in the cwd |
 | `add <slug…>` | Fetch component(s) from the registry into your project |
 | `list` | Print every available slug + label, grouped by category |
+| `search <query…>` | Find icons by name (Figma slug or `Icon*` form). Multiple terms narrow the result. |
 | `help` | Show command help |
 
 | Flag | Effect |

@@ -181,6 +181,45 @@ async function cmdAdd(cwd, flags, slugs) {
   }
 }
 
+async function cmdSearch(cwd, flags, terms) {
+  if (terms.length === 0) {
+    console.error('❌ Provide a query, e.g. `npx @thingspire/ui search arrow`')
+    process.exit(1)
+  }
+  const cfg = await loadConfig(cwd)
+  const registry = getRegistry(flags, cfg)
+  let data
+  try {
+    data = await fetchJson(`${registry}/icons-names.json`)
+  } catch (err) {
+    console.error(`❌ Could not fetch icon index: ${err.message}`)
+    process.exit(1)
+  }
+  const items = Array.isArray(data.items) ? data.items : []
+  const queries = terms.map((t) => t.toLowerCase())
+  const matches = items.filter((item) => {
+    const slugLower = item.slug.toLowerCase()
+    const nameLower = item.componentName.toLowerCase()
+    return queries.every((q) => slugLower.includes(q) || nameLower.includes(q))
+  })
+  if (matches.length === 0) {
+    console.log(`No icons matched "${terms.join(' ')}".`)
+    console.log('Browse the gallery at https://thingspire-dsg.vercel.app/components/icons')
+    return
+  }
+  const limit = Number(flags.limit) || 50
+  const shown = matches.slice(0, limit)
+  console.log(
+    `Found ${matches.length} icon${matches.length === 1 ? '' : 's'} matching "${terms.join(' ')}"${
+      matches.length > limit ? ` (showing first ${limit})` : ''
+    }:\n`,
+  )
+  for (const item of shown) {
+    console.log(`  ${item.componentName.padEnd(36)} ${item.slug}`)
+  }
+  console.log(`\nImport: import { ${shown[0].componentName} } from '@/components/icons'`)
+}
+
 function printHelp() {
   console.log(`@thingspire/ui — Design Library CLI
 
@@ -191,14 +230,21 @@ Commands:
   init                       Create design-library.json in the current directory
   add <slug...>              Copy component files from the registry into your project
   list                       List components available in the registry
+  search <query…>            Find icons by name (matches both Figma kebab-case and Icon* component name)
   help                       Show this message
 
 Options:
   --registry <url>           Override registry URL (default: ${DEFAULT_REGISTRY})
   --overwrite                When adding components, overwrite existing local files
+  --limit <n>                Max results for \`search\` (default 50)
 
 Environment:
   THINGSPIRE_UI_REGISTRY     Override registry URL globally
+
+Examples:
+  npx @thingspire/ui search arrow-right
+  npx @thingspire/ui search chevron        # nothing — Remix uses arrow-*-s
+  npx @thingspire/ui search arrow s line   # narrows to chevron-shaped arrows
 `)
 }
 
@@ -222,6 +268,9 @@ async function main() {
       return cmdList(cwd, flags)
     case 'add':
       return cmdAdd(cwd, flags, positional)
+    case 'search':
+    case 'find':
+      return cmdSearch(cwd, flags, positional)
     default:
       console.error(`Unknown command: ${command}`)
       printHelp()

@@ -134,6 +134,31 @@ async function main() {
     'utf-8',
   )
 
+  // Lightweight icon-name index for the CLI `search` command and any
+  // tooling that wants to autocomplete icon names without downloading the
+  // full ~1.7 MB icons.json bundle. Source of truth is the barrel
+  // `components/icons/index.ts`.
+  try {
+    const iconsBarrel = await fs.readFile(
+      path.join(ROOT, 'components', 'icons', 'index.ts'),
+      'utf-8',
+    )
+    const names = [
+      ...iconsBarrel.matchAll(/export \{ (Icon\w+) \} from '\.\/(icon-[\w-]+)'/g),
+    ].map(([, componentName, fileBase]) => ({
+      componentName,
+      slug: fileBase.replace(/^icon-/, ''),
+    }))
+    await fs.writeFile(
+      path.join(OUT_DIR, 'icons-names.json'),
+      JSON.stringify({ count: names.length, items: names }, null, 2),
+      'utf-8',
+    )
+    console.log(`✓ Wrote ${names.length} icon names to public/r/icons-names.json`)
+  } catch (err) {
+    console.warn('⚠️  Skipped icons-names.json:', err.message)
+  }
+
   // copy tokens.css
   const tokens = await readIfExists(TOKENS_SRC)
   if (tokens !== null) {
