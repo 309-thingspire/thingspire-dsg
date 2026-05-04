@@ -27,8 +27,13 @@ const textAccent = colors.semantic.theme.text.accent;
 const NAV_DEFAULT_WIDTH = spacing.scale['1440'];
 const NAV_HEIGHT = spacing.scale['64'];
 const NAV_HEIGHT_DOUBLE = spacing.scale['112'];
-const LOGO_FRAME_SIZE = spacing.scale['32'];
-const LOGO_SIZE = spacing.scale['32'] - spacing.scale['2'];
+// Wordmark frame: w 100 (32 × 3 + 4) × h 32 per Figma carbonscope-Library v1.0
+// (node 1108:19278). Native vector is 85.501 × 21.204 — frame adds ~7px
+// horizontal and ~5px vertical padding so the wordmark sits centered.
+const LOGO_FRAME_WIDTH = spacing.scale['96'] + spacing.scale['4'];
+const LOGO_FRAME_HEIGHT = spacing.scale['32'];
+const LOGO_VECTOR_WIDTH = 85.501;
+const LOGO_VECTOR_HEIGHT = 21.204;
 const ICON_SIZE = spacing.scale['16'];
 const SEARCH_MAX_WIDTH = spacing.primitive['360'];
 
@@ -122,8 +127,8 @@ function LogoMark() {
     <span
       aria-hidden="true"
       style={{
-        width: LOGO_FRAME_SIZE,
-        height: LOGO_FRAME_SIZE,
+        width: LOGO_FRAME_WIDTH,
+        height: LOGO_FRAME_HEIGHT,
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -132,10 +137,10 @@ function LogoMark() {
     >
       <img
         src={LOGO_SRC}
-        alt=""
+        alt="thingspire"
         style={{
-          width: LOGO_SIZE,
-          height: LOGO_SIZE,
+          width: LOGO_VECTOR_WIDTH,
+          height: LOGO_VECTOR_HEIGHT,
           display: 'block',
           userSelect: 'none',
           pointerEvents: 'none',
