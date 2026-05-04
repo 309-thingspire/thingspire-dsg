@@ -654,10 +654,10 @@ export const colors = {
           "destructiveGhostDisabled": "#ffffff00"
         },
         "input": {
-          "normal": "#0b0c0eff",
-          "hover": "#0b0c0eff",
-          "focus": "#0b0c0eff",
-          "disabled": "#0b0c0eff"
+          "normal": "#ffffffff",
+          "hover": "#ffffffff",
+          "focus": "#ffffffff",
+          "disabled": "#f7f7f8ff"
         },
         "badge": {
           "gray": "#ffffff2e",
@@ -693,32 +693,32 @@ export const colors = {
           "secondaryDisabled": "#ffffff14"
         },
         "modal": {
-          "default": "#1f2228ff",
-          "neutral": "#333333ff"
+          "default": "#ffffffff",
+          "neutral": "#f7f7f8ff"
         },
         "overlay": {
-          "normal": "#ffffff00",
-          "hover": "#ffffff14",
-          "activeNormal": "#ffffff14",
-          "activeHover": "#ffffff24",
-          "custom": "#ffffff14"
+          "normal": "#0a0f2900",
+          "hover": "#0a0f2914",
+          "activeNormal": "#0a0f2914",
+          "activeHover": "#0a0f2924",
+          "custom": "#0a0f2914"
         },
         "surface": {
-          "default": "#0b0c0eff",
-          "inverted": "#ffffffff",
-          "neutralSubtle": "#1f2228ff",
-          "neutral": "#14151aff",
-          "destructive": "#360a07ff",
-          "destructiveSubtle": "#64120dff",
+          "default": "#ffffffff",
+          "inverted": "#0b0c0eff",
+          "neutralSubtle": "#f7f7f8ff",
+          "neutral": "#ffffffff",
+          "destructive": "#fdf2f1ff",
+          "destructiveSubtle": "#fce5e4ff",
           "destructiveAccent": "#e6483dff",
-          "warning": "#301903ff",
-          "warningSubtle": "#613105ff",
-          "success": "#072213ff",
-          "successSubtle": "#0f4c2cff",
+          "warning": "#fef5ebff",
+          "warningSubtle": "#fde6cdff",
+          "success": "#edfdf4ff",
+          "successSubtle": "#d1fae4ff",
           "successAccent": "#26bd6cff",
           "warningAccent": "#f48e2fff",
-          "info": "#03153aff",
-          "infoSubtle": "#07296aff",
+          "info": "#f0f4feff",
+          "infoSubtle": "#e3eafdff",
           "infoAccent": "#4778f5ff"
         },
         "accent": {
@@ -1155,10 +1155,10 @@ export const colors = {
           "destructiveGhostDisabled": "#ffffff00"
         },
         "input": {
-          "normal": "#0b0c0eff",
-          "hover": "#0b0c0eff",
-          "focus": "#0b0c0eff",
-          "disabled": "#0b0c0eff"
+          "normal": "#ffffffff",
+          "hover": "#ffffffff",
+          "focus": "#ffffffff",
+          "disabled": "#f7f7f8ff"
         },
         "badge": {
           "gray": "#ffffff2e",
@@ -1194,32 +1194,32 @@ export const colors = {
           "secondaryDisabled": "#ffffff14"
         },
         "modal": {
-          "default": "#1f2228ff",
-          "neutral": "#333333ff"
+          "default": "#ffffffff",
+          "neutral": "#f7f7f8ff"
         },
         "overlay": {
-          "normal": "#ffffff00",
-          "hover": "#ffffff14",
-          "activeNormal": "#ffffff14",
-          "activeHover": "#ffffff24",
-          "custom": "#ffffff14"
+          "normal": "#0a0f2900",
+          "hover": "#0a0f2914",
+          "activeNormal": "#0a0f2914",
+          "activeHover": "#0a0f2924",
+          "custom": "#0a0f2914"
         },
         "surface": {
-          "default": "#0b0c0eff",
-          "inverted": "#ffffffff",
-          "neutralSubtle": "#1f2228ff",
-          "neutral": "#14151aff",
-          "destructive": "#360a07ff",
-          "destructiveSubtle": "#64120dff",
+          "default": "#ffffffff",
+          "inverted": "#0b0c0eff",
+          "neutralSubtle": "#f7f7f8ff",
+          "neutral": "#ffffffff",
+          "destructive": "#fdf2f1ff",
+          "destructiveSubtle": "#fce5e4ff",
           "destructiveAccent": "#e6483dff",
-          "warning": "#301903ff",
-          "warningSubtle": "#613105ff",
-          "success": "#072213ff",
-          "successSubtle": "#0f4c2cff",
+          "warning": "#fef5ebff",
+          "warningSubtle": "#fde6cdff",
+          "success": "#edfdf4ff",
+          "successSubtle": "#d1fae4ff",
           "successAccent": "#26bd6cff",
           "warningAccent": "#f48e2fff",
-          "info": "#03153aff",
-          "infoSubtle": "#07296aff",
+          "info": "#f0f4feff",
+          "infoSubtle": "#e3eafdff",
           "infoAccent": "#4778f5ff"
         },
         "accent": {
@@ -3290,19 +3290,19 @@ export const border = {
         "focusDestructiveLight": "#f08b85ff"
       },
       "base": {
-        "neutral": "#ffffff2e",
-        "neutralSubtle": "#ffffff3d",
+        "neutral": "#0a0f2924",
+        "neutralSubtle": "#0a0f2914",
         "destructive": "#e6483d40",
         "success": "#26bd6c40",
         "warning": "#f48e2f40",
         "info": "#3368f040",
         "brand": "#873de640",
-        "divider": "#ffffff24",
-        "alpha": "#ffffff24",
-        "surface": "#0b0c0eff",
-        "inverted": "#ffffffff",
-        "surfaceNeutral": "#14151aff",
-        "alphaWhite": "#ffffff2e"
+        "divider": "#0a0f2914",
+        "alpha": "#0a0f2914",
+        "surface": "#ffffffff",
+        "inverted": "#0b0c0eff",
+        "surfaceNeutral": "#f7f7f8ff",
+        "alphaWhite": "#0a0f2924"
       },
       "select": {
         "primary": "#924fe8ff",
@@ -3343,19 +3343,19 @@ export const border = {
         "focusDestructiveLight": "#f08b85ff"
       },
       "base": {
-        "neutral": "#ffffff2e",
-        "neutralSubtle": "#ffffff3d",
+        "neutral": "#0a0f2924",
+        "neutralSubtle": "#0a0f2914",
         "destructive": "#e6483d40",
         "success": "#26bd6c40",
         "warning": "#f48e2f40",
         "info": "#3368f040",
         "brand": "#873de640",
-        "divider": "#ffffff24",
-        "alpha": "#ffffff24",
-        "surface": "#0b0c0eff",
-        "inverted": "#ffffffff",
-        "surfaceNeutral": "#14151aff",
-        "alphaWhite": "#ffffff2e"
+        "divider": "#0a0f2914",
+        "alpha": "#0a0f2914",
+        "surface": "#ffffffff",
+        "inverted": "#0b0c0eff",
+        "surfaceNeutral": "#f7f7f8ff",
+        "alphaWhite": "#0a0f2924"
       },
       "select": {
         "primary": "#924fe8ff",
