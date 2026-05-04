@@ -2,7 +2,7 @@ import React from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
-import { IconArrowDownSLine } from '../icons';
+import { IconArrowDownSLine, IconGlobalLine, IconMenuLine } from '../icons';
 
 import type { NavigationBarInteractionState, NavigationBarLinkItem, NavigationBarProps, NavigationBarType } from './NavigationBar.types';
 
@@ -419,6 +419,10 @@ export function NavigationBar({
   ctaLabel = 'Try for free',
   helpLabel = 'Help',
   avatarSrc,
+  showMenuButton = true,
+  languageLabel = '한국어',
+  onMenuClick,
+  onLanguageClick,
   onLinkClick,
   onCtaClick,
   onBottomLinkClick,
@@ -434,6 +438,141 @@ export function NavigationBar({
     width,
     boxSizing: 'border-box',
   };
+
+  if (type === '02') {
+    const ghostBorderColor = palette.base.transparent;
+    const languageTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+    const iconButtonColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+    const placeholderText = searchPlaceholder === 'Search...' ? 'Placeholder' : searchPlaceholder;
+    const shortcutText = searchShortcutLabel === '/' ? '' : searchShortcutLabel;
+
+    return (
+      <header
+        id={id}
+        className={className}
+        aria-disabled={componentDisabled || undefined}
+        style={{
+          ...commonRootStyle,
+          minHeight: NAV_HEIGHT,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingLeft: spacing.scale['16'],
+          paddingRight: spacing.scale['32'],
+          paddingTop: spacing.scale['16'],
+          paddingBottom: spacing.scale['16'],
+          borderBottomStyle: 'solid',
+          borderBottomWidth: border.width['1'],
+          borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
+          backgroundColor: palette.base.white,
+          boxSizing: 'border-box',
+          ...style,
+        }}
+        {...props}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: spacing.scale['0'],
+          }}
+        >
+          {showMenuButton ? (
+            <button
+              type="button"
+              aria-label="Menu"
+              disabled={componentDisabled}
+              onClick={!componentDisabled ? onMenuClick : undefined}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: spacing.scale['8'],
+                borderStyle: 'solid',
+                borderWidth: border.width['0'],
+                borderColor: ghostBorderColor,
+                borderRadius: radius.scale.lg,
+                backgroundColor: palette.base.transparent,
+                color: iconButtonColor,
+                cursor: componentDisabled ? 'default' : 'pointer',
+                appearance: 'none',
+                outline: 'none',
+                marginRight: spacing.scale['4'],
+              }}
+            >
+              <IconMenuLine
+                aria-hidden
+                style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+              />
+            </button>
+          ) : null}
+
+          <LogoMark />
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: spacing.scale['16'],
+          }}
+        >
+          <div style={{ width: spacing.primitive['256'] + spacing.scale['24'] }}>
+            <SearchField
+              placeholder={placeholderText}
+              shortcutLabel={shortcutText}
+              interactionState={interactionState}
+              disabled={componentDisabled}
+            />
+          </div>
+
+          <button
+            type="button"
+            aria-label={`Language: ${languageLabel}`}
+            disabled={componentDisabled}
+            onClick={!componentDisabled ? onLanguageClick : undefined}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: spacing.scale['2'],
+              paddingInline: spacing.scale['10'],
+              paddingBlock: spacing.scale['6'],
+              borderStyle: 'solid',
+              borderWidth: border.width['0'],
+              borderColor: ghostBorderColor,
+              borderRadius: radius.scale.lg,
+              backgroundColor: palette.base.transparent,
+              color: languageTextColor,
+              cursor: componentDisabled ? 'default' : 'pointer',
+              appearance: 'none',
+              outline: 'none',
+              boxShadow: interactionState === 'focus' && !componentDisabled ? shadows.focusRing.light.css : 'none',
+            }}
+          >
+            <IconGlobalLine
+              aria-hidden
+              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+            />
+            <span
+              style={{
+                paddingInline: spacing.scale['4'],
+                whiteSpace: 'nowrap',
+                ...toTypographyStyle(typography.scale.captionL.medium),
+              }}
+            >
+              {languageLabel}
+            </span>
+            <IconArrowDownSLine
+              aria-hidden
+              style={{ width: ICON_SIZE, height: ICON_SIZE, display: 'block' }}
+            />
+          </button>
+        </div>
+      </header>
+    );
+  }
 
   if (type === '07') {
     const ctaTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticWhite;

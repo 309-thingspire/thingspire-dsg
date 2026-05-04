@@ -29,6 +29,11 @@ export interface NavigationBarProps extends Omit<HTMLAttributes<HTMLElement>, 'o
   ctaLabel?: string;
   helpLabel?: string;
   avatarSrc?: string;
+  // Type 02 specific
+  showMenuButton?: boolean;
+  languageLabel?: string;
+  onMenuClick?: () => void;
+  onLanguageClick?: () => void;
   onLinkClick?: (id: string) => void;
   onCtaClick?: () => void;
   onBottomLinkClick?: (id: string) => void;
