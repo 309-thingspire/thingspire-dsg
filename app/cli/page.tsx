@@ -4,7 +4,7 @@ import CodeBlock from '@/app/_components/code-block'
 export const metadata: Metadata = {
   title: 'CLI — Thingspire UI',
   description:
-    '@thingspire/ui CLI reference: init, add, list, registry URLs, environment variables.',
+    '@309-thingspire/ui CLI reference: init, add, list, registry URLs, environment variables.',
 }
 
 export default function CliPage() {
@@ -26,7 +26,7 @@ export default function CliPage() {
           className="comp-detail__title"
           style={{ marginTop: 8, marginBottom: 12 }}
         >
-          @thingspire/ui CLI
+          @309-thingspire/ui CLI
         </h1>
         <p className="comp-detail__lead">
           Copies component source, types, and tokens into your project. No
@@ -44,12 +44,12 @@ export default function CliPage() {
           From the root of any React 19 project:
         </p>
         <div style={{ display: 'grid', gap: 12 }}>
-          <CodeBlock code="npx @thingspire/ui@latest init" language="bash" />
+          <CodeBlock code="npx @309-thingspire/ui@latest init" language="bash" />
           <CodeBlock
-            code="npx @thingspire/ui@latest add button checkbox input"
+            code="npx @309-thingspire/ui@latest add button checkbox input"
             language="bash"
           />
-          <CodeBlock code="npx @thingspire/ui@latest add icons" language="bash" />
+          <CodeBlock code="npx @309-thingspire/ui@latest add icons" language="bash" />
         </div>
       </section>
 
@@ -220,13 +220,13 @@ export default function CliPage() {
         </h3>
         <CodeBlock
           language="bash"
-          code="npx @thingspire/ui add button checkbox input dropdown badge"
+          code="npx @309-thingspire/ui add button checkbox input dropdown badge"
         />
 
         <h3 style={{ fontSize: 16, fontWeight: 600, marginTop: 24 }}>
           Refresh after the upstream library updated
         </h3>
-        <CodeBlock language="bash" code="npx @thingspire/ui add button --overwrite" />
+        <CodeBlock language="bash" code="npx @309-thingspire/ui add button --overwrite" />
 
         <h3 style={{ fontSize: 16, fontWeight: 600, marginTop: 24 }}>
           Pin to a specific deployment
@@ -238,7 +238,7 @@ export default function CliPage() {
         <CodeBlock
           language="bash"
           code={`export THINGSPIRE_UI_REGISTRY=https://thingspire-<deployment>.vercel.app/r
-npx @thingspire/ui add button`}
+npx @309-thingspire/ui add button`}
         />
 
         <h3 style={{ fontSize: 16, fontWeight: 600, marginTop: 24 }}>

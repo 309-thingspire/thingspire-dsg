@@ -1,5 +1,5 @@
 {
-  "name": "@thingspire/ui",
+  "name": "@309-thingspire/ui",
   "version": "0.1.0",
   "description": "Thingspire UI design library CLI — copy components, types, and tokens into your project.",
   "type": "module",

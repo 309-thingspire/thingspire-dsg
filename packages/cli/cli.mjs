@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-/* @thingspire/ui — Design Library CLI
+/* @309-thingspire/ui — Design Library CLI
  *
  * Commands:
- *   npx @thingspire/ui init               Initialise design-library.json in cwd
- *   npx @thingspire/ui add <slug...>      Add component(s) from the registry
- *   npx @thingspire/ui list               List available components
+ *   npx @309-thingspire/ui init               Initialise design-library.json in cwd
+ *   npx @309-thingspire/ui add <slug...>      Add component(s) from the registry
+ *   npx @309-thingspire/ui list               List available components
  *
  * Configuration is read from ./design-library.json:
  *   {
@@ -104,7 +104,7 @@ async function cmdInit(cwd, _flags) {
   console.log()
   console.log('Next steps:')
   console.log('  1. (optional) edit registry URL or componentsDir.')
-  console.log('  2. Run: npx @thingspire/ui add button')
+  console.log('  2. Run: npx @309-thingspire/ui add button')
 }
 
 async function cmdList(cwd, flags) {
@@ -131,7 +131,7 @@ async function cmdList(cwd, flags) {
 async function cmdAdd(cwd, flags, slugs) {
   if (slugs.length === 0) {
     console.error('❌ Specify at least one component slug.')
-    console.error('   Usage: npx @thingspire/ui add <slug...>')
+    console.error('   Usage: npx @309-thingspire/ui add <slug...>')
     process.exit(1)
   }
   const cfg = (await loadConfig(cwd)) ?? {
@@ -183,7 +183,7 @@ async function cmdAdd(cwd, flags, slugs) {
 
 async function cmdSearch(cwd, flags, terms) {
   if (terms.length === 0) {
-    console.error('❌ Provide a query, e.g. `npx @thingspire/ui search arrow`')
+    console.error('❌ Provide a query, e.g. `npx @309-thingspire/ui search arrow`')
     process.exit(1)
   }
   const cfg = await loadConfig(cwd)
@@ -221,10 +221,10 @@ async function cmdSearch(cwd, flags, terms) {
 }
 
 function printHelp() {
-  console.log(`@thingspire/ui — Design Library CLI
+  console.log(`@309-thingspire/ui — Design Library CLI
 
 Usage:
-  npx @thingspire/ui <command> [options]
+  npx @309-thingspire/ui <command> [options]
 
 Commands:
   init                       Create design-library.json in the current directory
@@ -242,9 +242,9 @@ Environment:
   THINGSPIRE_UI_REGISTRY     Override registry URL globally
 
 Examples:
-  npx @thingspire/ui search arrow-right
-  npx @thingspire/ui search chevron        # nothing — Remix uses arrow-*-s
-  npx @thingspire/ui search arrow s line   # narrows to chevron-shaped arrows
+  npx @309-thingspire/ui search arrow-right
+  npx @309-thingspire/ui search chevron        # nothing — Remix uses arrow-*-s
+  npx @309-thingspire/ui search arrow s line   # narrows to chevron-shaped arrows
 `)
 }
 

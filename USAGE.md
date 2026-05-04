@@ -2,7 +2,7 @@
 
 Use the design library in your own project. The components ship as
 copy-paste source (no runtime dependency on the library), pulled via
-the `@thingspire/ui` CLI from the public registry at
+the `@309-thingspire/ui` CLI from the public registry at
 [thingspire-dsg.vercel.app](https://thingspire-dsg.vercel.app).
 
 ---
@@ -17,7 +17,7 @@ the `@thingspire/ui` CLI from the public registry at
   (`@/components/icons` barrel)
 - **Design tokens** (`styles/tokens.css`) — light/dark CSS variables
   matching Figma `carbonscope-Library v1.0`
-- A small **CLI** (`npx @thingspire/ui …`) for fetching components
+- A small **CLI** (`npx @309-thingspire/ui …`) for fetching components
   on demand
 - A **Registry API** (`/api/registry`) and a static JSON mirror
   (`/r/index.json`, `/r/<slug>.json`) for tooling
@@ -45,13 +45,13 @@ files. Once installed, you can edit them freely.
 
 ```bash
 # 1. From your project root, initialise a config file
-npx @thingspire/ui@latest init
+npx @309-thingspire/ui@latest init
 
 # 2. Add the components you want
-npx @thingspire/ui@latest add button checkbox input
+npx @309-thingspire/ui@latest add button checkbox input
 
 # 3. (Optional) install the full icon set
-npx @thingspire/ui@latest add icons
+npx @309-thingspire/ui@latest add icons
 ```
 
 After step 1 you'll have a `design-library.json` at the project root:
@@ -161,14 +161,14 @@ matching component three ways:
 
 ```bash
 # 1. CLI search
-npx @thingspire/ui search arrow-right
+npx @309-thingspire/ui search arrow-right
 #   IconArrowRightLine                  arrow-right-line
 #   IconArrowRightFill                  arrow-right-fill
 #   IconArrowRightCircleLine            arrow-right-circle-line
 #   ...
 
 # 2. Multiple terms narrow the result
-npx @thingspire/ui search arrow s line   # chevron-shaped arrows
+npx @309-thingspire/ui search arrow s line   # chevron-shaped arrows
 
 # 3. Live gallery (search + click to copy the component name)
 open https://thingspire-dsg.vercel.app/components/icons
@@ -269,7 +269,7 @@ extra wiring.
 ## 9. CLI reference
 
 ```bash
-npx @thingspire/ui <command> [options]
+npx @309-thingspire/ui <command> [options]
 ```
 
 | Command | What it does |
@@ -293,13 +293,13 @@ Examples:
 
 ```bash
 # Add several components at once
-npx @thingspire/ui add button checkbox input dropdown
+npx @309-thingspire/ui add button checkbox input dropdown
 
 # Refresh after the source library updated
-npx @thingspire/ui add button --overwrite
+npx @309-thingspire/ui add button --overwrite
 
 # Use a custom registry (e.g. preview deployment)
-npx @thingspire/ui --registry https://thingspire-dsg-staging.vercel.app/r add button
+npx @309-thingspire/ui --registry https://thingspire-dsg-staging.vercel.app/r add button
 ```
 
 ---
@@ -327,7 +327,7 @@ whole tree-shakable library in your project at once.
 
 ```bash
 # Refresh the components you've already pulled
-npx @thingspire/ui add button --overwrite
+npx @309-thingspire/ui add button --overwrite
 ```
 
 Because the components are plain source in your repo after
@@ -381,7 +381,7 @@ elsewhere set it yourself.
 Confirm `tokens.css` is imported once at the app entry, and that
 `data-theme="dark"` is set on `<html>` (not `<body>`).
 
-**`npx @thingspire/ui add …` fails to fetch**
+**`npx @309-thingspire/ui add …` fails to fetch**
 The registry URL might be down or your firewall blocks Vercel. Try a
 direct curl:
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import CopyButton from './_components/copy-button'
 
-const INSTALL_CMD = 'npx @thingspire/ui@latest add button'
+const INSTALL_CMD = 'npx @309-thingspire/ui@latest add button'
 
 export default function HomePage() {
   return (
@@ -62,13 +62,13 @@ export default function HomePage() {
               <span className="quickstart__step">1</span>
               <h3 className="quickstart__heading">Initialise</h3>
               <p className="quickstart__body">프로젝트 루트에서 CLI를 초기화하면 design-library.json 설정 파일이 생성됩니다.</p>
-              <code style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>npx @thingspire/ui init</code>
+              <code style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>npx @309-thingspire/ui init</code>
             </div>
             <div className="quickstart__card">
               <span className="quickstart__step">2</span>
               <h3 className="quickstart__heading">Add a component</h3>
               <p className="quickstart__body">필요한 컴포넌트만 골라서 로컬 프로젝트에 직접 복사합니다.</p>
-              <code style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>npx @thingspire/ui add button</code>
+              <code style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>npx @309-thingspire/ui add button</code>
             </div>
             <div className="quickstart__card">
               <span className="quickstart__step">3</span>

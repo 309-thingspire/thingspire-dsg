@@ -76,7 +76,7 @@ inline SVG for shapes you would not name.
 ## Installation via CLI
 
 ```bash
-npx @thingspire/ui add icons
+npx @309-thingspire/ui add icons
 ```
 
 Pulls the full bundle (`IconLibrary.tsx`, `IconLibrary.types.ts`,

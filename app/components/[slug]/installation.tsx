@@ -11,13 +11,13 @@ const PM_LABEL: Record<Pm, string> = { npm: 'npm', pnpm: 'pnpm', yarn: 'yarn', b
 function buildCmd(pm: Pm, slug: string): string {
   switch (pm) {
     case 'npm':
-      return `npx @thingspire/ui@latest add ${slug}`
+      return `npx @309-thingspire/ui@latest add ${slug}`
     case 'pnpm':
-      return `pnpm dlx @thingspire/ui@latest add ${slug}`
+      return `pnpm dlx @309-thingspire/ui@latest add ${slug}`
     case 'yarn':
-      return `yarn dlx @thingspire/ui@latest add ${slug}`
+      return `yarn dlx @309-thingspire/ui@latest add ${slug}`
     case 'bun':
-      return `bunx @thingspire/ui@latest add ${slug}`
+      return `bunx @309-thingspire/ui@latest add ${slug}`
   }
 }
 

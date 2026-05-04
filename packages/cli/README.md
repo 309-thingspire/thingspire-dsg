@@ -1,4 +1,4 @@
-# @thingspire/ui
+# @309-thingspire/ui
 
 CLI for the [Thingspire UI](https://thingspire-dsg.vercel.app) design library. Copies component source, types, and tokens into your project — no runtime dependency, no lock-in.
 
@@ -6,13 +6,13 @@ CLI for the [Thingspire UI](https://thingspire-dsg.vercel.app) design library. C
 
 ```bash
 # 1. Initialise the config in your project
-npx @thingspire/ui init
+npx @309-thingspire/ui init
 
 # 2. Add a component
-npx @thingspire/ui add button
+npx @309-thingspire/ui add button
 
 # 3. (optional) See what's available
-npx @thingspire/ui list
+npx @309-thingspire/ui list
 ```
 
 ## Configuration (`design-library.json`)
