@@ -185,7 +185,7 @@ function SearchField({
         width: '100%',
         maxWidth: SEARCH_MAX_WIDTH,
         minWidth: spacing.scale['144'],
-        boxShadow: withFocusRing(shadows.elevation.xs.css, interactionState, disabled),
+        boxShadow: interactionState === 'focus' && !disabled ? shadows.focusRing.light.css : 'none',
       }}
     >
       <div
