@@ -4,6 +4,12 @@ export type NavigationBarType = '01' | '02' | '03' | '04' | '05' | '06' | '07' |
 
 export type NavigationBarInteractionState = 'default' | 'hover' | 'focus' | 'disabled';
 
+export interface NavigationBarLanguageItem {
+  id: string;
+  label: ReactNode;
+  caption?: ReactNode;
+}
+
 export interface NavigationBarLinkItem {
   id: string;
   label: string;
@@ -29,6 +35,18 @@ export interface NavigationBarProps extends Omit<HTMLAttributes<HTMLElement>, 'o
   ctaLabel?: string;
   helpLabel?: string;
   avatarSrc?: string;
+  // Type 02 specific
+  showMenuButton?: boolean;
+  languageLabel?: string;
+  languageItems?: NavigationBarLanguageItem[];
+  selectedLanguageId?: string;
+  defaultSelectedLanguageId?: string;
+  languageMenuOpen?: boolean;
+  defaultLanguageMenuOpen?: boolean;
+  onMenuClick?: () => void;
+  onLanguageClick?: () => void;
+  onLanguageMenuOpenChange?: (open: boolean) => void;
+  onLanguageChange?: (id: string) => void;
   onLinkClick?: (id: string) => void;
   onCtaClick?: () => void;
   onBottomLinkClick?: (id: string) => void;
