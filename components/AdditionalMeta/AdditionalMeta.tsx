@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, type ReactNode } from 'react';
 
 import { border, colors, radius, spacing, typography } from '../../style-tokens';
 import {

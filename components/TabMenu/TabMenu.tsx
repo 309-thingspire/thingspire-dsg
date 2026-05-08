@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
 
@@ -312,7 +312,7 @@ export function TabMenu({
         const showBadge = typeof item.badge === 'string' && item.badge.trim().length > 0;
         const textTypography = getTypographyToken(type, config);
 
-        const buttonStyle =
+        const buttonStyle: CSSProperties =
           type === 'fill'
             ? {
                 display: 'inline-flex',

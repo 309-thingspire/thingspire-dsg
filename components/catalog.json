@@ -35,7 +35,7 @@
     { "slug": "dropdown", "folder": "Dropdown", "label": "Dropdown", "description": "Menu of selectable items triggered by a button." },
     { "slug": "feature-card", "folder": "FeatureCard", "label": "Feature Card", "description": "Marketing card highlighting a feature." },
     { "slug": "middle", "folder": "Middle", "label": "Middle", "description": "Sidebar middle region: caption-headed cell groups (1-4 blocks)." },
-    { "slug": "pagination", "folder": "Pagenation", "label": "Pagination", "description": "Page navigation controls." },
+    { "slug": "pagination", "folder": "Pagination", "label": "Pagination", "description": "Page navigation controls." },
     { "slug": "quantity-stepper", "folder": "QuantityStepper", "label": "Quantity Stepper", "description": "Increment/decrement numeric input." },
     { "slug": "search-input", "folder": "SearchInput", "label": "Search Input", "description": "Input with a search icon affordance." },
     { "slug": "select-input", "folder": "SelectInput", "label": "Select Input", "description": "Dropdown-based selection input." },

@@ -97,16 +97,16 @@
 - Date: 2026-03-03 (Asia/Seoul)
 
 ### What was built
-- Figma MCP `Pagination` 기반 `Pagenation` 컴포넌트 구현:
-  - `/Users/309agent/cursor/309-design-library/components/Pagenation/Pagenation.tsx`
-  - `/Users/309agent/cursor/309-design-library/components/Pagenation/Pagenation.types.ts`
-  - `/Users/309agent/cursor/309-design-library/components/Pagenation/Pagenation.preview.tsx`
-  - `/Users/309agent/cursor/309-design-library/components/Pagenation/Pagenation.docs.md`
+- Figma MCP `Pagination` 기반 `Pagination` 컴포넌트 구현:
+  - `/Users/309agent/cursor/309-design-library/components/Pagination/Pagination.tsx`
+  - `/Users/309agent/cursor/309-design-library/components/Pagination/Pagination.types.ts`
+  - `/Users/309agent/cursor/309-design-library/components/Pagination/Pagination.preview.tsx`
+  - `/Users/309agent/cursor/309-design-library/components/Pagination/Pagination.docs.md`
 - 아이콘 에셋 저장:
-  - `/Users/309agent/cursor/309-design-library/components/Pagenation/assets/*.svg`
+  - `/Users/309agent/cursor/309-design-library/components/Pagination/assets/*.svg`
 
 ### Decisions made
-- 사용자 요청 컴포넌트 명칭(`Pagenation`)을 파일/컴포넌트명에 그대로 반영.
+- 사용자 요청 컴포넌트 명칭(`Pagination`)을 파일/컴포넌트명에 그대로 반영.
 - Figma variant 축:
   - `Type=Arrows|Numbers|Buttons`
   - `Size=md|sm`
@@ -121,7 +121,7 @@
   - `/Users/309agent/cursor/309-design-library/style-tokens.ts`
 
 ### Components created
-- `Pagenation` (React + TypeScript)
+- `Pagination` (React + TypeScript)
 - Variant 축:
   - `type`: `arrows | numbers | buttons`
   - `size`: `md | sm`
@@ -129,8 +129,8 @@
 
 ### Next action items
 1. Figma에서 Pagination hover/disabled 시각 variant가 추가되면 상태별 토큰 매핑 보강.
-2. Preview 엔트리 라우팅에 `Pagenation.preview.tsx`를 연결해 브라우저 즉시 검증 가능 상태로 확장.
-3. `Pagenation` 명칭을 `Pagination`으로 정규화할지 팀 컨벤션 확정 후 리네이밍 검토.
+2. Preview 엔트리 라우팅에 `Pagination.preview.tsx`를 연결해 브라우저 즉시 검증 가능 상태로 확장.
+3. `Pagination` 명칭을 `Pagination`으로 정규화할지 팀 컨벤션 확정 후 리네이밍 검토.
 
 ## Session 4
 - Date: 2026-03-03 (Asia/Seoul)

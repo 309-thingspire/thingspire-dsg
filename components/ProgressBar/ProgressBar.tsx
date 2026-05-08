@@ -1,5 +1,6 @@
 import React from 'react';
 import { colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { HelperIconDefault, HelperIconDestructive, TailIconDefault } from './ProgressBar.assets';
 
 import type {
   ProgressBarColor,
@@ -17,10 +18,6 @@ type TypographyToken = {
   lineHeight: number;
   letterSpacing: number;
 };
-
-const TAIL_ICON_DEFAULT_SRC = '/components/ProgressBar/assets/tail-icon-default.svg';
-const HELPER_ICON_DEFAULT_SRC = '/components/ProgressBar/assets/helper-icon-default.svg';
-const HELPER_ICON_DESTRUCTIVE_SRC = '/components/ProgressBar/assets/helper-icon-destructive.svg';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
@@ -98,9 +95,7 @@ function withFocusRing(interactionState: ProgressBarInteractionState): string {
 
 function TailIcon({ disabled }: { disabled: boolean }) {
   return (
-    <img
-      src={TAIL_ICON_DEFAULT_SRC}
-      alt=""
+    <span
       aria-hidden="true"
       style={{
         width: spacing.scale['16'],
@@ -110,15 +105,16 @@ function TailIcon({ disabled }: { disabled: boolean }) {
         userSelect: 'none',
         pointerEvents: 'none',
       }}
-    />
+    >
+      <TailIconDefault />
+    </span>
   );
 }
 
 function HelperIcon({ destructive, disabled }: { destructive: boolean; disabled: boolean }) {
+  const Component = destructive ? HelperIconDestructive : HelperIconDefault;
   return (
-    <img
-      src={destructive ? HELPER_ICON_DESTRUCTIVE_SRC : HELPER_ICON_DEFAULT_SRC}
-      alt=""
+    <span
       aria-hidden="true"
       style={{
         width: spacing.scale['16'],
@@ -128,7 +124,9 @@ function HelperIcon({ destructive, disabled }: { destructive: boolean; disabled:
         userSelect: 'none',
         pointerEvents: 'none',
       }}
-    />
+    >
+      <Component />
+    </span>
   );
 }
 

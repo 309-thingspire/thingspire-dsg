@@ -14,7 +14,6 @@ type TypographyToken = {
 
 const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
-const metal3DImage = '/components/Banner/assets/metal-3d-1.png';
 
 const SIZE_293 = spacing.scale['288'] + spacing.primitive['5'];
 const SIZE_272 = spacing.primitive['256'] + spacing.scale['16'];
@@ -41,19 +40,22 @@ function resolveState(forcedState: BannerState | undefined, hovered: boolean, in
   return 'default';
 }
 
+// Lightweight placeholder shown when the consumer doesn't pass imageSlot.
+// Previously a 4.5MB .png — bundling that into every consumer's app was
+// unacceptable, so we render a subtle gradient block at the same dimensions.
+// Consumers should pass their own imageSlot for production usage.
 function DefaultImage({ direction }: { direction: BannerDirection }) {
   const size = direction === 'horizontal' ? SIZE_293 : SIZE_272;
 
   return (
-    <img
-      src={metal3DImage}
-      alt=""
+    <div
       aria-hidden="true"
       style={{
         width: size,
         height: size,
         display: 'block',
-        objectFit: 'cover',
+        borderRadius: radius.scale.lg,
+        background: `linear-gradient(135deg, ${palette.green['4']} 0%, ${palette.green['7']} 100%)`,
         userSelect: 'none',
         pointerEvents: 'none',
       }}

@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
 import { IconArrowDownSLine, IconCheckLine, IconGlobalLine, IconMenuLine } from '../icons';
+import { AvatarFallbackSvg, ProAccessSvg, ThingspireWordmark } from './NavigationBar.assets';
 
 import type {
   NavigationBarInteractionState,
@@ -19,12 +20,6 @@ type TypographyToken = {
   lineHeight: number;
   letterSpacing: number;
 };
-
-// Brand assets — kept as static images so the existing artwork is preserved.
-// Postbuild mirrors components/NavigationBar/assets/ to public/components/NavigationBar/assets/.
-const LOGO_SRC = '/components/NavigationBar/assets/logo.svg';
-const PRO_ACCESS_ICON_SRC = '/components/NavigationBar/assets/pro-access.svg';
-const DEFAULT_AVATAR_SRC = '/components/NavigationBar/assets/avatar.png';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
@@ -118,11 +113,9 @@ function getBottomLinks(bottomLinks: NavigationBarLinkItem[] | undefined): Navig
   return TYPE08_DEFAULT_BOTTOM_LINKS;
 }
 
-function IconImage({ src, size = ICON_SIZE }: { src: string; size?: number }) {
+function IconImage({ children, size = ICON_SIZE }: { children: ReactNode; size?: number }) {
   return (
-    <img
-      src={src}
-      alt=""
+    <span
       aria-hidden="true"
       style={{
         width: size,
@@ -131,7 +124,9 @@ function IconImage({ src, size = ICON_SIZE }: { src: string; size?: number }) {
         userSelect: 'none',
         pointerEvents: 'none',
       }}
-    />
+    >
+      {children}
+    </span>
   );
 }
 
@@ -148,9 +143,9 @@ function LogoMark() {
         flexShrink: 0,
       }}
     >
-      <img
-        src={LOGO_SRC}
-        alt="thingspire"
+      <span
+        role="img"
+        aria-label="thingspire"
         style={{
           width: LOGO_VECTOR_WIDTH,
           height: LOGO_VECTOR_HEIGHT,
@@ -158,7 +153,9 @@ function LogoMark() {
           userSelect: 'none',
           pointerEvents: 'none',
         }}
-      />
+      >
+        <ThingspireWordmark />
+      </span>
     </span>
   );
 }
@@ -260,7 +257,7 @@ function NavigationMainItem({
   if (item.icon) {
     iconNode = item.icon;
   } else if (hasProIcon) {
-    iconNode = <IconImage src={PRO_ACCESS_ICON_SRC} />;
+    iconNode = <IconImage><ProAccessSvg /></IconImage>;
   }
 
   return (
@@ -1005,19 +1002,23 @@ export function NavigationBar({
               display: 'inline-flex',
             }}
           >
-            <img
-              src={avatarSrc ?? DEFAULT_AVATAR_SRC}
-              alt=""
-              aria-hidden="true"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-                userSelect: 'none',
-                pointerEvents: 'none',
-              }}
-            />
+            {avatarSrc ? (
+              <img
+                src={avatarSrc}
+                alt=""
+                aria-hidden="true"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  userSelect: 'none',
+                  pointerEvents: 'none',
+                }}
+              />
+            ) : (
+              <AvatarFallbackSvg />
+            )}
           </span>
         </div>
 

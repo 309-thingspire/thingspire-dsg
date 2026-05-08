@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, NavHTMLAttributes, ReactNode } from 'react';
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 export type BreadcrumbsSize = 'sm' | 'md';
 
@@ -16,7 +16,7 @@ export interface BreadcrumbsItem {
   anchorProps?: Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'children'>;
 }
 
-export interface BreadcrumbsProps extends Omit<NavHTMLAttributes<HTMLElement>, 'children'> {
+export interface BreadcrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   items: BreadcrumbsItem[];
   size?: BreadcrumbsSize;
   divider?: BreadcrumbsDivider;

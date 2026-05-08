@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
 import { IconArrowDownSLine, IconEarthLine, IconInformationLine } from '../icons';
+import { FlagBaseSvg, FlagGroupSvg, FlagOverlaySvg } from './Input.assets';
 
 import type { InputProps, InputSize, InputTarget, InputVisualState } from './Input.types';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
 const textStatus = colors.semantic.theme.text.status;
-
-// Country-flag composition assets are kept as static images so the existing
-// designer-shipped artwork is preserved. Postbuild mirrors them to public/.
-const FLAG_BASE_SRC = '/components/Input/assets/flag-base.svg';
-const FLAG_GROUP_SRC = '/components/Input/assets/flag-group.svg';
-const FLAG_OVERLAY_SRC = '/components/Input/assets/flag-overlay.svg';
 
 type TypographyToken = {
   fontFamily: string;
@@ -151,11 +146,15 @@ function FlagIcon({ disabled }: { disabled: boolean }) {
         mixBlendMode: disabled ? 'luminosity' : 'normal',
       }}
     >
-      <img src={FLAG_BASE_SRC} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }} />
-      <span style={{ position: 'absolute', inset: spacing.scale['0'] }}>
-        <img src={FLAG_GROUP_SRC} alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+      <span style={{ position: 'absolute', inset: 0, display: 'block' }}>
+        <FlagBaseSvg />
       </span>
-      <img src={FLAG_OVERLAY_SRC} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }} />
+      <span style={{ position: 'absolute', inset: spacing.scale['0'] }}>
+        <FlagGroupSvg />
+      </span>
+      <span style={{ position: 'absolute', inset: 0, display: 'block' }}>
+        <FlagOverlaySvg />
+      </span>
     </span>
   );
 }
