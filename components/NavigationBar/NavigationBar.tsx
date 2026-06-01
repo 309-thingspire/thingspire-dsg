@@ -152,6 +152,9 @@ function LogoMark() {
           display: 'block',
           userSelect: 'none',
           pointerEvents: 'none',
+          // Wordmark paths use fill="currentColor"; follow the theme
+          // (near-black in light, white in dark).
+          color: colors.semantic.theme.text.base.primary,
         }}
       >
         <ThingspireWordmark />
