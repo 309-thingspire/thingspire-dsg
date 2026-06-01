@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import GlobalNav from './_components/global-nav'
 import ThemeScript from './_components/theme-script'
+import '../styles/theme-tokens.css'
 import './globals.css'
 
 export const metadata: Metadata = {

@@ -76,8 +76,8 @@ function resolveItemState(
   isCurrent: boolean,
   forceState: BreadcrumbsVisualState | undefined,
 ): ItemStyleState {
-  const secondary = colors.semantic.theme.text.base.staticDarkSecondary;
-  const primary = colors.semantic.theme.text.base.staticDark;
+  const secondary = colors.semantic.theme.text.base.secondary;
+  const primary = colors.semantic.theme.text.base.primary;
 
   if (forceState === 'disabled' || item.disabled) {
     return {
@@ -136,7 +136,7 @@ function ArrowDividerIcon({ size }: { size: BreadcrumbsSize }) {
         height: iconSize,
         display: 'block',
         flexShrink: 0,
-        color: colors.semantic.theme.text.base.staticDarkSecondary,
+        color: colors.semantic.theme.text.base.secondary,
       }}
     >
       <path d={path} fill="currentColor" />
@@ -156,7 +156,7 @@ function BreadcrumbDivider({ divider, size }: { divider: BreadcrumbsDivider; siz
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: colors.semantic.theme.text.base.staticDarkSecondary,
+          color: colors.semantic.theme.text.base.secondary,
           fontFamily: sizeConfig.slashTypography.fontFamily,
           fontSize: sizeConfig.slashTypography.fontSize,
           fontWeight: sizeConfig.slashTypography.fontWeight,

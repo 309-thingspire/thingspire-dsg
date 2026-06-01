@@ -188,7 +188,7 @@ function ArrowIcon({ direction }: { direction: 'left' | 'right' }) {
         width: HEADER_ICON_SIZE,
         height: HEADER_ICON_SIZE,
         display: 'block',
-        color: textBase.staticDarkSecondary,
+        color: textBase.secondary,
       }}
     >
       <path d={direction === 'left' ? ARROW_LEFT_PATH : ARROW_RIGHT_PATH} fill="currentColor" />
@@ -230,7 +230,7 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
           >
             <span
               style={{
-                color: textBase.staticDark,
+                color: textBase.primary,
                 ...toTypographyStyle(typography.scale.captionL.medium),
                 whiteSpace: 'nowrap',
               }}
@@ -262,9 +262,9 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
             paddingBlock: spacing.scale['6'],
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: palette.gray['3'],
+            borderColor: colors.semantic.theme.border.action.normal,
             borderRadius: radius.scale.lg,
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             overflow: 'hidden',
             boxSizing: 'border-box',
           }}
@@ -303,7 +303,7 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
               >
                 <span
                   style={{
-                    color: textBase.staticDark,
+                    color: textBase.primary,
                     ...toTypographyStyle(typography.scale.captionL.regular),
                     whiteSpace: 'nowrap',
                   }}
@@ -347,10 +347,10 @@ function ActionButton({
         paddingBlock: spacing.scale['6'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: isPrimary ? palette.gray['13'] : palette.gray['3'],
+        borderColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: isPrimary ? palette.gray['13'] : palette.base.white,
-        color: isPrimary ? palette.base.white : textBase.staticDark,
+        backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
+        color: isPrimary ? colors.semantic.theme.background.surface.default : textBase.primary,
         boxShadow: shadows.elevation.xs.css,
         cursor: 'pointer',
       }}
@@ -670,9 +670,9 @@ export function Calendar({
         padding: spacing.scale['12'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: palette.gray['3'],
+        borderColor: colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.xl,
-        backgroundColor: palette.base.white,
+        backgroundColor: colors.semantic.theme.background.surface.default,
         boxShadow: shadows.elevation.lg.css,
         boxSizing: 'border-box',
         ...style,
@@ -709,7 +709,7 @@ export function Calendar({
           >
             <span
               style={{
-                color: textBase.staticDark,
+                color: textBase.primary,
                 ...toTypographyStyle(typography.scale.captionL.medium),
                 whiteSpace: 'nowrap',
               }}
@@ -807,7 +807,7 @@ export function Calendar({
             >
               <span
                 style={{
-                  color: textBase.staticDarkSecondary,
+                  color: textBase.secondary,
                   ...toTypographyStyle(typography.scale.captionM.regular),
                   textAlign: 'center',
                   whiteSpace: 'nowrap',
@@ -869,7 +869,7 @@ export function Calendar({
 
                 const textColor = (() => {
                   if (state === 'disabled') {
-                    return textBase.staticDarkQuaternary;
+                    return textBase.quaternary;
                   }
 
                   if (isCurrentDate) {
@@ -877,23 +877,23 @@ export function Calendar({
                   }
 
                   if (state === 'active' && type === 'date') {
-                    return textBase.staticDark;
+                    return textBase.primary;
                   }
 
                   if (isRangeEdge && (state === 'active' || state === 'hover')) {
-                    return textBase.staticDark;
+                    return textBase.primary;
                   }
 
-                  return textBase.staticDarkSecondary;
+                  return textBase.secondary;
                 })();
 
                 const innerBackgroundColor = (() => {
                   if (type === 'date' && state === 'active') {
-                    return palette.base.white;
+                    return colors.semantic.theme.background.surface.default;
                   }
 
                   if (isRangeEdge && (state === 'active' || state === 'hover')) {
-                    return palette.base.white;
+                    return colors.semantic.theme.background.surface.default;
                   }
 
                   return palette.base.transparent;
@@ -1033,7 +1033,7 @@ export function Calendar({
                           position: 'absolute',
                           top: `calc(50% - ${RANGE_FILL_HEIGHT / 2}px)`,
                           height: RANGE_FILL_HEIGHT,
-                          backgroundColor: palette.gray['1a'],
+                          backgroundColor: colors.semantic.theme.background.button.tertiary,
                           ...fillStyle,
                         }}
                       />

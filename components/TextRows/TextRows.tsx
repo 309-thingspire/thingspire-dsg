@@ -31,7 +31,7 @@ const headlineStyle: React.CSSProperties = {
   fontWeight: headlineTypography.fontWeight,
   lineHeight: `${headlineTypography.lineHeight}px`,
   letterSpacing: `${headlineTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   width: '100%',
 };
@@ -42,7 +42,7 @@ const titleStyle: React.CSSProperties = {
   fontWeight: titleTypography.fontWeight,
   lineHeight: `${titleTypography.lineHeight}px`,
   letterSpacing: `${titleTypography.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -53,7 +53,7 @@ const contentStyle: React.CSSProperties = {
   fontWeight: contentTypography.fontWeight,
   lineHeight: `${contentTypography.lineHeight}px`,
   letterSpacing: `${contentTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -99,7 +99,7 @@ function Divider() {
         style={{
           width: '100%',
           height: 1,
-          backgroundColor: palette.gray['2'],
+          backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
         }}
       />
     </div>

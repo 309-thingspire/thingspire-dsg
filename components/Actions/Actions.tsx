@@ -23,7 +23,7 @@ const FIELD_TEXT_STYLE: React.CSSProperties = {
   fontWeight: captionLRegular.fontWeight,
   lineHeight: `${captionLRegular.lineHeight}px`,
   letterSpacing: `${captionLRegular.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
 };
 
@@ -43,7 +43,7 @@ const TAB_BADGE_TEXT_STYLE: React.CSSProperties = {
   fontWeight: captionLMedium.fontWeight,
   lineHeight: `${captionLMedium.lineHeight}px`,
   letterSpacing: `${captionLMedium.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -133,10 +133,10 @@ function InputActions({
           gap: spacing.scale['4'],
           paddingInline: spacing.scale['12'],
           paddingBlock: spacing.scale['10'],
-          backgroundColor: palette.base.white,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           borderStyle: 'solid',
           borderWidth: border.width['1'],
-          borderColor: focused ? palette.purple['8'] : palette.gray['3'],
+          borderColor: focused ? palette.purple['8'] : colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xl,
           boxShadow: focused ? shadows.focusRing.light.css : '0px 1px 2px 0px rgba(20,21,26,0.05)',
           boxSizing: 'border-box',
@@ -149,7 +149,7 @@ function InputActions({
               display: 'inline-flex',
               alignItems: 'center',
               flexShrink: 0,
-              color: palette.gray['7a'],
+              color: colors.semantic.theme.text.base.tertiary,
             }}
           >
             {leadIcon ?? (
@@ -229,7 +229,7 @@ function TabsActions({
         justifyContent: 'center',
         gap: spacing.scale['2'],
         padding: spacing.scale['2'],
-        backgroundColor: palette.gray['2'],
+        backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
         borderRadius: radius.scale.xl,
       }}
     >
@@ -255,8 +255,8 @@ function TabsActions({
               borderRadius: radius.scale.lg,
               borderStyle: 'solid',
               borderWidth: isActive ? border.width['1'] : border.width['0'],
-              borderColor: isActive ? palette.gray['3'] : 'transparent',
-              backgroundColor: isActive ? palette.base.white : 'transparent',
+              borderColor: isActive ? colors.semantic.theme.border.action.normal : 'transparent',
+              backgroundColor: isActive ? colors.semantic.theme.background.surface.default : 'transparent',
               boxShadow: isActive ? '0px 1px 2px 0px rgba(20,21,26,0.05)' : 'none',
               cursor: 'pointer',
               appearance: 'none',
@@ -266,7 +266,7 @@ function TabsActions({
             <span
               style={{
                 ...TAB_TEXT_STYLE,
-                color: isActive ? palette.gray['13'] : palette.gray['9a'],
+                color: isActive ? colors.semantic.theme.text.base.primary : colors.semantic.theme.text.base.secondary,
               }}
             >
               {tab.label}
@@ -279,7 +279,7 @@ function TabsActions({
                   justifyContent: 'center',
                   paddingInline: spacing.scale['8'],
                   paddingBlock: spacing.scale['2'],
-                  backgroundColor: palette.gray['1a'],
+                  backgroundColor: colors.semantic.theme.background.button.tertiary,
                   borderRadius: radius.scale.md,
                 }}
               >

@@ -6,7 +6,6 @@ import { IconAddLine, IconArrowLeftLine } from '../icons';
 
 import type { PageHeaderActionItem, PageHeaderProps } from './PageHeader.types';
 
-const palette = colors.primitive.palette;
 
 const headlineTypography = typography.scale.h6.semiBold;
 const descriptionTypography = typography.scale.bodyS.regular;
@@ -17,7 +16,7 @@ const headlineStyle: React.CSSProperties = {
   fontWeight: headlineTypography.fontWeight,
   lineHeight: `${headlineTypography.lineHeight}px`,
   letterSpacing: `${headlineTypography.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   width: '100%',
 };
@@ -28,7 +27,7 @@ const descriptionStyle: React.CSSProperties = {
   fontWeight: descriptionTypography.fontWeight,
   lineHeight: `${descriptionTypography.lineHeight}px`,
   letterSpacing: `${descriptionTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   width: '100%',
 };
@@ -133,7 +132,7 @@ export function PageHeader({
                 cursor: 'pointer',
                 appearance: 'none',
                 outline: 'none',
-                color: palette.gray['13'],
+                color: colors.semantic.theme.text.base.primary,
                 flexShrink: 0,
               }}
             >

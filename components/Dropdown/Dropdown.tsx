@@ -330,11 +330,11 @@ export function Dropdown({
           paddingBlock: spacing.scale['10'],
           borderStyle: 'solid',
           borderWidth: border.width['1'],
-          borderColor: palette.gray['3'],
+          borderColor: colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xl,
-          backgroundColor: palette.base.white,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           boxShadow: triggerFocused ? shadows.focusRing.light.css : 'none',
-          color: textBase.staticDark,
+          color: textBase.primary,
           cursor: triggerDisabled ? 'not-allowed' : 'pointer',
           boxSizing: 'border-box',
         }}
@@ -342,7 +342,7 @@ export function Dropdown({
         <span
           style={{
             ...toTypographyStyle(typography.scale.captionL.medium),
-            color: triggerDisabled ? textBase.staticDarkQuaternary : textBase.staticDark,
+            color: triggerDisabled ? textBase.quaternary : textBase.primary,
             paddingInline: spacing.scale['4'],
           }}
         >
@@ -379,9 +379,9 @@ export function Dropdown({
             paddingInline: spacing.scale['0'],
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: palette.gray['3'],
+            borderColor: colors.semantic.theme.border.action.normal,
             borderRadius: radius.scale.xl,
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             boxShadow: shadows.elevation.lg.css,
             boxSizing: 'border-box',
             zIndex: spacing.scale['20'],
@@ -404,20 +404,20 @@ export function Dropdown({
             const rowHeight = getRowHeight(variant);
             const avatarSize = getAvatarSize(variant, size);
 
-            const labelColor = isDisabled ? textBase.staticDarkQuaternary : textBase.staticDark;
-            const subTextColor = isDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
+            const labelColor = isDisabled ? textBase.quaternary : textBase.primary;
+            const subTextColor = isDisabled ? textBase.quaternary : textBase.tertiary;
 
             const overlayBackground = (() => {
               if (isSelected && variant === 'select') {
                 if (visualState === 'hover') {
-                  return palette.gray['2a'];
+                  return colors.semantic.theme.background.button.tertiaryHover;
                 }
 
-                return palette.gray['1a'];
+                return colors.semantic.theme.background.button.tertiary;
               }
 
               if (visualState === 'hover') {
-                return palette.gray['1a'];
+                return colors.semantic.theme.background.button.tertiary;
               }
 
               return palette.base.transparent;
@@ -605,15 +605,15 @@ export function Dropdown({
                     paddingBlock: spacing.scale['0'],
                     borderStyle: 'solid',
                     borderWidth: border.width['1'],
-                    borderColor: palette.gray['2a'],
+                    borderColor: colors.semantic.theme.background.button.tertiaryHover,
                     borderRadius: radius.scale.xs,
-                    backgroundColor: variant === 'select' ? palette.blue['2'] : palette.base.white,
+                    backgroundColor: variant === 'select' ? palette.blue['2'] : colors.semantic.theme.background.surface.default,
                   }}
                 >
                   <span
                     style={{
                       ...toTypographyStyle(typography.scale.captionM.medium),
-                      color: variant === 'select' ? palette.blue['11'] : textBase.staticDarkSecondary,
+                      color: variant === 'select' ? palette.blue['11'] : textBase.secondary,
                       paddingInline: spacing.scale['2'],
                     }}
                   >
@@ -643,7 +643,7 @@ export function Dropdown({
                     alignItems: 'center',
                     justifyContent: item.toggleActive ? 'flex-end' : 'flex-start',
                     backgroundColor: isDisabled
-                      ? palette.gray['2']
+                      ? colors.semantic.theme.background.surface.neutralSubtle
                       : item.toggleActive
                         ? palette.green[visualState === 'hover' ? '9' : '8']
                         : palette.gray['5'],
@@ -655,7 +655,7 @@ export function Dropdown({
                       width: spacing.scale['12'],
                       height: spacing.scale['12'],
                       borderRadius: radius.scale.full,
-                      backgroundColor: isDisabled ? palette.gray['4'] : palette.base.white,
+                      backgroundColor: isDisabled ? palette.gray['4'] : colors.semantic.theme.background.surface.default,
                       boxShadow: isDisabled ? 'none' : shadows.elevation.xs['0'].css,
                     }}
                   />
@@ -828,7 +828,7 @@ export function Dropdown({
                   width: spacing.scale['4'],
                   height: spacing.scale['112'],
                   borderRadius: radius.scale.full,
-                  backgroundColor: palette.gray['2'],
+                  backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
                   transform: 'translateX(-50%)',
                 }}
               />

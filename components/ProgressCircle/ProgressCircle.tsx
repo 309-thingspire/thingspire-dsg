@@ -81,8 +81,8 @@ export function ProgressCircle({
   const circumference = spacing.scale['2'] * Math.PI * radius;
   const dashOffset = circumference - (progress / PROGRESS_MAX) * circumference;
 
-  const trackColor = palette.gray['2'];
-  const fillColor = disabled ? palette.gray['4'] : COLOR_TO_STROKE[color];
+  const trackColor = colors.semantic.theme.background.surface.neutralSubtle;
+  const fillColor = disabled ? colors.semantic.theme.border.action.hover : COLOR_TO_STROKE[color];
   const shouldShowLabel = typeof showLabel === 'boolean' ? showLabel : config.showLabelByDefault;
   const progressText = label ?? `${Math.round(progress)}%`;
 
@@ -121,20 +121,20 @@ export function ProgressCircle({
           cy={config.circleSize / spacing.scale['2']}
           r={radius}
           fill="none"
-          stroke={trackColor}
           strokeWidth={config.strokeWidth}
+          style={{ stroke: trackColor }}
         />
         <circle
           cx={config.circleSize / spacing.scale['2']}
           cy={config.circleSize / spacing.scale['2']}
           r={radius}
           fill="none"
-          stroke={fillColor}
           strokeWidth={config.strokeWidth}
           strokeLinecap={progress <= PROGRESS_MIN ? 'butt' : 'round'}
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
           style={{
+            stroke: fillColor,
             transitionProperty: 'stroke-dashoffset, stroke',
             transitionDuration: `${spacing.scale['160']}ms`,
             transitionTimingFunction: 'linear',
@@ -149,7 +149,7 @@ export function ProgressCircle({
             width: config.labelWidth,
             left: `calc(50% - ${config.labelWidth / spacing.scale['2']}px)`,
             top: `calc(50% - ${typography.scale.captionL.medium.lineHeight / spacing.scale['2']}px)`,
-            color: disabled ? textBase.staticDarkQuaternary : textBase.staticDark,
+            color: disabled ? textBase.quaternary : textBase.primary,
             textAlign: 'center',
             whiteSpace: 'nowrap',
             ...{

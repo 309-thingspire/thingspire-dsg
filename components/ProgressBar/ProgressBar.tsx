@@ -185,13 +185,13 @@ export function ProgressBar({
   const disabled = interactionState === 'disabled';
   const lineHeight = SIZE_TO_LINE_HEIGHT[size];
   const progress = clampProgress(progressValue);
-  const fillColor = disabled ? palette.gray['4'] : COLOR_TO_FILL[resolvedColor];
+  const fillColor = disabled ? colors.semantic.theme.border.action.hover : COLOR_TO_FILL[resolvedColor];
   const resolvedShowProgressState = resolveShowProgressState(showProgressState, target);
   const resolvedShowTailIcon = typeof showTailIcon === 'boolean' ? showTailIcon : resolvedShowProgressState;
   const resolvedShowHelper = resolveShowHelper(showHelper, direction);
-  const helperColor = isDestructive ? textStatus.destructive : textBase.staticDarkTertiary;
-  const optionalColor = disabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
-  const primaryTextColor = disabled ? textBase.staticDarkQuaternary : textBase.staticDark;
+  const helperColor = isDestructive ? textStatus.destructive : textBase.tertiary;
+  const optionalColor = disabled ? textBase.quaternary : textBase.tertiary;
+  const primaryTextColor = disabled ? textBase.quaternary : textBase.primary;
   const progressText = valueText ?? `${Math.round(progress)}%`;
 
   return (
@@ -301,7 +301,7 @@ export function ProgressBar({
             style={{
               height: lineHeight,
               borderRadius: radius.scale.full,
-              backgroundColor: palette.gray['2'],
+              backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
               overflow: 'hidden',
               position: 'relative',
               flex: '1 0 0',
@@ -358,7 +358,7 @@ export function ProgressBar({
             width: '100%',
             height: lineHeight,
             borderRadius: radius.scale.full,
-            backgroundColor: palette.gray['2'],
+            backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
             overflow: 'hidden',
             position: 'relative',
           }}
@@ -396,7 +396,7 @@ export function ProgressBar({
           <HelperIcon destructive={isDestructive} disabled={disabled} />
           <span
             style={{
-              color: disabled ? textBase.staticDarkQuaternary : helperColor,
+              color: disabled ? textBase.quaternary : helperColor,
               whiteSpace: 'nowrap',
               ...toTypographyStyle(typography.scale.captionL.regular),
             }}

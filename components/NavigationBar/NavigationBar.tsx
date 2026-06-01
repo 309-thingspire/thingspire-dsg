@@ -171,10 +171,10 @@ function SearchField({
   interactionState: NavigationBarInteractionState;
   disabled: boolean;
 }) {
-  const fieldBorderColor = disabled ? palette.gray['2'] : palette.gray['3'];
-  const fieldBackground = disabled ? palette.gray['1'] : palette.base.white;
-  const placeholderColor = disabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
-  const shortcutColor = disabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const fieldBorderColor = disabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal;
+  const fieldBackground = disabled ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default;
+  const placeholderColor = disabled ? textBase.quaternary : textBase.tertiary;
+  const shortcutColor = disabled ? textBase.quaternary : textBase.secondary;
 
   return (
     <div
@@ -219,7 +219,7 @@ function SearchField({
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: radius.scale.sm,
-            backgroundColor: disabled ? palette.gray['2a'] : palette.gray['2'],
+            backgroundColor: disabled ? colors.semantic.theme.background.button.tertiaryHover : colors.semantic.theme.background.surface.neutralSubtle,
             paddingInline: spacing.scale['8'],
             paddingBlock: spacing.scale['2'],
             color: shortcutColor,
@@ -246,7 +246,7 @@ function NavigationMainItem({
   onClick?: (id: string) => void;
 }) {
   const disabled = componentDisabled || item.disabled;
-  const textColor = disabled ? textBase.staticDarkQuaternary : item.accent ? textAccent.blueAccent : textBase.staticDarkSecondary;
+  const textColor = disabled ? textBase.quaternary : item.accent ? textAccent.blueAccent : textBase.secondary;
   const hasProIcon = item.id === 'pro-access';
   const hasLeadingIcon = Boolean(item.icon) || hasProIcon;
   const hasTrailingChevron = item.hasChevron;
@@ -318,9 +318,9 @@ function NavigationBottomTabItem({
   onClick?: (id: string) => void;
 }) {
   const disabled = componentDisabled || item.disabled;
-  const textColor = disabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
-  const badgeBackground = disabled ? palette.gray['2a'] : palette.gray['1a'];
-  const badgeTextColor = disabled ? textBase.staticDarkQuaternary : active ? textBase.staticDark : textBase.staticDarkSecondary;
+  const textColor = disabled ? textBase.quaternary : textBase.secondary;
+  const badgeBackground = disabled ? colors.semantic.theme.background.button.tertiaryHover : colors.semantic.theme.background.button.tertiary;
+  const badgeTextColor = disabled ? textBase.quaternary : active ? textBase.primary : textBase.secondary;
   const isInteractive = Boolean(onClick) && !disabled;
 
   return (
@@ -536,11 +536,11 @@ function NavigationBarType02({
   };
 
   const ghostBorderColor = palette.base.transparent;
-  const languageTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
-  const iconButtonColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const languageTextColor = componentDisabled ? textBase.quaternary : textBase.secondary;
+  const iconButtonColor = componentDisabled ? textBase.quaternary : textBase.secondary;
   const placeholderText = searchPlaceholder === 'Search...' ? 'Placeholder' : searchPlaceholder;
   const shortcutText = searchShortcutLabel === '/' ? '' : searchShortcutLabel;
-  const triggerBackground = isOpen && !componentDisabled ? palette.gray['1a'] : palette.base.transparent;
+  const triggerBackground = isOpen && !componentDisabled ? colors.semantic.theme.background.button.tertiary : palette.base.transparent;
 
   return (
     <header
@@ -559,8 +559,8 @@ function NavigationBarType02({
         paddingBottom: spacing.scale['16'],
         borderBottomStyle: 'solid',
         borderBottomWidth: border.width['1'],
-        borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
-        backgroundColor: palette.base.white,
+        borderBottomColor: componentDisabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal,
+        backgroundColor: colors.semantic.theme.background.surface.default,
         boxSizing: 'border-box',
         ...style,
       }}
@@ -688,10 +688,10 @@ function NavigationBarType02({
                 padding: spacing.scale['4'],
                 listStyle: 'none',
                 minWidth: spacing.scale['144'],
-                backgroundColor: palette.base.white,
+                backgroundColor: colors.semantic.theme.background.surface.default,
                 borderStyle: 'solid',
                 borderWidth: border.width['1'],
-                borderColor: palette.gray['3'],
+                borderColor: colors.semantic.theme.border.action.normal,
                 borderRadius: radius.scale.lg,
                 boxShadow: shadows.elevation.md.css,
                 zIndex: 50,
@@ -717,8 +717,8 @@ function NavigationBarType02({
                         borderStyle: 'solid',
                         borderWidth: border.width['0'],
                         borderRadius: radius.scale.md,
-                        backgroundColor: isActive ? palette.gray['1a'] : palette.base.transparent,
-                        color: textBase.staticDark,
+                        backgroundColor: isActive ? colors.semantic.theme.background.button.tertiary : palette.base.transparent,
+                        color: textBase.primary,
                         cursor: 'pointer',
                         appearance: 'none',
                         outline: 'none',
@@ -727,7 +727,7 @@ function NavigationBarType02({
                       }}
                       onMouseEnter={(event) => {
                         if (!isActive) {
-                          event.currentTarget.style.backgroundColor = palette.gray['1a'];
+                          event.currentTarget.style.backgroundColor = colors.semantic.theme.background.button.tertiary;
                         }
                       }}
                       onMouseLeave={(event) => {
@@ -741,7 +741,7 @@ function NavigationBarType02({
                         {item.caption ? (
                           <span
                             style={{
-                              color: textBase.staticDarkSecondary,
+                              color: textBase.secondary,
                               ...toTypographyStyle(typography.scale.captionM.regular),
                             }}
                           >
@@ -838,8 +838,8 @@ export function NavigationBar({
 
 
   if (type === '07') {
-    const ctaTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticWhite;
-    const ctaBackground = componentDisabled ? palette.gray['3'] : palette.gray['13'];
+    const ctaTextColor = componentDisabled ? textBase.quaternary : textBase.staticWhite;
+    const ctaBackground = componentDisabled ? colors.semantic.theme.border.action.normal : colors.semantic.theme.background.surface.inverted;
 
     return (
       <header
@@ -869,9 +869,9 @@ export function NavigationBar({
             paddingBlock: spacing.scale['8'],
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
+            borderColor: componentDisabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal,
             borderRadius: radius.scale.xxl,
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             boxShadow: shadows.elevation.lg.css,
             boxSizing: 'border-box',
           }}
@@ -943,7 +943,7 @@ export function NavigationBar({
   }
 
   if (type === '08') {
-    const helpTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+    const helpTextColor = componentDisabled ? textBase.quaternary : textBase.secondary;
 
     return (
       <header
@@ -955,7 +955,7 @@ export function NavigationBar({
           minHeight: NAV_HEIGHT_DOUBLE,
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: palette.base.white,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           ...style,
         }}
         {...props}
@@ -1033,7 +1033,7 @@ export function NavigationBar({
             paddingRight: spacing.scale['64'],
             borderBottomStyle: 'solid',
             borderBottomWidth: border.width['1'],
-            borderBottomColor: palette.gray['2'],
+            borderBottomColor: colors.semantic.theme.background.surface.neutralSubtle,
             boxSizing: 'border-box',
           }}
         >
@@ -1121,8 +1121,8 @@ export function NavigationBar({
           paddingBottom: spacing.scale['16'],
           borderBottomStyle: 'solid',
           borderBottomWidth: border.width['1'],
-          borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
-          backgroundColor: palette.base.white,
+          borderBottomColor: componentDisabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           boxSizing: 'border-box',
           ...style,
         }}
@@ -1177,8 +1177,8 @@ export function NavigationBar({
           paddingBottom: spacing.scale['16'],
           borderBottomStyle: 'solid',
           borderBottomWidth: border.width['1'],
-          borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
-          backgroundColor: palette.base.white,
+          borderBottomColor: componentDisabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           boxSizing: 'border-box',
           ...style,
         }}
@@ -1233,8 +1233,8 @@ export function NavigationBar({
         paddingBottom: spacing.scale['16'],
         borderBottomStyle: 'solid',
         borderBottomWidth: border.width['1'],
-        borderBottomColor: componentDisabled ? palette.gray['2'] : palette.gray['3'],
-        backgroundColor: palette.base.white,
+        borderBottomColor: componentDisabled ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.border.action.normal,
+        backgroundColor: colors.semantic.theme.background.surface.default,
         boxSizing: 'border-box',
         ...style,
       }}
