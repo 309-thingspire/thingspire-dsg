@@ -171,7 +171,7 @@ function resolveItemState(item: TabMenuItem, globalDisabled: boolean, forceState
 }
 
 function getTextColor(selected: boolean): string {
-  return selected ? textBase.staticDark : textBase.staticDarkSecondary;
+  return selected ? textBase.primary : textBase.secondary;
 }
 
 function getTypographyToken(type: TabMenuType, config: SizeConfig): TypographyToken {
