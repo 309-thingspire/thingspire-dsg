@@ -12,7 +12,6 @@ type TypographyToken = {
   letterSpacing: number;
 };
 
-const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
 
 function getTypographyStyle(token: TypographyToken) {
@@ -47,7 +46,7 @@ function Badge({ label }: { label: string }) {
         paddingInline: spacing.scale['4'],
         paddingBlock: spacing.scale['2'],
         borderRadius: radius.scale.md,
-        backgroundColor: palette.gray['2'],
+        backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
       }}
     >
       <span
@@ -57,7 +56,7 @@ function Badge({ label }: { label: string }) {
           justifyContent: 'center',
           paddingInline: spacing.scale['4'],
           paddingBlock: spacing.scale['0'],
-          color: textTokens.staticDarkSecondary,
+          color: textTokens.secondary,
           ...getTypographyStyle(typography.scale.captionL.medium),
           whiteSpace: 'nowrap',
         }}
@@ -130,9 +129,9 @@ export function TaskCard({
         padding: spacing.scale['16'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: palette.gray['3'],
+        borderColor: colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: resolvedState === 'hover' ? palette.gray['1'] : palette.base.white,
+        backgroundColor: resolvedState === 'hover' ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
         boxShadow: shadows.elevation.xs.css,
         boxSizing: 'border-box',
         cursor: isInteractive ? 'pointer' : 'default',
@@ -153,7 +152,7 @@ export function TaskCard({
           style={{
             margin: spacing.scale['0'],
             width: '100%',
-            color: textTokens.staticDark,
+            color: textTokens.primary,
             ...getTypographyStyle(typography.scale.bodyS.medium),
           }}
         >
@@ -164,7 +163,7 @@ export function TaskCard({
           style={{
             margin: spacing.scale['0'],
             width: '100%',
-            color: textTokens.staticDarkSecondary,
+            color: textTokens.secondary,
             ...getTypographyStyle(typography.scale.captionL.regular),
           }}
         >
@@ -175,7 +174,7 @@ export function TaskCard({
           style={{
             margin: spacing.scale['0'],
             width: '100%',
-            color: textTokens.staticDarkTertiary,
+            color: textTokens.tertiary,
             ...getTypographyStyle(typography.scale.captionM.medium),
           }}
         >

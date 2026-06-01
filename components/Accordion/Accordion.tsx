@@ -43,7 +43,6 @@ const SIZE_CONFIG: Record<
   },
 };
 
-const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
 const iconTokens = colors.semantic.theme.icon.base;
 
@@ -83,43 +82,43 @@ function resolveInteractionState(
 function resolveVisualStyle(expanded: boolean, interactionState: InteractionState): VisualStyle {
   if (interactionState === 'disabled') {
     return {
-      backgroundColor: expanded ? palette.gray['1'] : palette.base.white,
-      borderColor: palette.gray['2a'],
+      backgroundColor: expanded ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
+      borderColor: colors.semantic.theme.background.button.tertiaryHover,
       boxShadow: 'none',
-      titleColor: textTokens.staticDarkSecondary,
-      descriptionColor: textTokens.staticDarkSecondary,
+      titleColor: textTokens.secondary,
+      descriptionColor: textTokens.secondary,
       iconColor: iconTokens.staticDarkSecondary,
     };
   }
 
   if (interactionState === 'focused') {
     return {
-      backgroundColor: expanded ? palette.gray['1'] : palette.base.white,
+      backgroundColor: expanded ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
       borderColor: border.color.theme.action.focusLight,
       boxShadow: shadows.focusRing.light.css,
-      titleColor: textTokens.staticDark,
-      descriptionColor: textTokens.staticDarkSecondary,
+      titleColor: textTokens.primary,
+      descriptionColor: textTokens.secondary,
       iconColor: iconTokens.staticDark,
     };
   }
 
   if (expanded) {
     return {
-      backgroundColor: interactionState === 'hover' ? palette.gray['2'] : palette.gray['1'],
-      borderColor: palette.gray['2a'],
+      backgroundColor: interactionState === 'hover' ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.background.surface.neutral,
+      borderColor: colors.semantic.theme.background.button.tertiaryHover,
       boxShadow: shadows.elevation.xs.css,
-      titleColor: textTokens.staticDark,
-      descriptionColor: textTokens.staticDarkSecondary,
+      titleColor: textTokens.primary,
+      descriptionColor: textTokens.secondary,
       iconColor: iconTokens.staticDark,
     };
   }
 
   return {
-    backgroundColor: interactionState === 'hover' ? palette.gray['1'] : palette.base.white,
-    borderColor: palette.gray['2a'],
+    backgroundColor: interactionState === 'hover' ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
+    borderColor: colors.semantic.theme.background.button.tertiaryHover,
     boxShadow: 'none',
-    titleColor: textTokens.staticDark,
-    descriptionColor: textTokens.staticDarkSecondary,
+    titleColor: textTokens.primary,
+    descriptionColor: textTokens.secondary,
     iconColor: iconTokens.staticDark,
   };
 }

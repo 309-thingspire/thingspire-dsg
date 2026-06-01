@@ -7,7 +7,6 @@ import { Top } from '../Top/Top';
 
 import type { SidebarProps } from './Sidebar.types';
 
-const palette = colors.primitive.palette;
 
 const SIDEBAR_WIDTH = spacing.primitive['256'] + spacing.scale['24'];
 const SIDEBAR_HEIGHT = spacing.scale['1024'];
@@ -36,7 +35,7 @@ export function Sidebar({
         alignItems: 'flex-start',
         gap: spacing.scale['16'],
         paddingBlock: spacing.scale['8'],
-        backgroundColor: fill ? palette.gray['1'] : palette.base.white,
+        backgroundColor: fill ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
         ...style,
       }}
     >

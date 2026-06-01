@@ -6,7 +6,6 @@ import { TailIcon } from '../TailIcon/TailIcon';
 
 import type { AdditionalProps } from './Additional.types';
 
-const palette = colors.primitive.palette;
 
 const SIDEBAR_WIDTH = spacing.primitive['256'] + spacing.scale['24'];
 
@@ -19,7 +18,7 @@ const captionTextStyle: React.CSSProperties = {
   fontWeight: captionTypography.fontWeight,
   lineHeight: `${captionTypography.lineHeight}px`,
   letterSpacing: `${captionTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
 };
 
@@ -29,7 +28,7 @@ const labelTextStyle: React.CSSProperties = {
   fontWeight: labelTypography.fontWeight,
   lineHeight: `${labelTypography.lineHeight}px`,
   letterSpacing: `${labelTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -42,7 +41,7 @@ function Divider() {
       style={{
         width: '100%',
         height: 1,
-        backgroundColor: palette.gray['2'],
+        backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
       }}
     />
   );
