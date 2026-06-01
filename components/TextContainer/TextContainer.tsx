@@ -16,7 +16,6 @@ type TypographyToken = {
   letterSpacing: number;
 };
 
-const palette = colors.primitive.palette;
 
 const HEADLINE_TYPOGRAPHY: Record<TextContainerSize, TypographyToken> = {
   lg: typography.scale.h5.semiBold,
@@ -58,9 +57,9 @@ const GAP: Record<TextContainerSize, number> = {
   xxxxs: spacing.scale['4'],
 };
 
-const HEADLINE_COLOR = palette.gray['13'];
-const DESCRIPTION_COLOR = palette.gray['9a'];
-const CAPTION_COLOR = palette.gray['7a'];
+const HEADLINE_COLOR = colors.semantic.theme.text.base.primary;
+const DESCRIPTION_COLOR = colors.semantic.theme.text.base.secondary;
+const CAPTION_COLOR = colors.semantic.theme.text.base.tertiary;
 
 function applyTypography(token: TypographyToken): React.CSSProperties {
   return {

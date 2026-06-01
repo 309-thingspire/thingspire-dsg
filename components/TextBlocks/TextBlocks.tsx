@@ -30,7 +30,7 @@ const titleStyle: React.CSSProperties = {
   fontWeight: titleTypography.fontWeight,
   lineHeight: `${titleTypography.lineHeight}px`,
   letterSpacing: `${titleTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   flex: '1 0 0',
   minWidth: 0,
@@ -42,7 +42,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: labelTypography.fontWeight,
   lineHeight: `${labelTypography.lineHeight}px`,
   letterSpacing: `${labelTypography.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   width: '100%',
 };
@@ -105,7 +105,7 @@ export function TextBlocks({
               flexDirection: 'column',
               alignItems: 'flex-start',
               padding: spacing.scale['16'],
-              backgroundColor: palette.gray['1'],
+              backgroundColor: colors.semantic.theme.background.surface.neutral,
             }}
           >
             <div

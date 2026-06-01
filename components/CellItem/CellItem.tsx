@@ -38,50 +38,50 @@ function resolveState(
 
 function getRowBackground(state: CellItemState, active: boolean): string {
   if (state === 'hover') {
-    return active ? palette.gray['2a'] : palette.gray['1a'];
+    return active ? colors.semantic.theme.background.button.tertiaryHover : colors.semantic.theme.background.button.tertiary;
   }
 
   if (state === 'disabled') {
     if (active) {
-      return palette.gray['1a'];
+      return colors.semantic.theme.background.button.tertiary;
     }
     return palette.base.transparent;
   }
 
-  return active ? palette.gray['1a'] : palette.base.transparent;
+  return active ? colors.semantic.theme.background.button.tertiary : palette.base.transparent;
 }
 
 function getLabelColor(state: CellItemState, active: boolean, target: 'default' | 'indented'): string {
   if (state === 'disabled') {
-    return palette.gray['5a'];
+    return colors.semantic.theme.text.base.quaternary;
   }
 
   if (target === 'indented' && !active) {
-    return palette.gray['9a'];
+    return colors.semantic.theme.text.base.secondary;
   }
 
-  return palette.gray['13'];
+  return colors.semantic.theme.text.base.primary;
 }
 
 function getBadgeBorderColor(state: CellItemState): string {
   if (state === 'disabled') {
-    return palette.gray['1a'];
+    return colors.semantic.theme.background.button.tertiary;
   }
-  return palette.gray['2a'];
+  return colors.semantic.theme.background.button.tertiaryHover;
 }
 
 function getBadgeTextColor(state: CellItemState): string {
   if (state === 'disabled') {
-    return palette.gray['5a'];
+    return colors.semantic.theme.text.base.quaternary;
   }
-  return palette.gray['9a'];
+  return colors.semantic.theme.text.base.secondary;
 }
 
 function getLeadIconColor(state: CellItemState): string {
   if (state === 'disabled') {
-    return palette.gray['5a'];
+    return colors.semantic.theme.text.base.quaternary;
   }
-  return palette.gray['9a'];
+  return colors.semantic.theme.text.base.secondary;
 }
 
 function CountBadge({ value, state }: { value: string; state: CellItemState }) {
@@ -92,7 +92,7 @@ function CountBadge({ value, state }: { value: string; state: CellItemState }) {
         alignItems: 'center',
         justifyContent: 'center',
         paddingInline: spacing.scale['2'],
-        backgroundColor: palette.base.white,
+        backgroundColor: colors.semantic.theme.background.surface.default,
         border: `1px solid ${getBadgeBorderColor(state)}`,
         borderRadius: radius.scale.xs,
       }}
@@ -321,7 +321,7 @@ export function CellItem({
             top: 0,
             bottom: 0,
             width: 1,
-            backgroundColor: resolvedState === 'disabled' ? palette.gray['1a'] : palette.gray['2a'],
+            backgroundColor: resolvedState === 'disabled' ? colors.semantic.theme.background.button.tertiary : colors.semantic.theme.background.button.tertiaryHover,
           }}
         />
       ) : null}

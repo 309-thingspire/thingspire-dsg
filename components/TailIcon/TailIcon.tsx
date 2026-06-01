@@ -35,7 +35,7 @@ function resolveState(
 
 function getBackgroundColor(state: TailIconState): string {
   if (state === 'hover') {
-    return palette.gray['1a'];
+    return colors.semantic.theme.background.button.tertiary;
   }
 
   return palette.base.transparent;
@@ -43,9 +43,9 @@ function getBackgroundColor(state: TailIconState): string {
 
 function getIconColor(state: TailIconState): string {
   if (state === 'disabled') {
-    return palette.gray['5a'];
+    return colors.semantic.theme.text.base.quaternary;
   }
-  return palette.gray['9a'];
+  return colors.semantic.theme.text.base.secondary;
 }
 
 export function TailIcon({

@@ -186,7 +186,7 @@ export function CheckboxLabel({
       >
         <span
           style={{
-            color: textBase.staticDark,
+            color: textBase.primary,
             ...toTypographyStyle(config.labelTypography),
           }}
         >
@@ -196,7 +196,7 @@ export function CheckboxLabel({
         {showCaption ? (
           <span
             style={{
-              color: textBase.staticDarkSecondary,
+              color: textBase.secondary,
               ...toTypographyStyle(config.captionTypography),
             }}
           >
