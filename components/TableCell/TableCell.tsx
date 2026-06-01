@@ -244,8 +244,8 @@ function getBadgeToneStyle(tone: TableCellBadgeTone): { backgroundColor: string;
 
   if (tone === 'gray') {
     return {
-      backgroundColor: palette.gray['2'],
-      color: textBase.staticDarkSecondary,
+      backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
+      color: colors.semantic.theme.text.base.secondary,
     };
   }
 
@@ -265,7 +265,7 @@ function getAvatarToneStyle(tone: TableCellAvatarTone): { backgroundColor: strin
   }
 
   if (tone === 'gray') {
-    return { backgroundColor: palette.gray['3'], color: textBase.staticDarkSecondary };
+    return { backgroundColor: colors.semantic.theme.background.surface.neutralSubtle, color: colors.semantic.theme.text.base.secondary };
   }
 
   return { backgroundColor: palette.purple['3'], color: palette.purple['11'] };
@@ -331,28 +331,28 @@ function VerticalDotsIcon({ size, color }: { size: number; color: string }) {
   const centerX = size / 2;
 
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block' }}>
-      <circle cx={centerX} cy={size * 0.25} r={dotRadius} fill={color} />
-      <circle cx={centerX} cy={size * 0.5} r={dotRadius} fill={color} />
-      <circle cx={centerX} cy={size * 0.75} r={dotRadius} fill={color} />
+    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block' , color }}>
+      <circle cx={centerX} cy={size * 0.25} r={dotRadius} fill="currentColor" />
+      <circle cx={centerX} cy={size * 0.5} r={dotRadius} fill="currentColor" />
+      <circle cx={centerX} cy={size * 0.75} r={dotRadius} fill="currentColor" />
     </svg>
   );
 }
 
 function RefreshIcon({ size, color }: { size: number; color: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block' }}>
+    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block', color }}>
       <path
         d="M10 3.25C6.272 3.25 3.25 6.272 3.25 10C3.25 13.728 6.272 16.75 10 16.75C12.393 16.75 14.495 15.505 15.694 13.625"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
       />
       <path
         d="M15.75 7.75V3.75H11.75"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -363,25 +363,25 @@ function RefreshIcon({ size, color }: { size: number; color: string }) {
 
 function TrashIcon({ size, color }: { size: number; color: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block' }}>
+    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block', color }}>
       <path
         d="M4.75 5.75H15.25"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
       />
       <path
         d="M7.5 5.75V4.75C7.5 4.198 7.948 3.75 8.5 3.75H11.5C12.052 3.75 12.5 4.198 12.5 4.75V5.75"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
       />
       <path
         d="M6.5 7.75V14.25C6.5 14.802 6.948 15.25 7.5 15.25H12.5C13.052 15.25 13.5 14.802 13.5 14.25V7.75"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
       />
@@ -452,7 +452,7 @@ function IconButton({
         borderWidth: border.width['0'],
         borderRadius: radiusValue,
         backgroundColor: palette.base.transparent,
-        color: textBase.staticDarkSecondary,
+        color: textBase.secondary,
         cursor: disabled || !onClick ? 'default' : 'pointer',
       }}
     >
@@ -573,7 +573,7 @@ function renderTextBlock({
       <span
         style={{
           ...toTypographyStyle(typography.scale.captionL.regular),
-          color: textBase.staticDark,
+          color: textBase.primary,
           width: stretched ? '100%' : 'auto',
         }}
       >
@@ -583,7 +583,7 @@ function renderTextBlock({
         <span
           style={{
             ...toTypographyStyle(typography.scale.captionM.regular),
-            color: textBase.staticDarkSecondary,
+            color: textBase.secondary,
             width: stretched ? '100%' : 'auto',
           }}
         >
@@ -678,7 +678,7 @@ export function TableCell({
                 flexShrink: spacing.scale['0'],
               }}
             >
-              {leadIcon ?? <VerticalDotsIcon size={config.leadIconSize} color={textBase.staticDarkSecondary} />}
+              {leadIcon ?? <VerticalDotsIcon size={config.leadIconSize} color={textBase.secondary} />}
             </span>
           ) : null}
 
@@ -711,7 +711,7 @@ export function TableCell({
               <span
                 style={{
                   ...toTypographyStyle(leadTextTypography),
-                  color: textBase.staticDark,
+                  color: textBase.primary,
                   width: direction === 'left' ? '100%' : 'auto',
                 }}
               >
@@ -721,7 +721,7 @@ export function TableCell({
                 <span
                   style={{
                     ...toTypographyStyle(leadCaptionTypography),
-                    color: textBase.staticDarkSecondary,
+                    color: textBase.secondary,
                     width: direction === 'left' ? '100%' : 'auto',
                   }}
                 >
@@ -737,7 +737,7 @@ export function TableCell({
               radiusValue={config.iconButtonRadius}
               disabled={disabled}
               onClick={undefined}
-              icon={tailIcon ?? <VerticalDotsIcon size={config.iconSize} color={textBase.staticDarkSecondary} />}
+              icon={tailIcon ?? <VerticalDotsIcon size={config.iconSize} color={textBase.secondary} />}
               gap={config.iconButtonGap}
             />
           ) : null}
@@ -762,7 +762,7 @@ export function TableCell({
           radiusValue={config.iconButtonRadius}
           disabled={disabled}
           onClick={undefined}
-          icon={buttonIcon ?? <VerticalDotsIcon size={config.iconSize} color={textBase.staticDarkSecondary} />}
+          icon={buttonIcon ?? <VerticalDotsIcon size={config.iconSize} color={textBase.secondary} />}
           gap={config.iconButtonGap}
         />
       );
@@ -850,7 +850,7 @@ export function TableCell({
             radiusValue={config.iconButtonRadius}
             disabled={disabled}
             onClick={undefined}
-            icon={buttonGroupPrimaryIcon ?? <RefreshIcon size={config.iconSize} color={textBase.staticDarkSecondary} />}
+            icon={buttonGroupPrimaryIcon ?? <RefreshIcon size={config.iconSize} color={textBase.secondary} />}
             gap={config.iconButtonGap}
           />
           <IconButton
@@ -858,7 +858,7 @@ export function TableCell({
             radiusValue={config.iconButtonRadius}
             disabled={disabled}
             onClick={undefined}
-            icon={buttonGroupSecondaryIcon ?? <TrashIcon size={config.iconSize} color={textBase.staticDarkSecondary} />}
+            icon={buttonGroupSecondaryIcon ?? <TrashIcon size={config.iconSize} color={textBase.secondary} />}
             gap={config.iconButtonGap}
           />
         </>
@@ -1080,7 +1080,7 @@ export function TableCell({
               paddingBlock: spacing.scale['2'],
             }}
           >
-            <span style={{ ...toTypographyStyle(typography.scale.captionL.regular), color: textBase.staticDark }}>{resolvedLabel}</span>
+            <span style={{ ...toTypographyStyle(typography.scale.captionL.regular), color: textBase.primary }}>{resolvedLabel}</span>
             <SpinnerIcon size={spacing.scale['16']} />
           </span>
         </div>
@@ -1109,8 +1109,8 @@ export function TableCell({
         paddingBlock: type === 'chart' ? config.chartPaddingY : spacing.scale['0'],
         borderBottomStyle: 'solid',
         borderBottomWidth: border.width['1'],
-        borderBottomColor: palette.gray['2'],
-        backgroundColor: palette.base.white,
+        borderBottomColor: colors.semantic.theme.border.base.divider,
+        backgroundColor: colors.semantic.theme.background.surface.default,
         boxSizing: 'border-box',
         opacity: disabled ? 0.6 : 1,
         ...style,

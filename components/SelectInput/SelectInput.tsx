@@ -93,7 +93,7 @@ function resolveVisualState(
 
 function getFieldBorderColor(target: SelectInputTarget, state: SelectInputVisualState): string {
   if (state === 'disabled') {
-    return palette.gray['2'];
+    return colors.semantic.theme.background.surface.neutralSubtle;
   }
 
   if (target === 'destructive') {
@@ -116,7 +116,7 @@ function getFieldBorderColor(target: SelectInputTarget, state: SelectInputVisual
     return palette.purple['6'];
   }
 
-  return palette.gray['3'];
+  return colors.semantic.theme.border.action.normal;
 }
 
 function getFieldFocusShadow(target: SelectInputTarget, state: SelectInputVisualState): string {
@@ -144,7 +144,7 @@ function getAvatarBackground(optionId: string): string {
     case 'option-7':
       return palette.purple['4'];
     default:
-      return palette.gray['3'];
+      return colors.semantic.theme.border.action.normal;
   }
 }
 
@@ -157,7 +157,7 @@ function getChipBackground(optionId: string): string {
     case 'option-6':
       return palette.purple['2'];
     default:
-      return palette.gray['2'];
+      return colors.semantic.theme.background.surface.neutralSubtle;
   }
 }
 
@@ -170,7 +170,7 @@ function getChipTextColor(optionId: string): string {
     case 'option-6':
       return palette.purple['11'];
     default:
-      return textBase.staticDarkSecondary;
+      return textBase.secondary;
   }
 }
 
@@ -272,7 +272,7 @@ function Avatar({
         height: spacing.scale['20'],
         borderRadius: radius.scale.full,
         backgroundColor: getAvatarBackground(optionId),
-        color: textBase.staticDark,
+        color: textBase.primary,
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -314,7 +314,7 @@ function ShortcutBadge({ label, disabled }: { label: string; disabled: boolean }
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: palette.gray['2'],
+          backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
           borderRadius: radius.scale.sm,
           paddingInline: spacing.scale['2'],
           paddingBlock: spacing.scale['0'],
@@ -331,7 +331,7 @@ function ShortcutBadge({ label, disabled }: { label: string; disabled: boolean }
         >
           <span
             style={{
-              color: disabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary,
+              color: disabled ? textBase.quaternary : textBase.secondary,
               ...toTypographyStyle(typography.scale.captionL.medium),
               whiteSpace: 'nowrap',
             }}
@@ -421,19 +421,19 @@ export function SelectInput({
 
   const fieldContentColor =
     componentDisabled
-      ? textBase.staticDarkQuaternary
+      ? textBase.quaternary
       : target === 'destructive' && hasValue && type !== 'multi-select'
       ? textStatus.destructive
-      : textBase.staticDark;
+      : textBase.primary;
 
-  const placeholderColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
-  const supportTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
+  const placeholderColor = componentDisabled ? textBase.quaternary : textBase.tertiary;
+  const supportTextColor = componentDisabled ? textBase.quaternary : textBase.tertiary;
   const helperColor =
     componentDisabled
-      ? textBase.staticDarkQuaternary
+      ? textBase.quaternary
       : target === 'destructive'
       ? textStatus.destructive
-      : textBase.staticDarkTertiary;
+      : textBase.tertiary;
 
   // Per Figma carbonscope: form-field controls render flat, no elevation
   // shadow. Focus ring still applies elsewhere via the focused state.
@@ -561,7 +561,7 @@ export function SelectInput({
                 gap: spacing.scale['0'],
                 borderStyle: 'solid',
                 borderWidth: border.width['1'],
-                borderColor: palette.gray['2a'],
+                borderColor: colors.semantic.theme.background.button.tertiaryHover,
                 borderRadius: radius.scale.sm,
                 backgroundColor: getChipBackground(item.id),
                 paddingInline: spacing.primitive['3'],
@@ -657,7 +657,7 @@ export function SelectInput({
     );
   };
 
-  const triggerIconColor = componentDisabled ? textBase.staticDarkQuaternary : hasValue ? fieldContentColor : placeholderColor;
+  const triggerIconColor = componentDisabled ? textBase.quaternary : hasValue ? fieldContentColor : placeholderColor;
 
   return (
     <div
@@ -709,8 +709,8 @@ export function SelectInput({
               whiteSpace: 'nowrap',
             }}
           >
-            <span style={{ color: textBase.staticDark, ...mediumTypography }}>{label}</span>
-            <span style={{ color: textBase.staticDarkTertiary, ...mediumTypography }}>{optionalLabel}</span>
+            <span style={{ color: textBase.primary, ...mediumTypography }}>{label}</span>
+            <span style={{ color: textBase.tertiary, ...mediumTypography }}>{optionalLabel}</span>
           </div>
         </div>
       ) : null}
@@ -734,10 +734,10 @@ export function SelectInput({
               top: sizeStyle.dropdownTop,
               left: spacing.scale['0'],
               right: spacing.scale['0'],
-              backgroundColor: palette.base.white,
+              backgroundColor: colors.semantic.theme.background.surface.default,
               borderStyle: 'solid',
               borderWidth: border.width['1'],
-              borderColor: palette.gray['3'],
+              borderColor: colors.semantic.theme.border.action.normal,
               borderRadius: sizeStyle.fieldRadius,
               boxShadow: shadows.elevation.lg.css,
               paddingInline: spacing.scale['0'],
@@ -751,7 +751,7 @@ export function SelectInput({
           >
             {normalizedItems.map((item) => {
               const selected = type === 'multi-select' ? selectedIds.includes(item.id) : item.id === selectedId;
-              const activeBackground = selected || hoveredOptionId === item.id ? palette.gray['1a'] : palette.base.transparent;
+              const activeBackground = selected || hoveredOptionId === item.id ? colors.semantic.theme.background.button.tertiary : palette.base.transparent;
 
               return (
                 <div
@@ -783,7 +783,7 @@ export function SelectInput({
                       borderWidth: border.width['0'],
                       borderRadius: radius.scale.sm,
                       backgroundColor: activeBackground,
-                      color: textBase.staticDark,
+                      color: textBase.primary,
                       textAlign: 'left',
                       cursor: componentDisabled ? 'not-allowed' : 'pointer',
                     }}
@@ -808,9 +808,9 @@ export function SelectInput({
                         paddingBlock: spacing.scale['0'],
                       }}
                     >
-                      <span style={{ ...fieldTypography, color: textBase.staticDark, whiteSpace: 'nowrap' }}>{item.label}</span>
+                      <span style={{ ...fieldTypography, color: textBase.primary, whiteSpace: 'nowrap' }}>{item.label}</span>
                       {item.supportText ? (
-                        <span style={{ ...captionMTypography, color: textBase.staticDarkTertiary, whiteSpace: 'nowrap' }}>
+                        <span style={{ ...captionMTypography, color: textBase.tertiary, whiteSpace: 'nowrap' }}>
                           {item.supportText}
                         </span>
                       ) : null}
@@ -823,7 +823,7 @@ export function SelectInput({
                             justifyContent: 'center',
                             borderStyle: 'solid',
                             borderWidth: border.width['1'],
-                            borderColor: palette.gray['2a'],
+                            borderColor: colors.semantic.theme.background.button.tertiaryHover,
                             borderRadius: radius.scale.xs,
                             backgroundColor: palette.red['2'],
                             paddingInline: spacing.scale['2'],
@@ -837,7 +837,7 @@ export function SelectInput({
                       ) : null}
                     </span>
 
-                    {type !== 'multi-select' && selected ? <CheckIcon color={textBase.staticDarkSecondary} /> : null}
+                    {type !== 'multi-select' && selected ? <CheckIcon color={textBase.secondary} /> : null}
                   </button>
                 </div>
               );
@@ -861,7 +861,7 @@ export function SelectInput({
                     width: spacing.scale['4'],
                     height: spacing.scale['112'],
                     borderRadius: radius.scale.full,
-                    backgroundColor: palette.gray['2'],
+                    backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
                     marginTop: spacing.scale['6'],
                     marginInline: 'auto',
                   }}
@@ -897,7 +897,7 @@ export function SelectInput({
             borderWidth: border.width['1'],
             borderColor: fieldBorderColor,
             borderRadius: sizeStyle.fieldRadius,
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             boxShadow: fieldFocusShadow,
             textAlign: 'left',
             cursor: componentDisabled ? 'not-allowed' : 'pointer',
