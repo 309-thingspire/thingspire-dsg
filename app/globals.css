@@ -923,6 +923,87 @@ input, select, textarea {
   text-overflow: ellipsis;
 }
 
+/* ── Theme light/dark toggle (CSS-only, no client component) ──────────────── */
+.theme-modes {
+  margin-top: 8px;
+}
+.theme-modes > input[type='radio'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.theme-modes__bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+}
+.theme-modes__toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md, 8px);
+  background: hsl(var(--muted) / 0.4);
+}
+.theme-modes__btn {
+  padding: 5px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-sm, 6px);
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, color 0.15s;
+}
+.theme-modes__btn:hover {
+  color: hsl(var(--foreground));
+}
+#theme-mode-light:checked ~ .theme-modes__bar .theme-modes__btn[for='theme-mode-light'],
+#theme-mode-dark:checked ~ .theme-modes__bar .theme-modes__btn[for='theme-mode-dark'] {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  box-shadow: 0 1px 2px hsl(var(--foreground) / 0.08);
+}
+.theme-modes > input[type='radio']:focus-visible ~ .theme-modes__bar .theme-modes__toggle {
+  outline: 2px solid hsl(var(--ring, var(--foreground)));
+  outline-offset: 2px;
+}
+
+/* Per-row value visibility: Light shown by default, swap when Dark is checked */
+.theme-val--light {
+  display: inline-flex;
+  align-items: center;
+}
+.theme-val--dark {
+  display: none;
+  align-items: center;
+}
+#theme-mode-dark:checked ~ .theme-modes__body .theme-val--light {
+  display: none;
+}
+#theme-mode-dark:checked ~ .theme-modes__body .theme-val--dark {
+  display: inline-flex;
+}
+
+/* "Value" column header reflects the active mode */
+.theme-modes__active-label::before {
+  content: '· Light';
+  color: hsl(var(--muted-foreground));
+  font-weight: 400;
+}
+#theme-mode-dark:checked ~ .theme-modes__body .theme-modes__active-label::before {
+  content: '· Dark';
+}
+
 @media (max-width: 960px) {
   .vars-page {
     grid-template-columns: 1fr;
