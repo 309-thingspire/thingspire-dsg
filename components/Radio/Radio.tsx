@@ -4,7 +4,9 @@ import { border, colors, radius, shadows, spacing } from '../../style-tokens';
 
 import type { RadioProps, RadioSize, RadioVisualState } from './Radio.types';
 
-const palette = colors.primitive.palette;
+const bgCheckbox = colors.semantic.theme.background.checkbox;
+const borderAction = colors.semantic.theme.border.action;
+const borderSelect = colors.semantic.theme.border.select;
 
 type SizeConfig = {
   controlSize: number;
@@ -70,10 +72,10 @@ export function Radio({
 
   const backgroundColor = (() => {
     if (isDisabled && !checked) {
-      return palette.gray['3'];
+      return bgCheckbox.disabled;
     }
 
-    return palette.base.white;
+    return bgCheckbox.default;
   })();
 
   const borderWidth = (() => {
@@ -90,18 +92,18 @@ export function Radio({
 
   const borderColor = (() => {
     if (isDisabled && checked) {
-      return palette.gray['2'];
+      return borderAction.disabled;
     }
 
     if (checked) {
-      return palette.purple['8'];
+      return borderSelect.primary;
     }
 
     if (visualState === 'hover') {
-      return palette.gray['4'];
+      return borderAction.hover;
     }
 
-    return palette.gray['3'];
+    return borderAction.normal;
   })();
 
   const boxShadow = (() => {
@@ -169,7 +171,7 @@ export function Radio({
             width: config.dotSize,
             height: config.dotSize,
             borderRadius: radius.scale.full,
-            backgroundColor: isDisabled ? palette.gray['3'] : palette.purple['8'],
+            backgroundColor: isDisabled ? bgCheckbox.disabled : bgCheckbox.checked,
             display: 'block',
           }}
         />

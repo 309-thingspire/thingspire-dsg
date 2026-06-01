@@ -9,6 +9,10 @@ import type { InputProps, InputSize, InputTarget, InputVisualState } from './Inp
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
 const textStatus = colors.semantic.theme.text.status;
+const borderAction = colors.semantic.theme.border.action;
+const borderSelect = colors.semantic.theme.border.select;
+const bgInput = colors.semantic.theme.background.input;
+const bgSurface = colors.semantic.theme.background.surface;
 
 type TypographyToken = {
   fontFamily: string;
@@ -95,33 +99,33 @@ function resolveVisualState(
 function getFieldBorderColor(target: InputTarget, state: InputVisualState): string {
   if (target === 'destructive') {
     if (state === 'focus') {
-      return palette.red['6'];
+      return borderSelect.destructive;
     }
 
     if (state === 'hover') {
-      return palette.red['5'];
+      return borderAction.destructiveHover;
     }
 
     if (state === 'disabled') {
-      return palette.gray['2'];
+      return borderAction.disabled;
     }
 
-    return palette.red['4'];
+    return borderAction.destructive;
   }
 
   if (state === 'focus') {
-    return palette.purple['6'];
+    return borderAction.focusLight;
   }
 
   if (state === 'hover') {
-    return palette.gray['4'];
+    return borderAction.hover;
   }
 
   if (state === 'disabled') {
-    return palette.gray['2'];
+    return borderAction.disabled;
   }
 
-  return palette.gray['3'];
+  return borderAction.normal;
 }
 
 function getFieldFocusShadow(target: InputTarget, state: InputVisualState): string {
@@ -242,18 +246,18 @@ export function Input({
   const fieldFocusShadow = getFieldFocusShadow(target, resolvedState);
   const helperColor =
     componentDisabled
-      ? textBase.staticDarkQuaternary
+      ? textBase.quaternary
       : target === 'destructive'
       ? textStatus.destructive
-      : textBase.staticDarkTertiary;
+      : textBase.tertiary;
 
-  const bodyTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDark;
-  const tertiaryTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkTertiary;
-  const secondaryTextColor = componentDisabled ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const bodyTextColor = componentDisabled ? textBase.quaternary : textBase.primary;
+  const tertiaryTextColor = componentDisabled ? textBase.quaternary : textBase.tertiary;
+  const secondaryTextColor = componentDisabled ? textBase.quaternary : textBase.secondary;
 
   // Per Figma carbonscope: form fields render flat, no elevation shadow.
   const containerShadow = 'none';
-  const sideBorderColor = componentDisabled ? palette.gray['2'] : palette.gray['3'];
+  const sideBorderColor = componentDisabled ? borderAction.disabled : borderAction.normal;
 
   const handleMouseEnter: React.MouseEventHandler<HTMLDivElement> = (event) => {
     setHovered(true);
@@ -333,7 +337,7 @@ export function Input({
           >
             <span
               style={{
-                color: textBase.staticDark,
+                color: textBase.primary,
                 ...mediumTypography,
               }}
             >
@@ -341,7 +345,7 @@ export function Input({
             </span>
             <span
               style={{
-                color: textBase.staticDarkTertiary,
+                color: textBase.tertiary,
                 ...mediumTypography,
               }}
             >
@@ -374,7 +378,7 @@ export function Input({
               borderLeftWidth: border.width['1'],
               borderRightWidth: border.width['0'],
               borderColor: sideBorderColor,
-              backgroundColor: palette.gray['1'],
+              backgroundColor: bgSurface.neutralSubtle,
               ...leftFieldRadius,
             }}
           >
@@ -414,7 +418,7 @@ export function Input({
             borderStyle: 'solid',
             borderWidth: border.width['1'],
             borderColor: fieldBorderColor,
-            backgroundColor: palette.base.white,
+            backgroundColor: bgInput.normal,
             boxShadow: fieldFocusShadow,
             overflow: 'hidden',
             ...(type === 'default' ? fullFieldRadius : type === 'external' ? rightFieldRadius : leftFieldRadius),
@@ -515,7 +519,7 @@ export function Input({
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: palette.gray['2'],
+                    backgroundColor: bgSurface.neutralSubtle,
                     borderRadius: radius.scale.sm,
                     paddingInline: spacing.scale['2'],
                     paddingBlock: spacing.scale['0'],
