@@ -1,0 +1,14 @@
+{
+  "tokenSetOrder": [
+    "Primitives/Value",
+    "Theme/Light",
+    "Theme/Dark",
+    "Primitives/Value/Primitives/Value",
+    "Theme/Light/Theme/Light",
+    "Theme/Dark/Theme/Dark",
+    "Device/Desktop",
+    "Device/Mobile",
+    "Device/Desktop/Device/Desktop",
+    "Device/Mobile/Device/Mobile"
+  ]
+}
