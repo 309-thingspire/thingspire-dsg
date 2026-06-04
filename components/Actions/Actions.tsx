@@ -138,7 +138,7 @@ function InputActions({
           borderWidth: border.width['1'],
           borderColor: focused ? palette.purple['8'] : colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xl,
-          boxShadow: focused ? shadows.focusRing.light.css : '0px 1px 2px 0px rgba(20,21,26,0.05)',
+          boxShadow: focused ? shadows.focusRing.light.css : 'none',
           boxSizing: 'border-box',
         }}
       >
