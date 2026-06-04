@@ -29,11 +29,11 @@ function toTypographyStyle(token: {
 
 function SortIcon({ size, color }: { size: number; color: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block' }}>
+    <svg aria-hidden="true" viewBox="0 0 20 20" style={{ width: size, height: size, display: 'block', color }}>
       <path
         d="M6.5 8L10 4.5L13.5 8"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -41,7 +41,7 @@ function SortIcon({ size, color }: { size: number; color: string }) {
       <path
         d="M6.5 12L10 15.5L13.5 12"
         fill="none"
-        stroke={color}
+        stroke="currentColor"
         strokeWidth={border.width['2']}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -108,7 +108,7 @@ export function TableHeader({
         alignItems: 'center',
         gap: spacing.scale['12'],
         paddingInline: spacing.scale['12'],
-        backgroundColor: palette.gray['1'],
+        backgroundColor: colors.semantic.theme.background.surface.neutral,
         boxSizing: 'border-box',
         opacity: disabled ? 0.6 : 1,
         ...style,
@@ -140,7 +140,7 @@ export function TableHeader({
         <span
           style={{
             ...toTypographyStyle(typography.scale.captionL.regular),
-            color: textBase.staticDarkSecondary,
+            color: textBase.secondary,
             whiteSpace: 'nowrap',
           }}
         >
@@ -163,12 +163,12 @@ export function TableHeader({
               borderWidth: border.width['0'],
               borderRadius: spacing.scale['0'],
               backgroundColor: palette.base.transparent,
-              color: textBase.staticDarkSecondary,
+              color: textBase.secondary,
               cursor: disabled || !onSortClick ? 'default' : 'pointer',
             }}
             aria-label="Sort column"
           >
-            <SortIcon size={spacing.scale['16']} color={textBase.staticDarkSecondary} />
+            <SortIcon size={spacing.scale['16']} color={textBase.secondary} />
           </button>
         ) : null}
       </div>

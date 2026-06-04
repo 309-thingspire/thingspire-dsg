@@ -89,7 +89,6 @@ const SIZE_CONFIG: Record<ButtonGroupSize, SizeConfig> = {
   },
 };
 
-const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
 
 function ScanIcon({ size, color }: { size: number; color: string }) {
@@ -187,12 +186,12 @@ function resolveVisualState(state: ButtonGroupItemState): ResolvedVisualState {
   const isDisabled = state === 'disabled';
 
   return {
-    backgroundColor: isActive || state === 'hover' ? palette.gray['1'] : palette.base.white,
-    borderColor: isFocused ? border.color.theme.action.focusLight : palette.gray['3'],
+    backgroundColor: isActive || state === 'hover' ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
+    borderColor: isFocused ? border.color.theme.action.focusLight : colors.semantic.theme.border.action.normal,
     borderWidth: isFocused ? border.width['2'] : border.width['1'],
-    textColor: isDisabled ? textTokens.staticDarkQuaternary : isActive ? textTokens.staticDark : textTokens.staticDarkSecondary,
-    badgeTextColor: isDisabled ? textTokens.staticDarkQuaternary : textTokens.staticDarkSecondary,
-    iconColor: textTokens.staticDark,
+    textColor: isDisabled ? textTokens.quaternary : isActive ? textTokens.primary : textTokens.secondary,
+    badgeTextColor: isDisabled ? textTokens.quaternary : textTokens.secondary,
+    iconColor: textTokens.primary,
   };
 }
 
@@ -369,9 +368,9 @@ function ButtonGroupItemButton({
                   paddingBlock: config.badgeOuterPaddingY,
                   borderStyle: 'solid',
                   borderWidth: border.width['1'],
-                  borderColor: palette.gray['2a'],
+                  borderColor: colors.semantic.theme.background.button.tertiaryHover,
                   borderRadius: size === 'lg' ? radius.scale.md : radius.scale.sm,
-                  backgroundColor: palette.gray['2'],
+                  backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
                 }}
               >
                 <span
@@ -422,7 +421,7 @@ function ButtonGroupItemButton({
               width: spacing.scale['0'],
               borderLeftStyle: 'solid',
               borderLeftWidth: border.width['1'],
-              borderLeftColor: palette.gray['2'],
+              borderLeftColor: colors.semantic.theme.background.surface.neutralSubtle,
             }}
           />
         </span>

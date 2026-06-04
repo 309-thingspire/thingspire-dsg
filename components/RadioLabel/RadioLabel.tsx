@@ -167,7 +167,7 @@ export function RadioLabel({
       >
         <span
           style={{
-            color: textBase.staticDark,
+            color: textBase.primary,
             ...toTypographyStyle(config.labelTypography),
           }}
         >
@@ -177,7 +177,7 @@ export function RadioLabel({
         {showCaption ? (
           <span
             style={{
-              color: textBase.staticDarkSecondary,
+              color: textBase.secondary,
               ...toTypographyStyle(config.captionTypography),
             }}
           >

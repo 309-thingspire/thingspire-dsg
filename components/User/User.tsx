@@ -108,7 +108,7 @@ export function User({
           paddingInline: spacing.scale['8'],
           paddingBlock: spacing.scale['4'],
           borderRadius: radius.scale.lg,
-          backgroundColor: hovered ? palette.gray['1a'] : palette.base.transparent,
+          backgroundColor: hovered ? colors.semantic.theme.background.button.tertiary : palette.base.transparent,
         }}
       >
         {showAvatar ? (
@@ -164,7 +164,7 @@ export function User({
                   fontWeight: nameTypography.fontWeight,
                   lineHeight: `${nameTypography.lineHeight}px`,
                   letterSpacing: `${nameTypography.letterSpacing}px`,
-                  color: palette.gray['13'],
+                  color: colors.semantic.theme.text.base.primary,
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -206,7 +206,7 @@ export function User({
                 fontWeight: captionTypography.fontWeight,
                 lineHeight: `${captionTypography.lineHeight}px`,
                 letterSpacing: `${captionTypography.letterSpacing}px`,
-                color: palette.gray['9a'],
+                color: colors.semantic.theme.text.base.secondary,
                 whiteSpace: 'nowrap',
               }}
             >

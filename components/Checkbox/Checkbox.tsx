@@ -54,6 +54,8 @@ function MinusGlyph() {
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
+const bgCheckbox = colors.semantic.theme.background.checkbox;
+const borderAction = colors.semantic.theme.border.action;
 
 type SizeConfig = {
   boxSize: number;
@@ -142,14 +144,14 @@ export function Checkbox({
 
   const backgroundColor = (() => {
     if (isDisabled) {
-      return palette.gray['3'];
+      return bgCheckbox.disabled;
     }
 
     if (icon) {
-      return palette.purple['8'];
+      return bgCheckbox.checked;
     }
 
-    return palette.base.white;
+    return bgCheckbox.default;
   })();
 
   const borderColor = (() => {
@@ -162,10 +164,10 @@ export function Checkbox({
     }
 
     if (visualState === 'hover') {
-      return palette.gray['4'];
+      return borderAction.hover;
     }
 
-    return palette.gray['3'];
+    return borderAction.normal;
   })();
 
   const boxShadow = (() => {

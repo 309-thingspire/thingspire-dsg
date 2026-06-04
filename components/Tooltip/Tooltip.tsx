@@ -56,10 +56,10 @@ const TRIGGER_SIZE = spacing.scale['24'];
 const TRIGGER_ICON_SIZE = spacing.scale['14'];
 const TRIGGER_TOOLTIP_OFFSET = spacing.scale['24'] + spacing.scale['6'];
 
-// Tooltip surface is always white with dark text per Figma carbonscope:
-// the previous `surface.default` resolved to #0b0c0e dark, which combined
-// with the dark text made the tooltip body unreadable.
-const boxBackground = colors.primitive.palette.base.white;
+// Tooltip surface + text follow the theme together (surface.default and
+// text.base.* both flip under [data-theme='dark']), so the body stays
+// readable in light (white/dark text) and dark (dark/white text) alike.
+const boxBackground = colors.semantic.theme.background.surface.default;
 const boxBorderColor = border.color.theme.action.normal;
 const textBase = colors.semantic.theme.text.base;
 const iconBase = colors.semantic.theme.icon.base;
@@ -123,7 +123,7 @@ function TooltipArrow({
   if (direction === 'up') {
     return (
       <svg width={ARROW_WIDTH} height={ARROW_HEIGHT} viewBox={`0 0 ${ARROW_WIDTH} ${ARROW_HEIGHT}`} aria-hidden="true" style={{ display: 'block' }}>
-        <path d={`M 0 ${ARROW_HEIGHT} L ${ARROW_WIDTH / 2} 0 L ${ARROW_WIDTH} ${ARROW_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
+        <path d={`M 0 ${ARROW_HEIGHT} L ${ARROW_WIDTH / 2} 0 L ${ARROW_WIDTH} ${ARROW_HEIGHT}`} strokeWidth={border.width['1']} strokeLinejoin="round" style={{ fill: backgroundColor, stroke: borderColor }} />
       </svg>
     );
   }
@@ -131,7 +131,7 @@ function TooltipArrow({
   if (direction === 'down') {
     return (
       <svg width={ARROW_WIDTH} height={ARROW_HEIGHT} viewBox={`0 0 ${ARROW_WIDTH} ${ARROW_HEIGHT}`} aria-hidden="true" style={{ display: 'block' }}>
-        <path d={`M 0 0 L ${ARROW_WIDTH / 2} ${ARROW_HEIGHT} L ${ARROW_WIDTH} 0`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
+        <path d={`M 0 0 L ${ARROW_WIDTH / 2} ${ARROW_HEIGHT} L ${ARROW_WIDTH} 0`} strokeWidth={border.width['1']} strokeLinejoin="round" style={{ fill: backgroundColor, stroke: borderColor }} />
       </svg>
     );
   }
@@ -145,7 +145,7 @@ function TooltipArrow({
         aria-hidden="true"
         style={{ display: 'block' }}
       >
-        <path d={`M ${ARROW_SIDE_WIDTH} 0 L 0 ${ARROW_SIDE_HEIGHT / 2} L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
+        <path d={`M ${ARROW_SIDE_WIDTH} 0 L 0 ${ARROW_SIDE_HEIGHT / 2} L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT}`} strokeWidth={border.width['1']} strokeLinejoin="round" style={{ fill: backgroundColor, stroke: borderColor }} />
       </svg>
     );
   }
@@ -158,7 +158,7 @@ function TooltipArrow({
       aria-hidden="true"
       style={{ display: 'block' }}
     >
-      <path d={`M 0 0 L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT / 2} L 0 ${ARROW_SIDE_HEIGHT}`} fill={backgroundColor} stroke={borderColor} strokeWidth={border.width['1']} strokeLinejoin="round" />
+      <path d={`M 0 0 L ${ARROW_SIDE_WIDTH} ${ARROW_SIDE_HEIGHT / 2} L 0 ${ARROW_SIDE_HEIGHT}`} strokeWidth={border.width['1']} strokeLinejoin="round" style={{ fill: backgroundColor, stroke: borderColor }} />
     </svg>
   );
 }
@@ -204,7 +204,7 @@ function TooltipBox({
             style={{
               margin: spacing.scale['0'],
               maxWidth: LG_TEXT_MAX_WIDTH,
-              color: textBase.staticDark,
+              color: textBase.primary,
               whiteSpace: 'normal',
               ...toTypographyStyle(config.headlineTypography ?? typography.scale.captionM.medium),
             }}
@@ -215,7 +215,7 @@ function TooltipBox({
             style={{
               margin: spacing.scale['0'],
               maxWidth: LG_TEXT_MAX_WIDTH,
-              color: textBase.staticDarkSecondary,
+              color: textBase.secondary,
               whiteSpace: 'normal',
               ...toTypographyStyle(config.descriptionTypography ?? typography.scale.captionM.regular),
             }}
@@ -247,7 +247,7 @@ function TooltipBox({
       <p
         style={{
           margin: spacing.scale['0'],
-          color: textBase.staticDark,
+          color: textBase.primary,
           whiteSpace: 'nowrap',
           ...toTypographyStyle(config.textTypography),
         }}

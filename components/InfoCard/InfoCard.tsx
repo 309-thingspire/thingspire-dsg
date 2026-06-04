@@ -21,7 +21,7 @@ const labelTextStyle: React.CSSProperties = {
   fontWeight: labelTypography.fontWeight,
   lineHeight: `${labelTypography.lineHeight}px`,
   letterSpacing: `${labelTypography.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
 };
 
@@ -31,7 +31,7 @@ const captionTextStyle: React.CSSProperties = {
   fontWeight: captionTypography.fontWeight,
   lineHeight: `${captionTypography.lineHeight}px`,
   letterSpacing: `${captionTypography.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
 };
 
@@ -53,7 +53,7 @@ export function InfoCard({
   onClose,
 }: InfoCardProps) {
   const isLg = type === 'lg';
-  const surfaceColor = isLg ? palette.orange['1'] : palette.green['1'];
+  const surfaceColor = isLg ? colors.semantic.theme.background.surface.warning : colors.semantic.theme.background.surface.success;
 
   return (
     <div
@@ -110,7 +110,7 @@ export function InfoCard({
                     display: 'inline-flex',
                     paddingBlock: spacing.scale['2'],
                     flexShrink: 0,
-                    color: palette.orange['8'],
+                    color: colors.semantic.theme.text.status.warning,
                   }}
                 >
                   {leadIcon ?? (
@@ -165,7 +165,7 @@ export function InfoCard({
                   border: 'none',
                   padding: 0,
                   cursor: 'pointer',
-                  color: palette.gray['9a'],
+                  color: colors.semantic.theme.text.base.secondary,
                 }}
               >
                 <IconCloseLine

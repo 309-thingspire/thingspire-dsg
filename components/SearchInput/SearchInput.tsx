@@ -5,7 +5,6 @@ import { IconInformationLine, IconSearchLine } from '../icons';
 
 import type { SearchInputProps, SearchInputState } from './SearchInput.types';
 
-const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
 
 type TypographyToken = {
@@ -97,12 +96,12 @@ export function SearchInput({
 
   const textColor =
     resolvedState === 'disabled'
-      ? textBase.staticDarkQuaternary
+      ? textBase.quaternary
       : resolvedState === 'filled'
-      ? textBase.staticDark
-      : textBase.staticDarkTertiary;
+      ? textBase.primary
+      : textBase.tertiary;
 
-  const badgeColor = resolvedState === 'disabled' ? textBase.staticDarkQuaternary : textBase.staticDarkSecondary;
+  const badgeColor = resolvedState === 'disabled' ? textBase.quaternary : textBase.secondary;
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     if (value === undefined) {
@@ -123,7 +122,7 @@ export function SearchInput({
         minHeight: spacing.scale['40'],
         paddingInline: spacing.scale['12'],
         paddingBlock: spacing.scale['0'],
-        backgroundColor: palette.base.white,
+        backgroundColor: colors.semantic.theme.background.input.normal,
         ...style,
       }}
       {...rest}
@@ -198,7 +197,7 @@ export function SearchInput({
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: palette.gray['2'],
+              backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
               borderRadius: radius.scale.sm,
               paddingInline: spacing.primitive['3'],
               paddingBlock: spacing.scale['2'],

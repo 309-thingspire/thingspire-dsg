@@ -70,10 +70,10 @@ function ActionButton({
         paddingBlock: spacing.scale['6'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: isPrimary ? palette.gray['13'] : palette.gray['3'],
+        borderColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: isPrimary ? palette.gray['13'] : palette.base.white,
-        color: isPrimary ? palette.base.white : textTokens.staticDark,
+        backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
+        color: isPrimary ? colors.semantic.theme.background.surface.default : textTokens.primary,
         boxShadow: shadows.elevation.xs.css,
         cursor: 'pointer',
       }}
@@ -141,7 +141,7 @@ function ImageBlock({ flat, imageSlot }: { flat: boolean; imageSlot: FeatureCard
         minHeight: SIZE_260,
         borderRadius: flat ? radius.scale.xxl : radius.scale['0'],
         backgroundImage: toLinearGradient(gradientSolid04),
-        backgroundColor: gradientSolid04.stops[0]?.color ?? palette.gray['1'],
+        backgroundColor: gradientSolid04.stops[0]?.color ?? colors.semantic.theme.background.surface.neutral,
         overflow: 'hidden',
       }}
     >
@@ -204,9 +204,9 @@ function ContentBlock({
               paddingBlock: spacing.scale['2'],
               borderStyle: 'solid',
               borderWidth: border.width['1'],
-              borderColor: palette.gray['2a'],
+              borderColor: colors.semantic.theme.background.button.tertiaryHover,
               borderRadius: radius.scale.full,
-              backgroundColor: palette.green['2'],
+              backgroundColor: colors.semantic.theme.background.surface.successSubtle,
             }}
           >
             <span
@@ -216,7 +216,7 @@ function ContentBlock({
                 justifyContent: 'center',
                 paddingInline: spacing.scale['4'],
                 paddingBlock: spacing.scale['0'],
-                color: palette.green['11'],
+                color: colors.semantic.theme.text.status.success,
                 ...getTypographyStyle(typography.scale.captionL.medium),
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
@@ -242,7 +242,7 @@ function ContentBlock({
           style={{
             margin: spacing.scale['0'],
             width: '100%',
-            color: textTokens.staticDark,
+            color: textTokens.primary,
             ...getTypographyStyle(typography.scale.h6.semiBold),
           }}
         >
@@ -314,9 +314,9 @@ export function FeatureCard({
           padding: spacing.scale['24'],
           borderStyle: 'solid',
           borderWidth: border.width['1'],
-          borderColor: palette.gray['3'],
+          borderColor: colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xxl,
-          backgroundColor: palette.base.white,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           boxShadow: shadows.elevation.xs.css,
           ...style,
         }}
@@ -358,9 +358,9 @@ export function FeatureCard({
         overflow: 'hidden',
         borderStyle: 'solid',
         borderWidth: isFlat ? border.width['0'] : border.width['1'],
-        borderColor: isFlat ? palette.base.transparent : palette.gray['2a'],
+        borderColor: isFlat ? palette.base.transparent : colors.semantic.theme.background.button.tertiaryHover,
         borderRadius: isFlat ? radius.scale['0'] : radius.scale.xxl,
-        backgroundColor: isFlat ? palette.base.transparent : palette.base.white,
+        backgroundColor: isFlat ? palette.base.transparent : colors.semantic.theme.background.surface.default,
         boxShadow: shadows.elevation.xs.css,
         ...style,
       }}

@@ -84,14 +84,14 @@ function getResolvedState(
 
 function resolveContainerBackground(state: QuantityStepperState): string {
   if (state === 'hover') {
-    return palette.gray['2a'];
+    return colors.semantic.theme.background.button.tertiaryHover;
   }
 
   if (state === 'disabled') {
-    return palette.gray['1'];
+    return colors.semantic.theme.background.surface.neutral;
   }
 
-  return palette.gray['1a'];
+  return colors.semantic.theme.background.button.tertiary;
 }
 
 function resolveContainerBorderColor(state: QuantityStepperState): string {
@@ -212,9 +212,9 @@ export function QuantityStepper({
   const containerRadius = shape === 'pill' ? radius.scale.full : sizeConfig.containerRoundedRadius;
   const atMin = currentValue <= min;
   const atMax = currentValue >= max;
-  const textColor = resolvedState === 'disabled' ? textBase.staticDarkQuaternary : textBase.staticDark;
-  const enabledIconColor = textBase.staticDark;
-  const disabledIconColor = textBase.staticDarkQuaternary;
+  const textColor = resolvedState === 'disabled' ? textBase.quaternary : textBase.primary;
+  const enabledIconColor = textBase.primary;
+  const disabledIconColor = textBase.quaternary;
 
   function applyValue(next: number, changeType: 'decrease' | 'increase') {
     const clamped = clampValue(next, min, max);

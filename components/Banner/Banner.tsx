@@ -109,7 +109,7 @@ export function Banner({
         borderRadius: radius.scale.xl,
         overflow: 'hidden',
         boxSizing: 'border-box',
-        backgroundColor: resolvedState === 'hover' ? palette.green['1'] : palette.green['2'],
+        backgroundColor: resolvedState === 'hover' ? colors.semantic.theme.background.surface.success : colors.semantic.theme.background.surface.successSubtle,
         ...style,
       }}
       {...props}
@@ -144,9 +144,9 @@ export function Banner({
                 paddingBlock: spacing.scale['2'],
                 borderStyle: 'solid',
                 borderWidth: border.width['1'],
-                borderColor: palette.gray['2a'],
+                borderColor: colors.semantic.theme.background.button.tertiaryHover,
                 borderRadius: radius.scale.full,
-                backgroundColor: palette.green['2'],
+                backgroundColor: colors.semantic.theme.background.surface.successSubtle,
               }}
             >
               <span
@@ -156,7 +156,7 @@ export function Banner({
                   justifyContent: 'center',
                   paddingInline: spacing.scale['4'],
                   paddingBlock: spacing.scale['0'],
-                  color: palette.green['11'],
+                  color: colors.semantic.theme.text.status.success,
                   ...getTypographyStyle(typography.scale.captionL.medium),
                   textAlign: 'center',
                   whiteSpace: 'nowrap',
@@ -181,7 +181,7 @@ export function Banner({
             style={{
               margin: spacing.scale['0'],
               width: '100%',
-              color: textTokens.staticDark,
+              color: textTokens.primary,
               ...getTypographyStyle(typography.scale.h6.semiBold),
             }}
           >
@@ -191,7 +191,7 @@ export function Banner({
             style={{
               margin: spacing.scale['0'],
               width: '100%',
-              color: textTokens.staticDarkSecondary,
+              color: textTokens.secondary,
               ...getTypographyStyle(typography.scale.bodyS.regular),
             }}
           >

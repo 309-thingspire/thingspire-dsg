@@ -35,7 +35,7 @@ const BADGE_TONE_BG: Record<BadgeTone, string> = {
   blue: palette.blue['2'],
   red: palette.red['2'],
   purple: palette.purple['2'],
-  gray: palette.gray['2'],
+  gray: colors.semantic.theme.background.surface.neutralSubtle,
 };
 
 const BADGE_TONE_FG: Record<BadgeTone, string> = {
@@ -44,7 +44,7 @@ const BADGE_TONE_FG: Record<BadgeTone, string> = {
   blue: palette.blue['11'],
   red: palette.red['11'],
   purple: palette.purple['11'],
-  gray: palette.gray['13'],
+  gray: colors.semantic.theme.text.base.primary,
 };
 
 const buttonTextStyle: React.CSSProperties = {
@@ -75,7 +75,7 @@ const textStyle: React.CSSProperties = {
   fontWeight: bodySRegular.fontWeight,
   lineHeight: `${bodySRegular.lineHeight}px`,
   letterSpacing: `${bodySRegular.letterSpacing}px`,
-  color: palette.gray['9a'],
+  color: colors.semantic.theme.text.base.secondary,
   margin: 0,
   width: '100%',
 };
@@ -86,7 +86,7 @@ const inputTextStyle: React.CSSProperties = {
   fontWeight: captionLRegular.fontWeight,
   lineHeight: `${captionLRegular.lineHeight}px`,
   letterSpacing: `${captionLRegular.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   flex: '1 0 0',
   minWidth: 0,
@@ -113,7 +113,7 @@ const tabBadgeTextStyle: React.CSSProperties = {
   fontWeight: captionMMedium.fontWeight,
   lineHeight: `${captionMMedium.lineHeight}px`,
   letterSpacing: `${captionMMedium.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -125,7 +125,7 @@ const ratingTextStyle: React.CSSProperties = {
   fontWeight: captionLMedium.fontWeight,
   lineHeight: `${captionLMedium.lineHeight}px`,
   letterSpacing: `${captionLMedium.letterSpacing}px`,
-  color: palette.gray['13'],
+  color: colors.semantic.theme.text.base.primary,
   margin: 0,
   whiteSpace: 'nowrap',
 };
@@ -175,10 +175,10 @@ function ButtonGroup({
           gap: spacing.scale['2'],
           paddingInline: spacing.scale['10'],
           paddingBlock: spacing.scale['6'],
-          backgroundColor: palette.gray['13'],
+          backgroundColor: colors.semantic.theme.background.surface.inverted,
           borderRadius: radius.scale.lg,
           borderStyle: 'none',
-          color: palette.base.white,
+          color: colors.semantic.theme.background.surface.default,
           boxShadow: '0px 1px 2px 0px rgba(20,21,26,0.05)',
           cursor: 'pointer',
           appearance: 'none',
@@ -199,12 +199,12 @@ function ButtonGroup({
           gap: spacing.scale['2'],
           paddingInline: spacing.scale['10'],
           paddingBlock: spacing.scale['6'],
-          backgroundColor: palette.base.white,
+          backgroundColor: colors.semantic.theme.background.surface.default,
           borderStyle: 'solid',
           borderWidth: border.width['1'],
-          borderColor: palette.gray['3'],
+          borderColor: colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.lg,
-          color: palette.gray['13'],
+          color: colors.semantic.theme.text.base.primary,
           boxShadow: '0px 1px 2px 0px rgba(20,21,26,0.05)',
           cursor: 'pointer',
           appearance: 'none',
@@ -231,7 +231,7 @@ function BadgePill({ badge }: { badge: AdditionalMetaBadge }) {
         backgroundColor: BADGE_TONE_BG[tone],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: palette.gray['2a'],
+        borderColor: colors.semantic.theme.background.button.tertiaryHover,
         borderRadius: radius.scale.full,
       }}
     >
@@ -272,7 +272,7 @@ function TabMenu({
         justifyContent: 'center',
         gap: spacing.scale['2'],
         padding: spacing.scale['2'],
-        backgroundColor: palette.gray['2a'],
+        backgroundColor: colors.semantic.theme.background.button.tertiaryHover,
         borderRadius: radius.scale.lg,
       }}
     >
@@ -298,8 +298,8 @@ function TabMenu({
               borderRadius: radius.scale.md,
               borderStyle: 'solid',
               borderWidth: isActive ? border.width['1'] : border.width['0'],
-              borderColor: isActive ? palette.gray['3'] : 'transparent',
-              backgroundColor: isActive ? palette.base.white : 'transparent',
+              borderColor: isActive ? colors.semantic.theme.border.action.normal : 'transparent',
+              backgroundColor: isActive ? colors.semantic.theme.background.surface.default : 'transparent',
               boxShadow: isActive ? '0px 1px 2px 0px rgba(20,21,26,0.05)' : 'none',
               cursor: 'pointer',
               appearance: 'none',
@@ -309,7 +309,7 @@ function TabMenu({
             <span
               style={{
                 ...tabTextStyle,
-                color: isActive ? palette.gray['13'] : palette.gray['9a'],
+                color: isActive ? colors.semantic.theme.text.base.primary : colors.semantic.theme.text.base.secondary,
               }}
             >
               {tab.label}
@@ -322,7 +322,7 @@ function TabMenu({
                   justifyContent: 'center',
                   paddingInline: spacing.scale['6'],
                   paddingBlock: spacing.scale['2'],
-                  backgroundColor: palette.gray['1a'],
+                  backgroundColor: colors.semantic.theme.background.button.tertiary,
                   borderRadius: radius.scale.sm,
                 }}
               >
@@ -344,7 +344,7 @@ function PaginationDot({ active }: { active: boolean }) {
         width: spacing.scale['6'],
         height: spacing.scale['6'],
         borderRadius: radius.scale.full,
-        backgroundColor: active ? palette.gray['13'] : palette.gray['2'],
+        backgroundColor: active ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.neutralSubtle,
         flexShrink: 0,
         display: 'inline-block',
       }}
@@ -386,13 +386,13 @@ function PaginationRow({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: palette.gray['1a'],
+          backgroundColor: colors.semantic.theme.background.button.tertiary,
           borderRadius: radius.scale.full,
           borderStyle: 'none',
           cursor: 'pointer',
           appearance: 'none',
           outline: 'none',
-          color: palette.gray['9a'],
+          color: colors.semantic.theme.text.base.secondary,
         }}
       >
         <IconArrowLeftLine
@@ -419,13 +419,13 @@ function PaginationRow({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: palette.gray['1a'],
+          backgroundColor: colors.semantic.theme.background.button.tertiary,
           borderRadius: radius.scale.full,
           borderStyle: 'none',
           cursor: 'pointer',
           appearance: 'none',
           outline: 'none',
-          color: palette.gray['9a'],
+          color: colors.semantic.theme.text.base.secondary,
         }}
       >
         <IconArrowRightLine
@@ -531,7 +531,7 @@ export function AdditionalMeta({
             flex: '1 0 0',
             minWidth: 0,
             height: 1,
-            backgroundColor: palette.gray['2'],
+            backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
           }}
         />
       </div>
@@ -548,10 +548,10 @@ export function AdditionalMeta({
             alignItems: 'center',
             paddingInline: spacing.scale['8'],
             paddingBlock: spacing.scale['6'],
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: palette.gray['3'],
+            borderColor: colors.semantic.theme.border.action.normal,
             borderRadius: radius.scale.lg,
             boxShadow: '0px 1px 1px 0px rgba(20,21,26,0.05)',
             boxSizing: 'border-box',
@@ -626,12 +626,12 @@ export function AdditionalMeta({
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: palette.base.white,
+            backgroundColor: colors.semantic.theme.background.surface.default,
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: palette.gray['2a'],
+            borderColor: colors.semantic.theme.background.button.tertiaryHover,
             borderRadius: radius.scale.full,
-            color: palette.gray['9a'],
+            color: colors.semantic.theme.text.base.secondary,
             flexShrink: 0,
           }}
         >
@@ -662,7 +662,7 @@ export function AdditionalMeta({
             width: spacing.scale['20'],
             height: spacing.scale['20'],
             display: 'block',
-            color: palette.gray['13'],
+            color: colors.semantic.theme.text.base.primary,
           }}
         />
         <span style={ratingTextStyle}>{ratingValue ?? '4.8'}</span>

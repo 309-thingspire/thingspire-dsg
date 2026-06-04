@@ -154,7 +154,7 @@ function ArrowControlButton({
         borderStyle: 'solid',
         borderWidth: border.width['0'],
         borderRadius: ghost ? config.numberRadius : radius.scale.full,
-        backgroundColor: ghost ? palette.base.transparent : palette.gray['1a'],
+        backgroundColor: ghost ? palette.base.transparent : colors.semantic.theme.background.button.tertiary,
         padding: config.iconPadding,
         cursor: disabled ? 'default' : 'pointer',
         boxShadow: withFocusRing('none', interactionState, disabled),
@@ -188,7 +188,7 @@ function Dots({
             width: spacing.scale['6'],
             height: spacing.scale['6'],
             borderRadius: radius.scale.full,
-            backgroundColor: index === activeIndex ? palette.base.dark1 : palette.gray['2'],
+            backgroundColor: index === activeIndex ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.neutralSubtle,
             display: 'inline-flex',
             flexShrink: 0,
           }}
@@ -231,7 +231,7 @@ function NumberItemButton({
         borderStyle: 'solid',
         borderWidth: border.width['0'],
         borderRadius: config.numberRadius,
-        backgroundColor: isActive ? palette.gray['1a'] : palette.base.transparent,
+        backgroundColor: isActive ? colors.semantic.theme.background.button.tertiary : palette.base.transparent,
         padding: spacing.scale['0'],
         cursor: itemDisabled || item.kind === 'more' ? 'default' : 'pointer',
         boxShadow: withFocusRing('none', interactionState, itemDisabled),
@@ -240,10 +240,10 @@ function NumberItemButton({
       <span
         style={{
           color: itemDisabled
-            ? textBase.staticDarkQuaternary
+            ? textBase.quaternary
             : isActive
-              ? textBase.staticDark
-              : textBase.staticDarkSecondary,
+              ? textBase.primary
+              : textBase.secondary,
           textAlign: 'center',
           whiteSpace: 'nowrap',
           ...toTypographyStyle(config.numberTypography),
@@ -285,9 +285,9 @@ function ActionButton({
         gap: config.buttonGap,
         borderStyle: 'solid',
         borderWidth: primary ? border.width['0'] : border.width['1'],
-        borderColor: primary ? palette.base.transparent : palette.gray['3'],
+        borderColor: primary ? palette.base.transparent : colors.semantic.theme.border.action.normal,
         borderRadius: config.buttonRadius,
-        backgroundColor: primary ? palette.gray['13'] : palette.base.white,
+        backgroundColor: primary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
         paddingInline: config.buttonPaddingX,
         paddingBlock: config.buttonPaddingY,
         cursor: disabled ? 'default' : 'pointer',
@@ -302,10 +302,10 @@ function ActionButton({
           paddingInline: spacing.scale['4'],
           paddingBlock: spacing.scale['0'],
           color: disabled
-            ? textBase.staticDarkQuaternary
+            ? textBase.quaternary
             : primary
-              ? textBase.staticWhite
-              : textBase.staticDark,
+              ? textBase.inverted
+              : textBase.primary,
           textAlign: 'center',
           whiteSpace: 'nowrap',
           ...toTypographyStyle(config.buttonTypography),
