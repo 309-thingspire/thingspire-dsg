@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { IconArrowLeftSLine, IconArrowRightSLine } from '../icons';
 
 import type {
   CalendarDayState,
@@ -32,10 +33,10 @@ const DATE_CELL_SIZE = spacing.scale['36'];
 const DATE_CELL_INSET = spacing.scale['2'];
 const RANGE_FILL_HEIGHT = spacing.scale['32'];
 const RANGE_FILL_EDGE = spacing.scale['2'];
+// The header chevron sits inside a 20×20 button. The icon glyph itself is
+// smaller than the 20×20 wrapper — the generated 24-grid icon renders at
+// ~16.7px optical inside the 20px box, matching the Figma icon-frame inset.
 const HEADER_ICON_SIZE = spacing.scale['20'];
-
-const ARROW_LEFT_PATH = 'M2.35667 5.30333L6.48167 9.42833L5.30333 10.6067L0 5.30333L5.30333 0L6.48167 1.17833L2.35667 5.30333Z';
-const ARROW_RIGHT_PATH = 'M4.125 5.30333L0 1.17833L1.17833 0L6.48167 5.30333L1.17833 10.6067L0 9.42833L4.125 5.30333Z';
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
@@ -180,19 +181,17 @@ function buildMonthGrid(year: number, month: number): CalendarDayCell[][] {
 }
 
 function ArrowIcon({ direction }: { direction: 'left' | 'right' }) {
+  const Icon = direction === 'left' ? IconArrowLeftSLine : IconArrowRightSLine;
   return (
-    <svg
+    <Icon
       aria-hidden="true"
-      viewBox="0 0 6.48167 10.6067"
       style={{
         width: HEADER_ICON_SIZE,
         height: HEADER_ICON_SIZE,
         display: 'block',
         color: textBase.staticDarkSecondary,
       }}
-    >
-      <path d={direction === 'left' ? ARROW_LEFT_PATH : ARROW_RIGHT_PATH} fill="currentColor" />
-    </svg>
+    />
   );
 }
 
@@ -201,8 +200,8 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
     <div
       style={{
         display: 'flex',
-        flex: '1 0 0',
-        minWidth: spacing.scale['144'],
+        flex: '1 1 0',
+        minWidth: spacing.scale['0'],
         minHeight: spacing.scale['0'],
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -247,7 +246,6 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
           display: 'flex',
           alignItems: 'flex-start',
           gap: spacing.scale['0'],
-          boxShadow: shadows.elevation.xs.css,
         }}
       >
         <div
@@ -351,7 +349,6 @@ function ActionButton({
         borderRadius: radius.scale.lg,
         backgroundColor: isPrimary ? palette.gray['13'] : palette.base.white,
         color: isPrimary ? palette.base.white : textBase.staticDark,
-        boxShadow: shadows.elevation.xs.css,
         cursor: 'pointer',
       }}
     >
