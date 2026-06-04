@@ -1,24 +1,31 @@
 # Thingspire UI — Usage Guide
 
-Use the design library in your own project. The components ship as
-copy-paste source (no runtime dependency on the library), pulled via
-the `@309-thingspire/ui` CLI from the public registry at
-[thingspire-dsg.vercel.app](https://thingspire-dsg.vercel.app).
+Use the design library in your own project. There are **two ways** to
+consume it (pick one — see [§2](#2-choosing-a-channel)):
+
+1. **npm package** `@309-thingspire/dsg` — `npm install` it and import
+   directly. Master is the source of truth; `npm update` pulls the
+   latest. You don't edit the components locally.
+2. **CLI copy-paste** `@309-thingspire/ui` — the CLI copies component
+   source into your project from the registry at
+   [thingspire-dsg.vercel.app](https://thingspire-dsg.vercel.app). You
+   own and can freely edit the copies (shadcn-style).
 
 ---
 
 ## 1. What you get
 
-- **38 React components** (atoms + molecules) — Button, Input,
-  Checkbox, Dropdown, Calendar, Tooltip, Badge, Sidebar (+ atoms),
-  Accordion, Pagination, ProgressBar/Circle, TableCell/Header,
-  TabMenu, Toggle, FeatureCard, TaskCard, Banner, NavigationBar, …
+- **44 React components** (atoms + molecules + organisms) — Button,
+  Input, Checkbox, Dropdown, Calendar, Tooltip, Badge, Sidebar
+  (+ atoms), Accordion, Pagination, ProgressBar/Circle,
+  TableCell/Header, TabMenu, Toggle, FeatureCard, TaskCard, Banner,
+  NavigationBar, PageHeader, …
 - **2,278 icons** as tree-shakable React components
-  (`@/components/icons` barrel)
-- **Design tokens** (`styles/tokens.css`) — light/dark CSS variables
-  matching Figma `carbonscope-Library v1.0`
-- A small **CLI** (`npx @309-thingspire/ui …`) for fetching components
-  on demand
+  (`@309-thingspire/dsg/icons` or the `@/components/icons` barrel)
+- **Design tokens** (`styles/tokens.css` + `@309-thingspire/dsg/tokens`)
+  — light/dark CSS variables matching Figma `carbonscope-Library v1.0`
+- An **npm package** (`@309-thingspire/dsg`) for auto-sync, and a
+  **CLI** (`npx @309-thingspire/ui …`) for editable copy-paste
 - A **Registry API** (`/api/registry`) and a static JSON mirror
   (`/r/index.json`, `/r/<slug>.json`) for tooling
 
@@ -27,7 +34,61 @@ The components are framework-agnostic React: any **React 19** project
 
 ---
 
-## 2. Prerequisites
+## 2. Choosing a channel
+
+| | **npm package** `@309-thingspire/dsg` | **CLI copy-paste** `@309-thingspire/ui` |
+| --- | --- | --- |
+| Install | `npm install @309-thingspire/dsg` | `npx @309-thingspire/ui add <slug>` |
+| Where code lives | `node_modules` (read-only) | your repo (editable) |
+| Get updates | `npm update @309-thingspire/dsg` | re-run `add --overwrite` |
+| Edit a component | not directly (fork via overrides) | freely, it's your copy |
+| Best for | apps that want auto-sync with master | projects that need to customize |
+
+> Don't install both in one project — the component names collide.
+
+### Option A — npm package (auto-sync)
+
+```bash
+npm install @309-thingspire/dsg react react-dom
+```
+
+```tsx
+// components (44 of them)
+import { Button, Calendar, Banner } from '@309-thingspire/dsg'
+
+// icons — tree-shaken, only what you import is bundled
+import { IconArrowRightLine } from '@309-thingspire/dsg/icons'
+
+// raw design tokens (for custom CSS-in-JS)
+import { colors, spacing } from '@309-thingspire/dsg/tokens'
+
+// optional: CSS variables for `hsl(var(--primary))`-style usage
+import '@309-thingspire/dsg/tokens.css'
+
+export function Example() {
+  return <Button leftIcon={<IconArrowRightLine />}>Next</Button>
+}
+```
+
+**Auto-sync workflow:** the design library master is the single source
+of truth. When a component changes there and a new version is
+published, run `npm update @309-thingspire/dsg` to pull it (within your
+caret range, e.g. `^0.1.0`). A breaking major needs an explicit
+`npm install @309-thingspire/dsg@latest`.
+
+`react` / `react-dom` are **peer dependencies** (>=18) — your app
+provides them, the package never bundles its own copy.
+
+### Option B — CLI copy-paste
+
+Continue to [§4 Quick start](#4-quick-start). The rest of this guide
+(token wiring, slots, theming, registry) applies to both channels —
+where it says "the files you pulled", the npm package ships the same
+modules under `@309-thingspire/dsg`.
+
+---
+
+## 3. Prerequisites
 
 | Requirement | Version |
 | --- | --- |
@@ -41,7 +102,7 @@ files. Once installed, you can edit them freely.
 
 ---
 
-## 3. Quick start
+## 4. Quick start
 
 ```bash
 # 1. From your project root, initialise a config file
@@ -69,7 +130,7 @@ along with its types, preview, and docs files.
 
 ---
 
-## 4. Wire up the design tokens
+## 5. Wire up the design tokens
 
 Components rely on a small set of CSS variables (background, border,
 foreground, accent, …) defined in `styles/tokens.css`. The CLI copies
@@ -89,11 +150,11 @@ import './styles/tokens.css'
 ```
 
 The tokens file declares both light defaults and a `[data-theme="dark"]`
-override (see §8 for theming).
+override (see §9 for theming).
 
 ---
 
-## 5. Use a component
+## 6. Use a component
 
 ```tsx
 import { Button } from '@/components/button/button'
@@ -134,7 +195,7 @@ those for variant / size / state options.
 
 ---
 
-## 6. Icon library
+## 7. Icon library
 
 ```tsx
 import { IconCheckLine, IconArrowRightSLine, IconUserLine } from '@/components/icons'
@@ -205,7 +266,7 @@ progress arc) and not reusable as standalone icons.
 
 ---
 
-## 7. Component slots that take icons
+## 8. Component slots that take icons
 
 ```tsx
 <Button leftIcon={<IconAddLine />}>Create</Button>
@@ -219,7 +280,7 @@ import { Badge } from '@/components/badge/badge'
 
 ---
 
-## 8. Light / dark theme
+## 9. Light / dark theme
 
 Tokens.css already declares both palettes. Toggle the theme by
 setting `data-theme` on `<html>`:
@@ -266,7 +327,7 @@ extra wiring.
 
 ---
 
-## 9. CLI reference
+## 10. CLI reference
 
 ```bash
 npx @309-thingspire/ui <command> [options]
@@ -304,7 +365,7 @@ npx @309-thingspire/ui --registry https://thingspire-dsg-staging.vercel.app/r ad
 
 ---
 
-## 10. Registry API
+## 11. Registry API
 
 The registry is mirrored as static JSON for fast CDN delivery, and
 the same shape is also served from a Next.js API route as a fallback:
@@ -323,7 +384,7 @@ whole tree-shakable library in your project at once.
 
 ---
 
-## 11. Updating components later
+## 12. Updating components later
 
 ```bash
 # Refresh the components you've already pulled
@@ -341,7 +402,7 @@ installation, you can also:
 
 ---
 
-## 12. File layout after install
+## 13. File layout after install
 
 A typical project after `init` + `add` looks like:
 
@@ -370,7 +431,7 @@ match your new layout, and the CLI will install there next time.
 
 ---
 
-## 13. Troubleshooting
+## 14. Troubleshooting
 
 **Icons render as black squares / no color**
 The icon SVGs use `currentColor`. Make sure the parent element sets a
@@ -400,7 +461,7 @@ resolve. Upgrade to React 19, or relax `tsconfig.json` `lib` /
 
 ---
 
-## 14. Live reference
+## 15. Live reference
 
 - Showcase: <https://thingspire-dsg.vercel.app>
 - Per-component pages: <https://thingspire-dsg.vercel.app/components/button>, etc.
