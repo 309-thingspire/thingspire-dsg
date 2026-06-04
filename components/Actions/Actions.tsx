@@ -257,7 +257,7 @@ function TabsActions({
               borderWidth: isActive ? border.width['1'] : border.width['0'],
               borderColor: isActive ? colors.semantic.theme.border.action.normal : 'transparent',
               backgroundColor: isActive ? colors.semantic.theme.background.surface.default : 'transparent',
-              boxShadow: isActive ? '0px 1px 2px 0px rgba(20,21,26,0.05)' : 'none',
+              boxShadow: 'none',
               cursor: 'pointer',
               appearance: 'none',
               outline: 'none',

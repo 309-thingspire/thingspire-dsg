@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 
 import type { TabMenuItem, TabMenuProps, TabMenuSize, TabMenuType, TabMenuVisualState } from './TabMenu.types';
 
@@ -360,7 +360,7 @@ export function TabMenu({
                   borderWidth: isSelected ? border.width['1'] : border.width['0'],
                   borderColor: isSelected ? border.color.theme.action.normal : colors.primitive.palette.base.transparent,
                   backgroundColor: isSelected ? backgroundButton.secondary : colors.primitive.palette.base.transparent,
-                  boxShadow: isSelected ? shadows.elevation.xs.css : 'none',
+                  boxShadow: 'none',
                 };
 
         const textWrapStyle =

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 
 import type {
   ButtonGroupItemAlign,
@@ -447,7 +447,7 @@ export function ButtonGroup({
         display: 'inline-flex',
         alignItems: 'flex-start',
         gap: spacing.scale['0'],
-        boxShadow: shadows.elevation.xs.css,
+        boxShadow: 'none',
         ...style,
       }}
       {...props}

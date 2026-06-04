@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 
 import type { TaskCardProps, TaskCardState } from './TaskCard.types';
 
@@ -132,7 +132,7 @@ export function TaskCard({
         borderColor: colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
         backgroundColor: resolvedState === 'hover' ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
-        boxShadow: shadows.elevation.xs.css,
+        boxShadow: 'none',
         boxSizing: 'border-box',
         cursor: isInteractive ? 'pointer' : 'default',
         ...style,

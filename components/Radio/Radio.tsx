@@ -115,7 +115,7 @@ export function Radio({
       return shadows.focusRing.light.css;
     }
 
-    return shadows.elevation.xs.css;
+    return 'none';
   })();
 
   const handleSelect = () => {

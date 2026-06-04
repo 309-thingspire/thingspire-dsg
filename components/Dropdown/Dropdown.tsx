@@ -656,7 +656,7 @@ export function Dropdown({
                       height: spacing.scale['12'],
                       borderRadius: radius.scale.full,
                       backgroundColor: isDisabled ? palette.gray['4'] : colors.semantic.theme.background.surface.default,
-                      boxShadow: isDisabled ? 'none' : shadows.elevation.xs['0'].css,
+                      boxShadow: 'none',
                     }}
                   />
                 </span>

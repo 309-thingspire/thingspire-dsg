@@ -921,7 +921,7 @@ export function NavigationBar({
                 color: ctaTextColor,
                 paddingInline: spacing.scale['10'],
                 paddingBlock: spacing.scale['6'],
-                boxShadow: withFocusRing(shadows.elevation.xs.css, interactionState, componentDisabled),
+                boxShadow: withFocusRing('none', interactionState, componentDisabled),
                 cursor: componentDisabled ? 'default' : 'pointer',
               }}
             >

@@ -84,12 +84,9 @@ function resolveTrackShadow(visualState: ToggleVisualState): string {
   return shadows.focusRing.light.css;
 }
 
-function resolveKnobShadow(visualState: ToggleVisualState): string {
-  if (visualState === 'disabled') {
-    return 'none';
-  }
-
-  return shadows.elevation.xs.css;
+function resolveKnobShadow(_visualState: ToggleVisualState): string {
+  // Flat knob — resting elevation.xs removed per design direction.
+  return 'none';
 }
 
 export function Toggle({

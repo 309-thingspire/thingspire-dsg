@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Radio } from '../Radio/Radio';
@@ -900,7 +900,7 @@ export function TableCell({
               height: handleSize,
               borderRadius: radius.scale.full,
               backgroundColor: palette.base.white,
-              boxShadow: shadows.elevation.xs.css,
+              boxShadow: 'none',
               display: 'block',
               flexShrink: spacing.scale['0'],
             }}

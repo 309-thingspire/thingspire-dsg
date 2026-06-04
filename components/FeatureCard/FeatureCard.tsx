@@ -1,7 +1,7 @@
 import React from 'react';
 import type { CSSProperties } from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 
 import type {
   FeatureCardAction,
@@ -74,7 +74,7 @@ function ActionButton({
         borderRadius: radius.scale.lg,
         backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
         color: isPrimary ? colors.semantic.theme.background.surface.default : textTokens.primary,
-        boxShadow: shadows.elevation.xs.css,
+        boxShadow: 'none',
         cursor: 'pointer',
       }}
     >
@@ -317,7 +317,7 @@ export function FeatureCard({
           borderColor: colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xxl,
           backgroundColor: colors.semantic.theme.background.surface.default,
-          boxShadow: shadows.elevation.xs.css,
+          boxShadow: 'none',
           ...style,
         }}
         {...props}
@@ -361,7 +361,7 @@ export function FeatureCard({
         borderColor: isFlat ? palette.base.transparent : colors.semantic.theme.background.button.tertiaryHover,
         borderRadius: isFlat ? radius.scale['0'] : radius.scale.xxl,
         backgroundColor: isFlat ? palette.base.transparent : colors.semantic.theme.background.surface.default,
-        boxShadow: shadows.elevation.xs.css,
+        boxShadow: 'none',
         ...style,
       }}
       {...props}

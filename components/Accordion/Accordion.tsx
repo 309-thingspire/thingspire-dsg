@@ -106,7 +106,7 @@ function resolveVisualStyle(expanded: boolean, interactionState: InteractionStat
     return {
       backgroundColor: interactionState === 'hover' ? colors.semantic.theme.background.surface.neutralSubtle : colors.semantic.theme.background.surface.neutral,
       borderColor: colors.semantic.theme.background.button.tertiaryHover,
-      boxShadow: shadows.elevation.xs.css,
+      boxShadow: 'none',
       titleColor: textTokens.primary,
       descriptionColor: textTokens.secondary,
       iconColor: iconTokens.staticDark,

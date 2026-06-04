@@ -2,7 +2,7 @@
 
 import React, { useState, type ReactNode } from 'react';
 
-import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
+import { border, colors, radius, spacing, typography } from '../../style-tokens';
 import { IconMoreLine, IconSearchLine } from '../icons';
 
 import type {
@@ -191,7 +191,7 @@ function Segmented({
               borderWidth: isActive ? border.width['1'] : border.width['0'],
               borderColor: isActive ? colors.semantic.theme.border.action.normal : 'transparent',
               backgroundColor: isActive ? colors.semantic.theme.background.surface.default : 'transparent',
-              boxShadow: isActive ? '0px 1px 2px 0px rgba(20,21,26,0.05)' : 'none',
+              boxShadow: 'none',
               cursor: 'pointer',
               appearance: 'none',
               outline: 'none',
@@ -317,7 +317,7 @@ export function AdditionalContent({
             borderRadius: radius.scale.md,
             borderStyle: 'none',
             color: colors.semantic.theme.background.surface.default,
-            boxShadow: '0px 1px 2px 0px rgba(20,21,26,0.05)',
+            boxShadow: 'none',
             cursor: 'pointer',
             appearance: 'none',
             outline: 'none',

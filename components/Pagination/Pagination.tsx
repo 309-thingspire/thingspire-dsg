@@ -291,7 +291,7 @@ function ActionButton({
         paddingInline: config.buttonPaddingX,
         paddingBlock: config.buttonPaddingY,
         cursor: disabled ? 'default' : 'pointer',
-        boxShadow: withFocusRing(shadows.elevation.xs.css, interactionState, disabled),
+        boxShadow: withFocusRing('none', interactionState, disabled),
       }}
     >
       <span
