@@ -59,10 +59,9 @@ Single Source of Truth:
 - `spacing.scale.20`
 - `spacing.scale.40`
 - `spacing.scale.48`
-- `spacing.scale.112`
+- `spacing.scale.24`
+- `spacing.scale.144`
 - `spacing.scale.320`
-- `spacing.scale.400`
-- `spacing.scale.480`
 - `spacing.primitive.3`
 
 ### Radius / Border / Shadow
@@ -97,6 +96,9 @@ Single Source of Truth:
 - `type=default | avatar`: 단일 선택, 아이템 선택 시 패널 닫힘.
 - `type=multi-select`: 다중 선택 토글, 패널 유지.
 - `target=destructive`는 border/helper/filled text가 destructive 계열로 변경됩니다.
+- 너비는 부모를 채웁니다(`width: 100%`, 최소 `spacing.scale.144`, 최대값 없음). 폭은 감싸는 요소에서 정합니다.
+- 메뉴 패널은 최대 `spacing.scale.320` 높이에서 세로 스크롤됩니다. 네이티브 스크롤바는 숨기고(`scrollbar-width: none`) 직접 그린 thumb(4px, `background.surface.neutralSubtle`)가 스크롤 위치·비율을 따라갑니다 — 스크롤바는 하나만 보입니다. 내용이 넘치지 않으면 thumb는 표시되지 않습니다.
+- 메뉴는 가로로 스크롤되지 않습니다(`overflow-x: hidden`). 긴 label과 supportText는 한 줄로 이어지고 끝이 말줄임표(…)로 잘립니다. 트리거에 표시되는 선택값도 같습니다.
 
 ## Accessibility Notes
 - Trigger: `button` + `aria-haspopup="listbox"` + `aria-expanded` + `aria-controls`

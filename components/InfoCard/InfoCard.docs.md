@@ -34,3 +34,4 @@
 ## Behavior
 - `type=lg` 의 close 아이콘 클릭 시 `onClose`
 - `type=sm` 의 ProgressBar 는 `progressValue` (0-100), `progressState` ('15 days left') 로 라벨 커스텀
+- 카드 내부 패딩: `type=lg` 상하좌우 `spacing.scale.16`, `type=sm` 상 `spacing.scale.12` / 좌우·하 `spacing.scale.16` (longhand로만 지정 — `padding` shorthand와 `undefined` longhand를 섞으면 React가 상하 패딩을 지웁니다)

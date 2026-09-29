@@ -116,8 +116,10 @@ export function SearchInput({
       id={id}
       className={className}
       style={{
-        width: spacing.scale['390'],
-        display: 'inline-flex',
+        // Fill: the field takes the width of its container.
+        width: '100%',
+        boxSizing: 'border-box',
+        display: 'flex',
         alignItems: 'center',
         minHeight: spacing.scale['40'],
         paddingInline: spacing.scale['12'],
@@ -173,6 +175,7 @@ export function SearchInput({
               onChange={handleInputChange}
               style={{
                 width: '100%',
+                minWidth: spacing.scale['0'],
                 border: 'none',
                 outline: 'none',
                 backgroundColor: 'transparent',

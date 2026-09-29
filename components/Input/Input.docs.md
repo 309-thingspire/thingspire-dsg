@@ -40,7 +40,6 @@ Single Source of Truth:
 - `spacing.scale.16`
 - `spacing.scale.20`
 - `spacing.scale.144`
-- `spacing.scale.400`
 
 ### Radius / Border / Shadow
 - `radius.scale.0`
@@ -65,6 +64,7 @@ Single Source of Truth:
 - `target=destructive`에서 helper 텍스트/아이콘은 destructive 스타일로 변경됩니다.
 - `type=button`은 우측 액션 버튼 영역을 포함하고 `onButtonClick`을 제공합니다.
 - `type=external`은 좌측 외부 프리픽스 영역(`externalLabel`)을 포함합니다.
+- 너비는 부모를 채웁니다(`width: 100%`, 최소 `spacing.scale.144`). 폭은 감싸는 요소(폼 컬럼, 그리드 셀)에서 정합니다.
 
 ## Accessibility Notes
 - 실제 `<input>` 요소를 사용합니다.

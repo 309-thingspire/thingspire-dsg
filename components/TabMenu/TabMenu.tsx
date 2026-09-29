@@ -232,6 +232,7 @@ export function TabMenu({
           justifyContent: 'center',
           gap: ITEM_GAP_BY_TYPE.segmented,
           padding: spacing.scale['2'],
+          boxSizing: 'border-box' as const,
           borderRadius: config.segmentedRootRadius,
           backgroundColor: overlayBackground.custom,
         }
@@ -351,13 +352,18 @@ export function TabMenu({
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: spacing.scale['0'],
-                  flex: '1 0 0',
-                  minWidth: spacing.scale['0'],
+                  // Hug the label + badge; when the tab bar is given a width,
+                  // the extra space is shared evenly. (A 0 basis squeezed
+                  // badge tabs below their content.)
+                  flex: '1 0 auto',
+                  boxSizing: 'border-box',
                   paddingInline: config.segmentedPaddingX,
                   paddingBlock: config.segmentedPaddingY,
                   borderRadius: config.segmentedItemRadius,
                   borderStyle: 'solid',
-                  borderWidth: isSelected ? border.width['1'] : border.width['0'],
+                  // Always 1px (transparent when idle) so selecting a tab
+                  // doesn't shift its neighbours.
+                  borderWidth: border.width['1'],
                   borderColor: isSelected ? border.color.theme.action.normal : colors.primitive.palette.base.transparent,
                   backgroundColor: isSelected ? backgroundButton.secondary : colors.primitive.palette.base.transparent,
                   boxShadow: 'none',
