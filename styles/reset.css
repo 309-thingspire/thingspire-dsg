@@ -1,0 +1,34 @@
+/* Thingspire UI base reset
+ *
+ * The components are styled inline and their sizes assume this reset —
+ * border-box sizing and bare <button>s. It is the same reset the showcase
+ * site applies (app/globals.css). Without it, anything that has padding
+ * and a width/min-height (inputs, table cells, cards, menu rows) comes out
+ * larger than the design.
+ *
+ * Import it once, before your own styles:
+ *   import '@309-thingspire/dsg/reset.css'      // npm package
+ *   import './styles/reset.css'                 // CLI copy
+ *
+ * Every selector is wrapped in :where(), so it has zero specificity — any
+ * rule of your own (or an existing reset such as Tailwind's preflight)
+ * still wins.
+ */
+
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+:where(button) {
+  font-family: inherit;
+  font-size: 14px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+:where(input, select, textarea) {
+  font-family: inherit;
+}

@@ -62,6 +62,9 @@ import { IconArrowRightLine } from '@309-thingspire/dsg/icons'
 // raw design tokens (for custom CSS-in-JS)
 import { colors, spacing } from '@309-thingspire/dsg/tokens'
 
+// base reset the components' sizes assume (border-box, bare buttons) — import once
+import '@309-thingspire/dsg/reset.css'
+
 // optional: CSS variables for `hsl(var(--primary))`-style usage
 import '@309-thingspire/dsg/tokens.css'
 
@@ -151,6 +154,26 @@ import './styles/tokens.css'
 
 The tokens file declares both light defaults and a `[data-theme="dark"]`
 override (see §9 for theming).
+
+### Base reset
+
+The components are styled inline and their sizes assume
+`box-sizing: border-box` and bare `<button>`s — the same reset the
+showcase site uses. Import `reset.css` once, before your own styles:
+
+```ts
+// npm package
+import '@309-thingspire/dsg/reset.css'
+
+// CLI copy — download it next to tokens.css:
+//   curl -o styles/reset.css https://thingspire-dsg.vercel.app/r/reset.css
+import '@/styles/reset.css'
+```
+
+Its selectors are wrapped in `:where()` (zero specificity), so your own
+rules and existing resets (e.g. Tailwind preflight) still win. Without
+it, inputs, table cells, cards and menu rows render larger than the
+design and menus can scroll sideways.
 
 ---
 
@@ -422,7 +445,8 @@ your-project/
 │       ├── types.ts
 │       └── icon-<kebab>.tsx × 2,278
 └── styles/
-    └── tokens.css
+    ├── tokens.css
+    └── reset.css
 ```
 
 You can move folders around (e.g. into `src/components/`); just
@@ -437,6 +461,10 @@ match your new layout, and the CLI will install there next time.
 The icon SVGs use `currentColor`. Make sure the parent element sets a
 text `color`. Inside a `<Button>` slot the colour is already set;
 elsewhere set it yourself.
+
+**Inputs, cells or cards are wider/taller than in Figma, or a menu scrolls sideways**
+The base reset is missing. Import `@309-thingspire/dsg/reset.css`
+(or `styles/reset.css`) once at the app entry — see §5.
 
 **Components look right in light mode, broken in dark**
 Confirm `tokens.css` is imported once at the app entry, and that

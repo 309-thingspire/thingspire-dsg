@@ -8,6 +8,7 @@
  *   public/r/index.json        — { items: [{ slug, label, category, ... }] }
  *   public/r/<slug>.json       — full registry item with files[]
  *   public/r/tokens.css        — copy of styles/tokens.css
+ *   public/r/reset.css         — copy of styles/reset.css
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
@@ -20,6 +21,7 @@ const ROOT = path.resolve(__dirname, '..')
 const CATALOG_PATH = path.join(ROOT, 'components', 'catalog.json')
 const COMPONENTS_DIR = path.join(ROOT, 'components')
 const TOKENS_SRC = path.join(ROOT, 'styles', 'tokens.css')
+const RESET_SRC = path.join(ROOT, 'styles', 'reset.css')
 const OUT_DIR = path.join(ROOT, 'public', 'r')
 
 const CATEGORY_ORDER = ['atoms', 'molecules', 'organisms']
@@ -163,6 +165,12 @@ async function main() {
   const tokens = await readIfExists(TOKENS_SRC)
   if (tokens !== null) {
     await fs.writeFile(path.join(OUT_DIR, 'tokens.css'), tokens, 'utf-8')
+  }
+
+  // copy reset.css (base reset the components' sizes assume)
+  const reset = await readIfExists(RESET_SRC)
+  if (reset !== null) {
+    await fs.writeFile(path.join(OUT_DIR, 'reset.css'), reset, 'utf-8')
   }
 
   // Mirror component-local assets/ folders to public/components/<X>/assets/

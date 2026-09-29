@@ -27,6 +27,7 @@
       "import": "./dist/tokens.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./reset.css": "./dist/reset.css",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -36,7 +37,7 @@
     "postbuild": "node scripts/generate-registry.mjs",
     "icons:components": "node scripts/generate-icon-components.mjs",
     "lib:barrel": "node scripts/generate-barrel.mjs",
-    "lib:build": "npm run lib:barrel && tsup && cp styles/tokens.css dist/tokens.css",
+    "lib:build": "npm run lib:barrel && tsup && cp styles/tokens.css dist/tokens.css && cp styles/reset.css dist/reset.css",
     "lib:typecheck": "tsc -p tsconfig.build.json --noEmit",
     "prepack": "npm run lib:typecheck && npm run lib:build"
   },
