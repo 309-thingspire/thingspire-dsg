@@ -88,6 +88,9 @@ Single Source of Truth:
   - `forceItemState`는 행동 검증용 상태 강제 API로 제공
 - Transition
   - Figma node에서 전용 모션 토큰/트랜지션 정의가 없어 추가 transition 없음
+- Sizing (`type=segmented`)
+  - 각 탭은 label + badge 크기만큼 폭을 잡고(`flex: 1 0 auto`), 탭바에 폭을 지정하면(예: `style={{ width: '100%' }}`) 남는 공간을 고르게 나눕니다.
+  - 모든 탭이 1px 테두리를 유지하고(비선택 시 transparent) 선택 탭만 색을 입혀, 선택이 바뀌어도 옆 탭이 밀리지 않습니다.
 
 ## Accessibility Notes
 - 루트: `role="tablist"`, `aria-orientation="horizontal"`

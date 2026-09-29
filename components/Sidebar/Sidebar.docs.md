@@ -25,6 +25,6 @@
 - `Bottom` (InfoCard + cells block + User) — `flex: 1` 으로 하단 정렬
 
 ## Behavior
-- 전체 너비 280px, 높이 1024px (`height` prop 으로 변경 가능)
+- 전체 너비 280px, 최소 높이 1024px (`height` prop 으로 변경 가능). 높이는 `min-height`로 적용되어 내용이 더 길면 늘어나고, `fill` 배경이 항상 하단 User 행까지 덮습니다.
 - 각 섹션은 `showTop` / `showMiddle` / `showBottom` boolean 으로 토글
 - 자식 props 는 `top` / `middle` / `bottom` 객체로 패스스루

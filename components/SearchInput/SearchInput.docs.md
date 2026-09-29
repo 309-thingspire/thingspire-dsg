@@ -29,7 +29,6 @@ Single Source of Truth:
 - `spacing.scale.16`
 - `spacing.scale.20`
 - `spacing.scale.40`
-- `spacing.scale.390`
 - `spacing.primitive.3`
 
 ### Radius
@@ -42,6 +41,7 @@ Single Source of Truth:
 - `state`를 전달하면 상태를 강제 적용합니다.
 - `state` 미전달 시 `value` 유무로 `default/filled`를 자동 계산합니다.
 - `disabled` 또는 `state=disabled`인 경우 입력을 비활성화합니다.
+- 너비는 부모를 채웁니다(`width: 100%`). 폭은 감싸는 요소에서 정합니다.
 
 ## Accessibility Notes
 - 실제 `<input>` 요소를 사용합니다.

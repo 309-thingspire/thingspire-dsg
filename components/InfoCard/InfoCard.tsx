@@ -75,10 +75,11 @@ export function InfoCard({
           position: 'relative',
           width: '100%',
           boxSizing: 'border-box',
-          padding: isLg ? spacing.scale['16'] : undefined,
-          paddingTop: isLg ? undefined : spacing.scale['12'],
-          paddingBottom: isLg ? undefined : spacing.scale['16'],
-          paddingInline: isLg ? undefined : spacing.scale['16'],
+          // Longhands only: mixing `padding` with `paddingTop: undefined` makes
+          // React clear the top/bottom padding it had just set.
+          paddingTop: isLg ? spacing.scale['16'] : spacing.scale['12'],
+          paddingBottom: spacing.scale['16'],
+          paddingInline: spacing.scale['16'],
           backgroundColor: surfaceColor,
           borderRadius: radius.scale.lg,
           display: 'flex',

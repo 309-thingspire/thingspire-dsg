@@ -303,12 +303,14 @@ export function Input({
       id={id}
       className={className}
       style={{
-        display: 'inline-flex',
+        // Fill: the field takes the width of its container.
+        display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         gap: spacing.scale['8'],
         minWidth: spacing.scale['144'],
-        width: spacing.scale['400'],
+        width: '100%',
+        boxSizing: 'border-box',
         ...style,
       }}
       onMouseEnter={handleMouseEnter}

@@ -1,4 +1,4 @@
-import React, { useId, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
 
@@ -60,6 +60,18 @@ function toTypographyStyle(token: {
     letterSpacing: `${token.letterSpacing}px`,
   };
 }
+
+// Single-line text that truncates with an ellipsis instead of widening the row.
+const ELLIPSIS: React.CSSProperties = {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  minWidth: 0,
+};
+
+const MENU_MAX_HEIGHT = spacing.scale['320'];
+const SCROLL_TRACK_INSET = spacing.scale['6'];
+const SCROLL_THUMB_MIN = spacing.scale['24'];
 
 function resolveVisualState(
   forcedState: SelectInputVisualState | undefined,
@@ -389,6 +401,23 @@ export function SelectInput({
 
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
+  const menuScrollRef = useRef<HTMLDivElement>(null);
+  const [menuScroll, setMenuScroll] = useState({ top: 0, client: 0, scroll: 0 });
+
+  // The menu hides the native scrollbar and draws its own thumb, so track
+  // the scroll position to size and place that thumb.
+  const syncMenuScroll = useCallback(() => {
+    const node = menuScrollRef.current;
+    if (!node) {
+      return;
+    }
+
+    setMenuScroll((previous) =>
+      previous.top === node.scrollTop && previous.client === node.clientHeight && previous.scroll === node.scrollHeight
+        ? previous
+        : { top: node.scrollTop, client: node.clientHeight, scroll: node.scrollHeight },
+    );
+  }, []);
 
   const normalizedItems = useMemo(() => {
     if (!items || items.length === 0) {
@@ -509,6 +538,22 @@ export function SelectInput({
     setOpenState(false);
   };
 
+  useLayoutEffect(() => {
+    if (isOpen) {
+      syncMenuScroll();
+    }
+  }, [isOpen, normalizedItems, syncMenuScroll]);
+
+  const menuScrollable = menuScroll.scroll > menuScroll.client + 1;
+  const scrollTrack = Math.max(menuScroll.client - SCROLL_TRACK_INSET * 2, 0);
+  const scrollThumb = menuScrollable
+    ? Math.max(SCROLL_THUMB_MIN, Math.round((scrollTrack * menuScroll.client) / menuScroll.scroll))
+    : 0;
+  const scrollThumbTop = menuScrollable
+    ? SCROLL_TRACK_INSET +
+      Math.round(((scrollTrack - scrollThumb) * menuScroll.top) / (menuScroll.scroll - menuScroll.client))
+    : 0;
+
   const displayedChips = selectedItems.slice(0, 3);
   const remainingChipCount = Math.max(selectedItems.length - displayedChips.length, 0);
 
@@ -530,7 +575,7 @@ export function SelectInput({
               style={{
                 ...fieldTypography,
                 color: placeholderColor,
-                whiteSpace: 'nowrap',
+                ...ELLIPSIS,
               }}
             >
               {placeholder}
@@ -612,7 +657,7 @@ export function SelectInput({
             style={{
               ...fieldTypography,
               color: placeholderColor,
-              whiteSpace: 'nowrap',
+              ...ELLIPSIS,
             }}
           >
             {placeholder}
@@ -636,23 +681,24 @@ export function SelectInput({
         <span
           style={{
             ...fieldTypography,
+            ...ELLIPSIS,
+            flex: '0 1 auto',
             color: fieldContentColor,
-            whiteSpace: 'nowrap',
           }}
         >
           {selectedItem.label}
+          {selectedItem.supportText ? (
+            <span
+              style={{
+                ...captionMTypography,
+                color: supportTextColor,
+                marginLeft: spacing.scale['4'],
+              }}
+            >
+              {selectedItem.supportText}
+            </span>
+          ) : null}
         </span>
-        {selectedItem.supportText ? (
-          <span
-            style={{
-              ...captionMTypography,
-              color: supportTextColor,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {selectedItem.supportText}
-          </span>
-        ) : null}
       </div>
     );
   };
@@ -665,12 +711,14 @@ export function SelectInput({
       ref={rootRef}
       className={className}
       style={{
-        display: 'inline-flex',
+        // Fill: the field takes the width of its container.
+        display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         gap: spacing.scale['8'],
-        width: spacing.scale['400'],
-        maxWidth: spacing.scale['480'],
+        width: '100%',
+        minWidth: spacing.scale['144'],
+        boxSizing: 'border-box',
         ...style,
       }}
       onMouseEnter={(event) => {
@@ -734,21 +782,35 @@ export function SelectInput({
               top: sizeStyle.dropdownTop,
               left: spacing.scale['0'],
               right: spacing.scale['0'],
+              zIndex: 1,
+              boxSizing: 'border-box',
               backgroundColor: colors.semantic.theme.background.surface.default,
               borderStyle: 'solid',
               borderWidth: border.width['1'],
               borderColor: colors.semantic.theme.border.action.normal,
               borderRadius: sizeStyle.fieldRadius,
               boxShadow: shadows.elevation.lg.css,
-              paddingInline: spacing.scale['0'],
-              paddingBlock: spacing.scale['4'],
-              display: 'flex',
-              flexDirection: 'column',
-              gap: spacing.scale['0'],
-              maxHeight: spacing.scale['320'],
-              overflowY: 'auto',
+              overflow: 'hidden',
             }}
           >
+            <div
+              ref={menuScrollRef}
+              onScroll={syncMenuScroll}
+              style={{
+                boxSizing: 'border-box',
+                maxHeight: MENU_MAX_HEIGHT - border.width['1'] * 2,
+                paddingInline: spacing.scale['0'],
+                paddingBlock: spacing.scale['4'],
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing.scale['0'],
+                // One scrollbar only: the native one is hidden (the thumb below
+                // replaces it) and rows never scroll sideways.
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                scrollbarWidth: 'none',
+              }}
+            >
             {normalizedItems.map((item) => {
               const selected = type === 'multi-select' ? selectedIds.includes(item.id) : item.id === selectedId;
               const activeBackground = selected || hoveredOptionId === item.id ? colors.semantic.theme.background.button.tertiary : palette.base.transparent;
@@ -758,6 +820,8 @@ export function SelectInput({
                   key={item.id}
                   style={{
                     width: '100%',
+                    boxSizing: 'border-box',
+                    flexShrink: 0,
                     display: 'flex',
                     alignItems: 'center',
                     gap: spacing.scale['0'],
@@ -775,6 +839,8 @@ export function SelectInput({
                     onClick={() => handleOptionClick(item)}
                     style={{
                       width: '100%',
+                      minWidth: 0,
+                      boxSizing: 'border-box',
                       display: 'flex',
                       alignItems: 'center',
                       gap: spacing.scale['4'],
@@ -804,16 +870,21 @@ export function SelectInput({
                         gap: spacing.scale['4'],
                         flex: '1 0 0',
                         minWidth: spacing.scale['0'],
+                        overflow: 'hidden',
                         paddingInline: spacing.scale['4'],
                         paddingBlock: spacing.scale['0'],
                       }}
                     >
-                      <span style={{ ...fieldTypography, color: textBase.primary, whiteSpace: 'nowrap' }}>{item.label}</span>
-                      {item.supportText ? (
-                        <span style={{ ...captionMTypography, color: textBase.tertiary, whiteSpace: 'nowrap' }}>
-                          {item.supportText}
-                        </span>
-                      ) : null}
+                      {/* Label and support text share one line that ends in an
+                          ellipsis, so a long name never widens the menu. */}
+                      <span style={{ ...fieldTypography, ...ELLIPSIS, flex: '0 1 auto', color: textBase.primary }}>
+                        {item.label}
+                        {item.supportText ? (
+                          <span style={{ ...captionMTypography, color: textBase.tertiary, marginLeft: spacing.scale['4'] }}>
+                            {item.supportText}
+                          </span>
+                        ) : null}
+                      </span>
 
                       {type === 'multi-select' && item.badgeLabel ? (
                         <span
@@ -828,6 +899,7 @@ export function SelectInput({
                             backgroundColor: palette.red['2'],
                             paddingInline: spacing.scale['2'],
                             paddingBlock: spacing.scale['0'],
+                            flexShrink: 0,
                           }}
                         >
                           <span style={{ ...captionMMediumTypography, color: palette.red['11'], whiteSpace: 'nowrap' }}>
@@ -843,27 +915,30 @@ export function SelectInput({
               );
             })}
 
-            {normalizedItems.length > 5 ? (
+            </div>
+
+            {menuScrollable ? (
               <div
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
-                  top: spacing.scale['0'] - border.width['1'],
-                  right: spacing.scale['0'] - border.width['1'],
-                  bottom: spacing.scale['0'] - border.width['1'],
+                  top: spacing.scale['0'],
+                  right: spacing.scale['0'],
+                  bottom: spacing.scale['0'],
                   width: spacing.scale['16'],
-                  overflow: 'hidden',
                   pointerEvents: 'none',
                 }}
               >
                 <div
                   style={{
+                    position: 'absolute',
+                    top: scrollThumbTop,
+                    left: '50%',
                     width: spacing.scale['4'],
-                    height: spacing.scale['112'],
+                    height: scrollThumb,
+                    marginLeft: -spacing.scale['4'] / 2,
                     borderRadius: radius.scale.full,
                     backgroundColor: colors.semantic.theme.background.surface.neutralSubtle,
-                    marginTop: spacing.scale['6'],
-                    marginInline: 'auto',
                   }}
                 />
               </div>

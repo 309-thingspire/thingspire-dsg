@@ -28,7 +28,9 @@ export function Sidebar({
       className={className}
       style={{
         width: SIDEBAR_WIDTH,
-        height,
+        // Grow with the content instead of clipping it: the fill must always
+        // reach the User row at the bottom.
+        minHeight: height,
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
