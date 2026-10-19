@@ -125,7 +125,7 @@ function getFieldBorderColor(target: SelectInputTarget, state: SelectInputVisual
   }
 
   if (state === 'focus') {
-    return palette.purple['6'];
+    return colors.semantic.theme.border.action.focusLight;
   }
 
   return colors.semantic.theme.border.action.normal;

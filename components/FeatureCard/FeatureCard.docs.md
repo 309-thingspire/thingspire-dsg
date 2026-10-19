@@ -18,12 +18,12 @@ Single Source of Truth:
 - `colors.primitive.palette.gray.13`
 - `colors.primitive.palette.green.2`
 - `colors.primitive.palette.green.11`
-- `colors.primitive.palette.purple.2`
-- `colors.primitive.palette.purple.8`
-- `colors.primitive.palette.purple.11`
+- `colors.semantic.theme.semantic.brand.2` / `.8` / `.11` (custom slot placeholder)
+- `colors.semantic.theme.background.button.primary`
+- `colors.semantic.theme.text.button.primary`
 - `colors.semantic.theme.text.base.staticDark`
 - `colors.semantic.theme.text.base.staticDarkSecondary`
-- `colors.gradients.solid.04`
+- `colors.gradients.solid.04.css` (image slot — Brand aurora)
 
 ### Typography
 - `typography.scale.h6.semiBold`

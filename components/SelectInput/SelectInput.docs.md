@@ -32,7 +32,7 @@ Single Source of Truth:
 - `colors.primitive.palette.purple.2`
 - `colors.primitive.palette.purple.3`
 - `colors.primitive.palette.purple.4`
-- `colors.primitive.palette.purple.6`
+- `colors.semantic.theme.border.action.focusLight` (focus border)
 - `colors.primitive.palette.purple.11`
 - `colors.semantic.theme.text.base.staticDark`
 - `colors.semantic.theme.text.base.staticDarkSecondary`

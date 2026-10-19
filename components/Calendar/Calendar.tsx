@@ -47,7 +47,6 @@ const borderSelect = colors.semantic.theme.border.select;
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
-const textAccent = colors.semantic.theme.text.accent;
 
 function toTypographyStyle(token: TypographyToken) {
   return {
@@ -503,10 +502,10 @@ function ActionButton({
         paddingBlock: spacing.scale['6'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.border.action.normal,
+        borderColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
-        color: isPrimary ? colors.semantic.theme.background.surface.default : textBase.primary,
+        backgroundColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.background.surface.default,
+        color: isPrimary ? colors.semantic.theme.text.button.primary : textBase.primary,
         cursor: 'pointer',
       }}
     >
@@ -1202,7 +1201,8 @@ export function Calendar({
                   }
 
                   if (isCurrentDate) {
-                    return textAccent.purpleAccent;
+                    // Today: brand text (dark brand green in light, lime in dark).
+                    return colors.semantic.theme.text.brand;
                   }
 
                   if (state === 'active' && type === 'date') {
@@ -1240,7 +1240,7 @@ export function Calendar({
                   return border.width['0'];
                 })();
 
-                const innerBorderColor = palette.purple['8'];
+                const innerBorderColor = colors.semantic.theme.border.select.primary;
 
                 const innerRadius = (() => {
                   if (type === 'date') {

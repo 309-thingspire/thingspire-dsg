@@ -6,7 +6,7 @@ FeatureCard / 콘텐츠 카드 안에 추가되는 보조 영역. Figma `Additio
 - `divider` — 1px hairline (`gray.2`)
 - `label` — 12px medium gray.9a
 - `caption` — 12px regular gray.7a, 2-line max
-- `button` — full-width primary (32 high), CaptionM/Medium 흰 텍스트, gray.13 배경
+- `button` — full-width primary (32 high), CaptionM/Medium, `background.button.primary`(라임) 배경 + `text.button.primary`(잉크) 텍스트
 - `doubleButton` — gray tertiary 배경 button + small icon-only (24×24) more 버튼
 - `searchInput` — search icon + placeholder
 - `tags` — chip 4개 (white surface, gray.2a border, captionM medium)
@@ -16,7 +16,8 @@ FeatureCard / 콘텐츠 카드 안에 추가되는 보조 영역. Figma `Additio
 
 ### Background
 - `colors.primitive.palette.base.white`
-- `colors.primitive.palette.gray.13` (button)
+- `colors.semantic.theme.background.button.primary` (button)
+- `colors.semantic.theme.text.button.primary` (button)
 - `colors.primitive.palette.gray.1a` (doubleButton, segmented badge)
 - `colors.primitive.palette.gray.2a` (segmented container, tag border)
 

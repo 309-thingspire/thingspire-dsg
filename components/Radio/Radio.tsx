@@ -70,16 +70,25 @@ export function Radio({
   const visualState = resolveVisualState(state, disabled, hovered, focused);
   const isDisabled = visualState === 'disabled';
 
+  // Checked (enabled) radios are filled like a checked checkbox — the
+  // t-background-checkbox-checked fill with a t-text-button-primary dot —
+  // so radio, checkbox and the primary button share one selected color.
+  const filled = checked && !isDisabled;
+
   const backgroundColor = (() => {
     if (isDisabled && !checked) {
       return bgCheckbox.disabled;
+    }
+
+    if (filled) {
+      return bgCheckbox.checked;
     }
 
     return bgCheckbox.default;
   })();
 
   const borderWidth = (() => {
-    if (isDisabled && !checked) {
+    if ((isDisabled && !checked) || filled) {
       return border.width['0'];
     }
 
@@ -171,7 +180,7 @@ export function Radio({
             width: config.dotSize,
             height: config.dotSize,
             borderRadius: radius.scale.full,
-            backgroundColor: isDisabled ? bgCheckbox.disabled : bgCheckbox.checked,
+            backgroundColor: isDisabled ? bgCheckbox.disabled : colors.semantic.theme.text.button.primary,
             display: 'block',
           }}
         />

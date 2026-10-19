@@ -13,6 +13,7 @@ Single Source of Truth:
 - `colors.primitive.palette.green.1`
 - `colors.primitive.palette.green.2`
 - `colors.primitive.palette.green.11`
+- `colors.gradients.solid.05.css` (기본 이미지 — Spring mesh)
 - `colors.primitive.palette.gray.2a`
 - `colors.semantic.theme.text.base.staticDark`
 - `colors.semantic.theme.text.base.staticDarkSecondary`

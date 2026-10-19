@@ -20,7 +20,8 @@
 
 ### Background
 - `colors.primitive.palette.base.white`
-- `colors.primitive.palette.gray.13` (primary button)
+- `colors.semantic.theme.background.button.primary` (primary button)
+- `colors.semantic.theme.text.button.primary` (primary button)
 - `colors.primitive.palette.gray.2` (divider, dot inactive)
 - `colors.primitive.palette.gray.1a` (pagination buttons, tab badge)
 - `colors.primitive.palette.gray.2a` (tabMenu container, icon border)

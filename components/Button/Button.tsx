@@ -17,6 +17,8 @@ const buttonBackgroundTokens = colors.semantic.theme.background.button;
 const buttonBorderTokens = border.color.theme.action;
 const textBaseTokens = colors.semantic.theme.text.base;
 const textStatusTokens = colors.semantic.theme.text.status;
+// Ink text on the lime primary fill (text.button.primary).
+const textOnPrimary = colors.semantic.theme.text.button.primary;
 
 const SIZE_CONFIG: Record<
   ButtonSize,
@@ -144,9 +146,9 @@ const STATE_COLOR_MAP: Record<ButtonVariant, { default: string; hover: string; d
 
 const STATE_TEXT_MAP: Record<ButtonVariant, { default: string; hover: string; disabled: string }> = {
   primary: {
-    default: textBaseTokens.inverted,
-    hover: textBaseTokens.inverted,
-    disabled: textBaseTokens.invertedSecondary,
+    default: textOnPrimary,
+    hover: textOnPrimary,
+    disabled: textBaseTokens.quaternary,
   },
   secondary: {
     default: textBaseTokens.primary,
@@ -196,6 +198,12 @@ function getBorderColor(variant: ButtonVariant, interactionState: InteractionSta
   // states. Focus ring above already short-circuited so a11y is preserved.
   if (GHOST_VARIANTS.has(variant)) {
     return 'transparent';
+  }
+
+  // Primary: the border takes the fill, so the button reads as one solid
+  // shape (the gray action border would outline it) and keeps its 1px box.
+  if (variant === 'primary' && interactionState !== 'disabled') {
+    return interactionState === 'hover' ? buttonBackgroundTokens.primaryHover : buttonBackgroundTokens.primary;
   }
 
   if (interactionState === 'hover') {

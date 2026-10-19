@@ -287,7 +287,7 @@ function ActionButton({
         borderWidth: primary ? border.width['0'] : border.width['1'],
         borderColor: primary ? palette.base.transparent : colors.semantic.theme.border.action.normal,
         borderRadius: config.buttonRadius,
-        backgroundColor: primary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
+        backgroundColor: primary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.background.surface.default,
         paddingInline: config.buttonPaddingX,
         paddingBlock: config.buttonPaddingY,
         cursor: disabled ? 'default' : 'pointer',
@@ -304,7 +304,7 @@ function ActionButton({
           color: disabled
             ? textBase.quaternary
             : primary
-              ? textBase.inverted
+              ? colors.semantic.theme.text.button.primary
               : textBase.primary,
           textAlign: 'center',
           whiteSpace: 'nowrap',

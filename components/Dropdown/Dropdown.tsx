@@ -423,7 +423,7 @@ export function Dropdown({
               return palette.base.transparent;
             })();
 
-            const wrapBorderColor = visualState === 'focus' ? palette.purple['6'] : palette.base.transparent;
+            const wrapBorderColor = visualState === 'focus' ? colors.semantic.theme.border.action.focusLight : palette.base.transparent;
             const wrapBoxShadow = visualState === 'focus' ? shadows.focusRing.light.css : 'none';
 
             const labelTypography = typography.scale.captionL.regular;

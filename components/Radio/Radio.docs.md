@@ -13,7 +13,8 @@ Single Source of Truth:
 - `colors.primitive.palette.gray.2`
 - `colors.primitive.palette.gray.3`
 - `colors.primitive.palette.gray.4`
-- `colors.primitive.palette.purple.8`
+- `colors.semantic.theme.background.checkbox.checked` (선택 시 채움 — primary와 같은 라임)
+- `colors.semantic.theme.text.button.primary` (선택 점)
 
 ### Spacing / Size
 - `spacing.scale.0`
@@ -40,6 +41,7 @@ Single Source of Truth:
 - `state`가 없으면 `hover`, `focus` 인터랙션으로 상태를 계산합니다.
 - `disabled` 또는 `state=disabled`면 상호작용이 비활성화됩니다.
 - 클릭 시 선택되지 않은 경우에만 `onCheckedChange(true)`를 호출합니다.
+- 선택(활성) 상태는 체크박스처럼 라임으로 채운 원 + 잉크 점입니다. disabled 선택 상태는 회색 링 + 회색 점입니다.
 
 ## Accessibility Notes
 - 네이티브 `<button>` + `role="radio"` 사용

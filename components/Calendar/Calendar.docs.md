@@ -15,11 +15,13 @@ Single Source of Truth:
 - `colors.primitive.palette.gray.1a`
 - `colors.primitive.palette.gray.3`
 - `colors.primitive.palette.gray.13`
-- `colors.primitive.palette.purple.8`
+- `colors.semantic.theme.border.select.primary` (선택 셀 보더)
+- `colors.semantic.theme.background.button.primary`
+- `colors.semantic.theme.text.button.primary`
 - `colors.semantic.theme.text.base.staticDark`
 - `colors.semantic.theme.text.base.staticDarkSecondary`
 - `colors.semantic.theme.text.base.staticDarkQuaternary`
-- `colors.semantic.theme.text.accent.purpleAccent`
+- `colors.semantic.theme.text.brand` (오늘 날짜)
 
 ### Typography
 - `typography.scale.captionL.medium`
@@ -65,7 +67,7 @@ Single Source of Truth:
 ## Behavior
 - `type=date`
   - 단일 날짜 선택
-  - 선택 셀은 보더(`purple.8`) + white 배경
+  - 선택 셀은 보더(`border.select.primary`) + white 배경
 - `type=dateRange`
   - 시작/종료 날짜 선택
   - 선택 구간 first/middle/last 형태로 채움/보더 처리

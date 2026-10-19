@@ -16,7 +16,7 @@ Hero / 가입 영역의 CTA 액션 단위. Figma `Actions` 컴포넌트 세트.
 
 ### Border
 - `colors.primitive.palette.gray.3`
-- `colors.primitive.palette.purple.8` (input focus)
+- `colors.semantic.theme.border.action.focus` (input focus)
 - `border.width.0` / `border.width.1`
 
 ### Text
@@ -52,5 +52,5 @@ Hero / 가입 영역의 CTA 액션 단위. Figma `Actions` 컴포넌트 세트.
 
 ## Behavior
 - **button**: primary "Get started" + secondary "Try Blank free" (mobile = full-width 세로 stack)
-- **input**: email field (focus 시 purple border + light focus ring) + primary action button. mobile 시 세로 stack, full-width
+- **input**: email field (focus 시 brand focus border + light focus ring) + primary action button. mobile 시 세로 stack, full-width
 - **tabs**: 2-tab pill (default `monthly` / `annual` + `Save 25%` 배지). controlled `activeTabId` 또는 uncontrolled `defaultActiveTabId`

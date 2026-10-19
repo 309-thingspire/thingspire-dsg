@@ -86,11 +86,11 @@ Single Source of Truth:
   - `disabled > explicit item state > forceState > pressed/active > focus > hover > default`
 - 상태별 시각 처리:
   - `hover`/`active`: `background = gray.1`
-  - `focus`: `border width = 2`, `border color = focusLight`
+  - `focus`: 2px `focusLight` 링을 아이템 위 오버레이로 그림 — 아이템 자체 보더·크기·레이아웃은 변하지 않음 (브라우저 outline 제거)
   - `disabled`: 텍스트/배지 텍스트를 quaternary로 변경
 - Divider:
   - right align 제외 아이템에서 수직 divider 유지
-  - focus에서는 divider offset을 border width(2)에 맞춰 조정
+  - focus에서도 divider 위치는 그대로 (링이 오버레이로 덮음)
 - Transition logic:
   - motion token(duration/easing)이 없어 즉시 상태 전환으로 구현
 
