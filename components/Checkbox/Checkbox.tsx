@@ -240,7 +240,8 @@ export function Checkbox({
             justifyContent: 'center',
             width: spacing.scale['8'],
             height: icon === 'check' ? config.iconCheckHeight : config.iconMinusHeight,
-            color: textBase.staticWhite,
+            // Ink mark on the lime checked fill; white on the gray disabled fill.
+            color: isDisabled ? textBase.staticWhite : colors.semantic.theme.text.button.primary,
             overflow: 'visible',
           }}
         >

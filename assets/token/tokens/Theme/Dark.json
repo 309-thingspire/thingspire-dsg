@@ -622,99 +622,99 @@
     },
     "brand": {
       "1": {
-        "value": "{colors.purple.1}",
+        "value": "{colors.lime.1}",
         "type": "color"
       },
       "2": {
-        "value": "{colors.purple.2}",
+        "value": "{colors.lime.2}",
         "type": "color"
       },
       "3": {
-        "value": "{colors.purple.3}",
+        "value": "{colors.lime.3}",
         "type": "color"
       },
       "4": {
-        "value": "{colors.purple.4}",
+        "value": "{colors.lime.4}",
         "type": "color"
       },
       "5": {
-        "value": "{colors.purple.5}",
+        "value": "{colors.lime.5}",
         "type": "color"
       },
       "6": {
-        "value": "{colors.purple.6}",
+        "value": "{colors.lime.6}",
         "type": "color"
       },
       "7": {
-        "value": "{colors.purple.7}",
+        "value": "{colors.lime.7}",
         "type": "color"
       },
       "8": {
-        "value": "{colors.purple.8}",
+        "value": "{colors.lime.8}",
         "type": "color"
       },
       "9": {
-        "value": "{colors.purple.9}",
+        "value": "{colors.lime.9}",
         "type": "color"
       },
       "10": {
-        "value": "{colors.purple.10}",
+        "value": "{colors.lime.10}",
         "type": "color"
       },
       "11": {
-        "value": "{colors.purple.11}",
+        "value": "{colors.lime.11}",
         "type": "color"
       },
       "12": {
-        "value": "{colors.purple.12}",
+        "value": "{colors.lime.12}",
         "type": "color"
       },
       "13": {
-        "value": "{colors.purple.13}",
+        "value": "{colors.lime.13}",
         "type": "color"
       },
       "1a": {
-        "value": "{colors.purple.1a}",
+        "value": "{colors.lime.1a}",
         "type": "color"
       },
       "2a": {
-        "value": "{colors.purple.2a}",
+        "value": "{colors.lime.2a}",
         "type": "color"
       },
       "3a": {
-        "value": "{colors.purple.3a}",
+        "value": "{colors.lime.3a}",
         "type": "color"
       },
       "4a": {
-        "value": "{colors.purple.4a}",
+        "value": "{colors.lime.4a}",
         "type": "color"
       },
       "5a": {
-        "value": "{colors.purple.5a}",
+        "value": "{colors.lime.5a}",
         "type": "color"
       },
       "6a": {
-        "value": "{colors.purple.6a}",
+        "value": "{colors.lime.6a}",
         "type": "color"
       },
       "7a": {
-        "value": "{colors.purple.7a}",
+        "value": "{colors.lime.7a}",
         "type": "color"
       },
       "8a": {
-        "value": "{colors.purple.8a}",
+        "value": "{colors.lime.8a}",
         "type": "color"
       },
       "9a": {
-        "value": "{colors.purple.9a}",
+        "value": "{colors.lime.9a}",
         "type": "color"
       },
       "10a": {
-        "value": "{colors.purple.10a}",
+        "value": "{colors.lime.10a}",
         "type": "color"
       },
       "11a": {
-        "value": "{colors.purple.11a}",
+        "value": "{colors.lime.11a}",
         "type": "color"
       }
     }
@@ -722,11 +722,11 @@
   "background": {
     "button": {
       "primary": {
-        "value": "{semantic.inverted.0}",
+        "value": "{semantic.brand.4}",
         "type": "color"
       },
       "primary-hover": {
-        "value": "{semantic.neutral.12}",
+        "value": "{semantic.brand.5}",
         "type": "color"
       },
       "primary-disabled": {
@@ -1138,7 +1138,7 @@
         "type": "color"
       },
       "checked": {
-        "value": "{semantic.brand.8}",
+        "value": "{semantic.brand.4}",
         "type": "color"
       },
       "disabled": {
@@ -1579,6 +1579,16 @@
       },
       "info-tertiary": {
         "value": "{semantic.informative.5a}",
+        "type": "color"
+      }
+    },
+    "brand": {
+      "value": "{semantic.brand.4}",
+      "type": "color"
+    },
+    "button": {
+      "primary": {
+        "value": "{colors.gray.13}",
         "type": "color"
       }
     }

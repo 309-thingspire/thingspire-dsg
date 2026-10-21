@@ -187,6 +187,32 @@ export const colors = {
         "9a": "#873de6b3",
         "10a": "#873de6cc",
         "11a": "#873de6e6"
+      },
+      "lime": {
+        "1": "#e1fcd2ff",
+        "2": "#baf49dff",
+        "3": "#8fec66ff",
+        "4": "#73e63dff",
+        "5": "#5bd524ff",
+        "6": "#42b61dff",
+        "7": "#2a9816ff",
+        "8": "#1c8712ff",
+        "9": "#0e6913ff",
+        "10": "#0b5c13ff",
+        "11": "#074b11ff",
+        "12": "#03340cff",
+        "13": "#011804ff",
+        "1a": "#127b0f1a",
+        "2a": "#127b0f26",
+        "3a": "#127b0f33",
+        "4a": "#127b0f40",
+        "5a": "#127b0f4d",
+        "6a": "#127b0f66",
+        "7a": "#127b0f80",
+        "8a": "#127b0f99",
+        "9a": "#127b0fb3",
+        "10a": "#127b0fcc",
+        "11a": "#127b0fe6"
       }
     },
     "figmaStyles": {
@@ -539,30 +565,30 @@ export const colors = {
           "11a": "var(--t-semantic-negative-11a, #e6483de6)"
         },
         "brand": {
-          "1": "var(--t-semantic-brand-1, #f7f1fdff)",
-          "2": "var(--t-semantic-brand-2, #ecdffbff)",
-          "3": "var(--t-semantic-brand-3, #e1cdf9ff)",
-          "4": "var(--t-semantic-brand-4, #d8c0f7ff)",
-          "5": "var(--t-semantic-brand-5, #cdaef4ff)",
-          "6": "var(--t-semantic-brand-6, #b78af0ff)",
-          "7": "var(--t-semantic-brand-7, #a265ebff)",
-          "8": "var(--t-semantic-brand-8, #924fe8ff)",
-          "9": "var(--t-semantic-brand-9, #741de2ff)",
-          "10": "var(--t-semantic-brand-10, #6619c7ff)",
-          "11": "var(--t-semantic-brand-11, #5314a3ff)",
-          "12": "var(--t-semantic-brand-12, #3a0f71ff)",
-          "13": "var(--t-semantic-brand-13, #1c0736ff)",
-          "1a": "var(--t-semantic-brand-1a, #873de61a)",
-          "2a": "var(--t-semantic-brand-2a, #873de626)",
-          "3a": "var(--t-semantic-brand-3a, #873de633)",
-          "4a": "var(--t-semantic-brand-4a, #873de640)",
-          "5a": "var(--t-semantic-brand-5a, #873de64d)",
-          "6a": "var(--t-semantic-brand-6a, #873de666)",
-          "7a": "var(--t-semantic-brand-7a, #873de680)",
-          "8a": "var(--t-semantic-brand-8a, #873de699)",
-          "9a": "var(--t-semantic-brand-9a, #873de6b3)",
-          "10a": "var(--t-semantic-brand-10a, #873de6cc)",
-          "11a": "var(--t-semantic-brand-11a, #873de6e6)"
+          "1": "var(--t-semantic-brand-1, #e1fcd2ff)",
+          "2": "var(--t-semantic-brand-2, #baf49dff)",
+          "3": "var(--t-semantic-brand-3, #8fec66ff)",
+          "4": "var(--t-semantic-brand-4, #73e63dff)",
+          "5": "var(--t-semantic-brand-5, #5bd524ff)",
+          "6": "var(--t-semantic-brand-6, #42b61dff)",
+          "7": "var(--t-semantic-brand-7, #2a9816ff)",
+          "8": "var(--t-semantic-brand-8, #1c8712ff)",
+          "9": "var(--t-semantic-brand-9, #0e6913ff)",
+          "10": "var(--t-semantic-brand-10, #0b5c13ff)",
+          "11": "var(--t-semantic-brand-11, #074b11ff)",
+          "12": "var(--t-semantic-brand-12, #03340cff)",
+          "13": "var(--t-semantic-brand-13, #011804ff)",
+          "1a": "var(--t-semantic-brand-1a, #127b0f1a)",
+          "2a": "var(--t-semantic-brand-2a, #127b0f26)",
+          "3a": "var(--t-semantic-brand-3a, #127b0f33)",
+          "4a": "var(--t-semantic-brand-4a, #127b0f40)",
+          "5a": "var(--t-semantic-brand-5a, #127b0f4d)",
+          "6a": "var(--t-semantic-brand-6a, #127b0f66)",
+          "7a": "var(--t-semantic-brand-7a, #127b0f80)",
+          "8a": "var(--t-semantic-brand-8a, #127b0f99)",
+          "9a": "var(--t-semantic-brand-9a, #127b0fb3)",
+          "10a": "var(--t-semantic-brand-10a, #127b0fcc)",
+          "11a": "var(--t-semantic-brand-11a, #127b0fe6)"
         }
       },
       "text": {
@@ -624,12 +650,16 @@ export const colors = {
           "info": "var(--t-text-status-info, #4778f5ff)",
           "infoSecondary": "var(--t-text-status-info-secondary, #3368f099)",
           "infoTertiary": "var(--t-text-status-info-tertiary, #3368f04d)"
+        },
+        "brand": "var(--t-text-brand, #0e6913ff)",
+        "button": {
+          "primary": "var(--t-text-button-primary, #14151aff)"
         }
       },
       "background": {
         "button": {
-          "primary": "var(--t-background-button-primary, #14151aff)",
-          "primaryHover": "var(--t-background-button-primary-hover, #1f2228ff)",
+          "primary": "var(--t-background-button-primary, #73e63dff)",
+          "primaryHover": "var(--t-background-button-primary-hover, #5bd524ff)",
           "primaryDisabled": "var(--t-background-button-primary-disabled, #e9eaecff)",
           "secondary": "var(--t-background-button-secondary, #ffffffff)",
           "secondaryHover": "var(--t-background-button-secondary-hover, #f7f7f8ff)",
@@ -744,7 +774,7 @@ export const colors = {
         },
         "checkbox": {
           "default": "var(--t-background-checkbox-default, #ffffffff)",
-          "checked": "var(--t-background-checkbox-checked, #924fe8ff)",
+          "checked": "var(--t-background-checkbox-checked, #73e63dff)",
           "disabled": "var(--t-background-checkbox-disabled, #dee0e3ff)"
         },
         "toggle": {
@@ -765,7 +795,7 @@ export const colors = {
           "disabled": "var(--t-border-action-disabled, #e9eaecff)",
           "destructiveHover": "var(--t-border-action-destructive-hover, #f5b2adff)",
           "destructiveDisabled": "var(--t-border-action-destructive-disabled, #e6483d33)",
-          "focus": "var(--t-border-action-focus, #924fe8ff)",
+          "focus": "var(--t-border-action-focus, #1c8712ff)",
           "success": "var(--t-border-action-success, #9af4c3ff)",
           "warning": "var(--t-border-action-warning, #fad0a9ff)",
           "info": "var(--t-border-action-info, #b4c7f8ff)",
@@ -774,7 +804,7 @@ export const colors = {
           "warningHover": "var(--t-border-action-warning-hover, #f9c594ff)",
           "infoHover": "var(--t-border-action-info-hover, #93aff6ff)",
           "focusDestructive": "var(--t-border-action-focus-destructive, #e6483dff)",
-          "focusLight": "var(--t-border-action-focus-light, #b78af0ff)",
+          "focusLight": "var(--t-border-action-focus-light, #42b61dff)",
           "focusDestructiveLight": "var(--t-border-action-focus-destructive-light, #f08b85ff)"
         },
         "base": {
@@ -784,7 +814,7 @@ export const colors = {
           "success": "var(--t-border-base-success, #9af4c3ff)",
           "warning": "var(--t-border-base-warning, #fad0a9ff)",
           "info": "var(--t-border-base-info, #b4c7f8ff)",
-          "brand": "var(--t-border-base-brand, #d8c0f7ff)",
+          "brand": "var(--t-border-base-brand, #73e63dff)",
           "divider": "var(--t-border-base-divider, #e9eaecff)",
           "alpha": "var(--t-border-base-alpha, #0a0f2914)",
           "surface": "var(--t-border-base-surface, #ffffffff)",
@@ -793,8 +823,8 @@ export const colors = {
           "alphaWhite": "var(--t-border-base-alpha-white, #ffffff2e)"
         },
         "select": {
-          "primary": "var(--t-border-select-primary, #924fe8ff)",
-          "secondary": "var(--t-border-select-secondary, #d8c0f7ff)",
+          "primary": "var(--t-border-select-primary, #1c8712ff)",
+          "secondary": "var(--t-border-select-secondary, #73e63dff)",
           "destructive": "var(--t-border-select-destructive, #e6483dff)",
           "destructiveSecondary": "var(--t-border-select-destructive-secondary, #f7c3c0ff)"
         },
@@ -1039,30 +1069,30 @@ export const colors = {
             "11a": "#e6483de6"
           },
           "brand": {
-            "1": "#f7f1fdff",
-            "2": "#ecdffbff",
-            "3": "#e1cdf9ff",
-            "4": "#d8c0f7ff",
-            "5": "#cdaef4ff",
-            "6": "#b78af0ff",
-            "7": "#a265ebff",
-            "8": "#924fe8ff",
-            "9": "#741de2ff",
-            "10": "#6619c7ff",
-            "11": "#5314a3ff",
-            "12": "#3a0f71ff",
-            "13": "#1c0736ff",
-            "1a": "#873de61a",
-            "2a": "#873de626",
-            "3a": "#873de633",
-            "4a": "#873de640",
-            "5a": "#873de64d",
-            "6a": "#873de666",
-            "7a": "#873de680",
-            "8a": "#873de699",
-            "9a": "#873de6b3",
-            "10a": "#873de6cc",
-            "11a": "#873de6e6"
+            "1": "#e1fcd2ff",
+            "2": "#baf49dff",
+            "3": "#8fec66ff",
+            "4": "#73e63dff",
+            "5": "#5bd524ff",
+            "6": "#42b61dff",
+            "7": "#2a9816ff",
+            "8": "#1c8712ff",
+            "9": "#0e6913ff",
+            "10": "#0b5c13ff",
+            "11": "#074b11ff",
+            "12": "#03340cff",
+            "13": "#011804ff",
+            "1a": "#127b0f1a",
+            "2a": "#127b0f26",
+            "3a": "#127b0f33",
+            "4a": "#127b0f40",
+            "5a": "#127b0f4d",
+            "6a": "#127b0f66",
+            "7a": "#127b0f80",
+            "8a": "#127b0f99",
+            "9a": "#127b0fb3",
+            "10a": "#127b0fcc",
+            "11a": "#127b0fe6"
           }
         },
         "text": {
@@ -1124,12 +1154,16 @@ export const colors = {
             "info": "#4778f5ff",
             "infoSecondary": "#3368f099",
             "infoTertiary": "#3368f04d"
+          },
+          "brand": "#0e6913ff",
+          "button": {
+            "primary": "#14151aff"
           }
         },
         "background": {
           "button": {
-            "primary": "#14151aff",
-            "primaryHover": "#1f2228ff",
+            "primary": "#73e63dff",
+            "primaryHover": "#5bd524ff",
             "primaryDisabled": "#e9eaecff",
             "secondary": "#ffffffff",
             "secondaryHover": "#f7f7f8ff",
@@ -1244,7 +1278,7 @@ export const colors = {
           },
           "checkbox": {
             "default": "#ffffffff",
-            "checked": "#924fe8ff",
+            "checked": "#73e63dff",
             "disabled": "#dee0e3ff"
           },
           "toggle": {
@@ -1265,7 +1299,7 @@ export const colors = {
             "disabled": "#e9eaecff",
             "destructiveHover": "#f5b2adff",
             "destructiveDisabled": "#e6483d33",
-            "focus": "#924fe8ff",
+            "focus": "#1c8712ff",
             "success": "#9af4c3ff",
             "warning": "#fad0a9ff",
             "info": "#b4c7f8ff",
@@ -1274,7 +1308,7 @@ export const colors = {
             "warningHover": "#f9c594ff",
             "infoHover": "#93aff6ff",
             "focusDestructive": "#e6483dff",
-            "focusLight": "#b78af0ff",
+            "focusLight": "#42b61dff",
             "focusDestructiveLight": "#f08b85ff"
           },
           "base": {
@@ -1284,7 +1318,7 @@ export const colors = {
             "success": "#9af4c3ff",
             "warning": "#fad0a9ff",
             "info": "#b4c7f8ff",
-            "brand": "#d8c0f7ff",
+            "brand": "#73e63dff",
             "divider": "#e9eaecff",
             "alpha": "#0a0f2914",
             "surface": "#ffffffff",
@@ -1293,8 +1327,8 @@ export const colors = {
             "alphaWhite": "#ffffff2e"
           },
           "select": {
-            "primary": "#924fe8ff",
-            "secondary": "#d8c0f7ff",
+            "primary": "#1c8712ff",
+            "secondary": "#73e63dff",
             "destructive": "#e6483dff",
             "destructiveSecondary": "#f7c3c0ff"
           },
@@ -1540,30 +1574,30 @@ export const colors = {
             "11a": "#e6483de6"
           },
           "brand": {
-            "1": "#f7f1fdff",
-            "2": "#ecdffbff",
-            "3": "#e1cdf9ff",
-            "4": "#d8c0f7ff",
-            "5": "#cdaef4ff",
-            "6": "#b78af0ff",
-            "7": "#a265ebff",
-            "8": "#924fe8ff",
-            "9": "#741de2ff",
-            "10": "#6619c7ff",
-            "11": "#5314a3ff",
-            "12": "#3a0f71ff",
-            "13": "#1c0736ff",
-            "1a": "#873de61a",
-            "2a": "#873de626",
-            "3a": "#873de633",
-            "4a": "#873de640",
-            "5a": "#873de64d",
-            "6a": "#873de666",
-            "7a": "#873de680",
-            "8a": "#873de699",
-            "9a": "#873de6b3",
-            "10a": "#873de6cc",
-            "11a": "#873de6e6"
+            "1": "#e1fcd2ff",
+            "2": "#baf49dff",
+            "3": "#8fec66ff",
+            "4": "#73e63dff",
+            "5": "#5bd524ff",
+            "6": "#42b61dff",
+            "7": "#2a9816ff",
+            "8": "#1c8712ff",
+            "9": "#0e6913ff",
+            "10": "#0b5c13ff",
+            "11": "#074b11ff",
+            "12": "#03340cff",
+            "13": "#011804ff",
+            "1a": "#127b0f1a",
+            "2a": "#127b0f26",
+            "3a": "#127b0f33",
+            "4a": "#127b0f40",
+            "5a": "#127b0f4d",
+            "6a": "#127b0f66",
+            "7a": "#127b0f80",
+            "8a": "#127b0f99",
+            "9a": "#127b0fb3",
+            "10a": "#127b0fcc",
+            "11a": "#127b0fe6"
           }
         },
         "text": {
@@ -1625,12 +1659,16 @@ export const colors = {
             "info": "#4778f5ff",
             "infoSecondary": "#3368f099",
             "infoTertiary": "#3368f04d"
+          },
+          "brand": "#73e63dff",
+          "button": {
+            "primary": "#14151aff"
           }
         },
         "background": {
           "button": {
-            "primary": "#ffffffff",
-            "primaryHover": "#e9eaecff",
+            "primary": "#73e63dff",
+            "primaryHover": "#5bd524ff",
             "primaryDisabled": "#ffffff24",
             "secondary": "#14151aff",
             "secondaryHover": "#1f2228ff",
@@ -1745,7 +1783,7 @@ export const colors = {
           },
           "checkbox": {
             "default": "#1f2228ff",
-            "checked": "#924fe8ff",
+            "checked": "#73e63dff",
             "disabled": "#333333ff"
           },
           "toggle": {
@@ -1766,7 +1804,7 @@ export const colors = {
             "disabled": "#ffffff24",
             "destructiveHover": "#e6483d4d",
             "destructiveDisabled": "#e6483d33",
-            "focus": "#924fe8ff",
+            "focus": "#1c8712ff",
             "success": "#26bd6c40",
             "warning": "#f48e2f40",
             "info": "#3368f040",
@@ -1775,7 +1813,7 @@ export const colors = {
             "warningHover": "#f48e2f4d",
             "infoHover": "#3368f04d",
             "focusDestructive": "#e6483dff",
-            "focusLight": "#b78af0ff",
+            "focusLight": "#42b61dff",
             "focusDestructiveLight": "#f08b85ff"
           },
           "base": {
@@ -1785,7 +1823,7 @@ export const colors = {
             "success": "#26bd6c40",
             "warning": "#f48e2f40",
             "info": "#3368f040",
-            "brand": "#873de640",
+            "brand": "#127b0f40",
             "divider": "#ffffff24",
             "alpha": "#ffffff24",
             "surface": "#0b0c0eff",
@@ -1794,8 +1832,8 @@ export const colors = {
             "alphaWhite": "#ffffff2e"
           },
           "select": {
-            "primary": "#924fe8ff",
-            "secondary": "#873de640",
+            "primary": "#1c8712ff",
+            "secondary": "#127b0f40",
             "destructive": "#e6483dff",
             "destructiveSecondary": "#e6483d40"
           },
@@ -2381,155 +2419,225 @@ export const colors = {
     "solid": {
       "10": {
         "gradientType": "linear",
-        "rotation": 180,
+        "name": "Ink to lime",
+        "css": "linear-gradient(135deg, #0b0c0e 25%, #0e6913 65%, #73e63d)",
+        "rotation": 135,
         "stops": [
           {
-            "position": 0,
-            "color": "#f9742cff"
+            "position": 0.25,
+            "color": "#0b0c0eff"
+          },
+          {
+            "position": 0.65,
+            "color": "#0e6913ff"
           },
           {
             "position": 1,
-            "color": "#f20486ff"
+            "color": "#73e63dff"
           }
         ]
       },
       "11": {
         "gradientType": "linear",
-        "rotation": 180,
+        "name": "Pastel prism",
+        "css": "linear-gradient(120deg, #e1fcd2, #d4f8ea 35%, #f5f9c8 65%, #c9f5ae)",
+        "rotation": 120,
         "stops": [
           {
             "position": 0,
-            "color": "#ac51aeff"
+            "color": "#e1fcd2ff"
+          },
+          {
+            "position": 0.35,
+            "color": "#d4f8eaff"
+          },
+          {
+            "position": 0.65,
+            "color": "#f5f9c8ff"
           },
           {
             "position": 1,
-            "color": "#fb4040ff"
+            "color": "#c9f5aeff"
           }
         ]
       },
       "01": {
-        "gradientType": "linear",
-        "rotation": 180,
+        "gradientType": "mesh",
+        "name": "Lime mist",
+        "css": "radial-gradient(75% 90% at 10% 5%, #a6f07f, #0000 70%), radial-gradient(65% 85% at 95% 100%, #9cefcf, #0000 70%), linear-gradient(160deg, #f2fde9, #e1fcd2)",
+        "rotation": 160,
         "stops": [
           {
             "position": 0,
-            "color": "#cd4ff2ff"
+            "color": "#a6f07fff"
+          },
+          {
+            "position": 0.5,
+            "color": "#f2fde9ff"
           },
           {
             "position": 1,
-            "color": "#5f4affff"
+            "color": "#9cefcfff"
           }
         ]
       },
       "02": {
-        "gradientType": "linear",
+        "gradientType": "radial",
+        "name": "Ink glow",
+        "css": "radial-gradient(120% 85% at 50% 115%, #73e63d, #2a9816 32%, #074b11 52%, #0b0c0e 78%)",
         "rotation": 180,
         "stops": [
           {
             "position": 0,
-            "color": "#755bdfff"
+            "color": "#0b0c0eff"
+          },
+          {
+            "position": 0.6,
+            "color": "#074b11ff"
           },
           {
             "position": 1,
-            "color": "#2c1fa3ff"
+            "color": "#73e63dff"
           }
         ]
       },
       "03": {
-        "gradientType": "linear",
-        "rotation": 180,
+        "gradientType": "mesh",
+        "name": "Aurora",
+        "css": "radial-gradient(90% 60% at 20% 0%, #73e63d, #0000), radial-gradient(70% 60% at 100% 60%, #3ee6b5b3, #0000), linear-gradient(160deg, #074b11, #0b0c0e 70%)",
+        "rotation": 160,
         "stops": [
           {
             "position": 0,
-            "color": "#a576f1ff"
+            "color": "#73e63dff"
+          },
+          {
+            "position": 0.45,
+            "color": "#074b11ff"
           },
           {
             "position": 1,
-            "color": "#7c1cb8ff"
+            "color": "#0b0c0eff"
           }
         ]
       },
       "04": {
-        "gradientType": "linear",
-        "rotation": 180,
+        "gradientType": "mesh",
+        "name": "Brand aurora",
+        "css": "radial-gradient(65% 75% at 0% 0%, #eef76b, #0000), radial-gradient(75% 85% at 100% 100%, #3ee6b5, #0000), linear-gradient(150deg, #8fec66, #73e63d 50%, #42b61d)",
+        "rotation": 150,
         "stops": [
           {
             "position": 0,
-            "color": "#ff39dfff"
+            "color": "#eef76bff"
+          },
+          {
+            "position": 0.5,
+            "color": "#73e63dff"
           },
           {
             "position": 1,
-            "color": "#faa0a0ff"
+            "color": "#3ee6b5ff"
           }
         ]
       },
       "05": {
-        "gradientType": "linear",
-        "rotation": 180,
+        "gradientType": "mesh",
+        "name": "Spring mesh",
+        "css": "radial-gradient(at 0% 100%, #73e63d, #0000 60%), radial-gradient(at 100% 0%, #eef76b, #0000 55%), radial-gradient(at 100% 100%, #3ee6b5, #0000 60%), linear-gradient(#f2fde9, #f2fde9)",
+        "rotation": 45,
         "stops": [
           {
             "position": 0,
-            "color": "#6199ffff"
+            "color": "#73e63dff"
+          },
+          {
+            "position": 0.5,
+            "color": "#f2fde9ff"
           },
           {
             "position": 1,
-            "color": "#045cfbff"
+            "color": "#eef76bff"
           }
         ]
       },
       "06": {
         "gradientType": "linear",
-        "rotation": 180,
+        "name": "Citrus",
+        "css": "linear-gradient(135deg, #eef76b, #73e63d 55%, #2a9816)",
+        "rotation": 135,
         "stops": [
           {
             "position": 0,
-            "color": "#00ffc2ff"
+            "color": "#eef76bff"
+          },
+          {
+            "position": 0.55,
+            "color": "#73e63dff"
           },
           {
             "position": 1,
-            "color": "#01d83dff"
+            "color": "#2a9816ff"
           }
         ]
       },
       "07": {
         "gradientType": "linear",
-        "rotation": 180,
+        "name": "Mint",
+        "css": "linear-gradient(135deg, #73e63d, #3ee6b5 60%, #22c4b4)",
+        "rotation": 135,
         "stops": [
           {
             "position": 0,
-            "color": "#fff069ff"
+            "color": "#73e63dff"
+          },
+          {
+            "position": 0.6,
+            "color": "#3ee6b5ff"
           },
           {
             "position": 1,
-            "color": "#26ae00ff"
+            "color": "#22c4b4ff"
           }
         ]
       },
       "08": {
-        "gradientType": "linear",
-        "rotation": 180,
+        "gradientType": "mesh",
+        "name": "Forest",
+        "css": "radial-gradient(80% 60% at 0% 0%, #73e63d80, #0000), linear-gradient(160deg, #0e6913, #03340c 60%, #011804)",
+        "rotation": 160,
         "stops": [
           {
             "position": 0,
-            "color": "#53ff5aff"
+            "color": "#0e6913ff"
+          },
+          {
+            "position": 0.6,
+            "color": "#03340cff"
           },
           {
             "position": 1,
-            "color": "#3984f4ff"
+            "color": "#011804ff"
           }
         ]
       },
       "09": {
-        "gradientType": "linear",
+        "gradientType": "mesh",
+        "name": "Horizon",
+        "css": "radial-gradient(140% 70% at 50% 100%, #73e63d, #a6f07f 35%, #0000 72%), linear-gradient(#ffffff, #eefcde)",
         "rotation": 180,
         "stops": [
           {
             "position": 0,
-            "color": "#4f86f2ff"
+            "color": "#ffffffff"
+          },
+          {
+            "position": 0.7,
+            "color": "#a6f07fff"
           },
           {
             "position": 1,
-            "color": "#ff4a80ff"
+            "color": "#73e63dff"
           }
         ]
       }
@@ -4119,20 +4227,20 @@ export const shadows = {
     "light": {
       "shadowType": "dropShadow",
       "radius": 0,
-      "color": "#c8b2ff80",
+      "color": "#5ed82480",
       "offsetX": 0,
       "offsetY": 0,
       "spread": 2,
-      "css": "0px 0px 0px 2px #c8b2ff80"
+      "css": "0px 0px 0px 2px #5ed82480"
     },
     "accent": {
       "shadowType": "dropShadow",
       "radius": 0,
-      "color": "#9117f0ff",
+      "color": "#117611ff",
       "offsetX": 0,
       "offsetY": 0,
       "spread": 2,
-      "css": "0px 0px 0px 2px #9117f0ff"
+      "css": "0px 0px 0px 2px #117611ff"
     },
     "lightDestructive": {
       "shadowType": "dropShadow",
@@ -4283,7 +4391,7 @@ export const border = {
         "disabled": "var(--t-border-action-disabled, #e9eaecff)",
         "destructiveHover": "var(--t-border-action-destructive-hover, #f5b2adff)",
         "destructiveDisabled": "var(--t-border-action-destructive-disabled, #e6483d33)",
-        "focus": "var(--t-border-action-focus, #924fe8ff)",
+        "focus": "var(--t-border-action-focus, #1c8712ff)",
         "success": "var(--t-border-action-success, #9af4c3ff)",
         "warning": "var(--t-border-action-warning, #fad0a9ff)",
         "info": "var(--t-border-action-info, #b4c7f8ff)",
@@ -4292,7 +4400,7 @@ export const border = {
         "warningHover": "var(--t-border-action-warning-hover, #f9c594ff)",
         "infoHover": "var(--t-border-action-info-hover, #93aff6ff)",
         "focusDestructive": "var(--t-border-action-focus-destructive, #e6483dff)",
-        "focusLight": "var(--t-border-action-focus-light, #b78af0ff)",
+        "focusLight": "var(--t-border-action-focus-light, #42b61dff)",
         "focusDestructiveLight": "var(--t-border-action-focus-destructive-light, #f08b85ff)"
       },
       "base": {
@@ -4302,7 +4410,7 @@ export const border = {
         "success": "var(--t-border-base-success, #9af4c3ff)",
         "warning": "var(--t-border-base-warning, #fad0a9ff)",
         "info": "var(--t-border-base-info, #b4c7f8ff)",
-        "brand": "var(--t-border-base-brand, #d8c0f7ff)",
+        "brand": "var(--t-border-base-brand, #73e63dff)",
         "divider": "var(--t-border-base-divider, #e9eaecff)",
         "alpha": "var(--t-border-base-alpha, #0a0f2914)",
         "surface": "var(--t-border-base-surface, #ffffffff)",
@@ -4311,8 +4419,8 @@ export const border = {
         "alphaWhite": "var(--t-border-base-alpha-white, #ffffff2e)"
       },
       "select": {
-        "primary": "var(--t-border-select-primary, #924fe8ff)",
-        "secondary": "var(--t-border-select-secondary, #d8c0f7ff)",
+        "primary": "var(--t-border-select-primary, #1c8712ff)",
+        "secondary": "var(--t-border-select-secondary, #73e63dff)",
         "destructive": "var(--t-border-select-destructive, #e6483dff)",
         "destructiveSecondary": "var(--t-border-select-destructive-secondary, #f7c3c0ff)"
       },

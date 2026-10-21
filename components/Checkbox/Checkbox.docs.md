@@ -13,8 +13,9 @@ Single Source of Truth:
 - `colors.primitive.palette.base.transparent`
 - `colors.primitive.palette.gray.3`
 - `colors.primitive.palette.gray.4`
-- `colors.primitive.palette.purple.8`
-- `colors.semantic.theme.text.base.staticWhite`
+- `colors.semantic.theme.background.checkbox.checked` (체크 배경 — primary와 같은 라임)
+- `colors.semantic.theme.text.button.primary` (체크/마이너스 표시)
+- `colors.semantic.theme.text.base.staticWhite` (disabled 표시)
 
 ### Spacing / Size
 - `spacing.scale.0`

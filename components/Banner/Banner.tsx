@@ -12,7 +12,6 @@ type TypographyToken = {
   letterSpacing: number;
 };
 
-const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
 
 const SIZE_293 = spacing.scale['288'] + spacing.primitive['5'];
@@ -42,7 +41,7 @@ function resolveState(forcedState: BannerState | undefined, hovered: boolean, in
 
 // Lightweight placeholder shown when the consumer doesn't pass imageSlot.
 // Previously a 4.5MB .png — bundling that into every consumer's app was
-// unacceptable, so we render a subtle gradient block at the same dimensions.
+// unacceptable, so we render the brand gradient-05 block at the same dimensions.
 // Consumers should pass their own imageSlot for production usage.
 function DefaultImage({ direction }: { direction: BannerDirection }) {
   const size = direction === 'horizontal' ? SIZE_293 : SIZE_272;
@@ -55,7 +54,7 @@ function DefaultImage({ direction }: { direction: BannerDirection }) {
         height: size,
         display: 'block',
         borderRadius: radius.scale.lg,
-        background: `linear-gradient(135deg, ${palette.green['4']} 0%, ${palette.green['7']} 100%)`,
+        background: colors.gradients.solid['05'].css,
         userSelect: 'none',
         pointerEvents: 'none',
       }}

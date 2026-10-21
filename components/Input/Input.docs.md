@@ -16,7 +16,7 @@ Single Source of Truth:
 - `colors.primitive.palette.gray.2`
 - `colors.primitive.palette.gray.3`
 - `colors.primitive.palette.gray.4`
-- `colors.primitive.palette.purple.6`
+- `colors.semantic.theme.border.action.focusLight` (focus border)
 - `colors.primitive.palette.red.4`
 - `colors.primitive.palette.red.5`
 - `colors.primitive.palette.red.6`

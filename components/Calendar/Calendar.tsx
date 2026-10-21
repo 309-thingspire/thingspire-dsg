@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useId, useMemo, useState } from 'react';
 
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
 import { IconArrowLeftSLine, IconArrowRightSLine } from '../icons';
@@ -38,9 +38,15 @@ const RANGE_FILL_EDGE = spacing.scale['2'];
 // ~16.7px optical inside the 20px box, matching the Figma icon-frame inset.
 const HEADER_ICON_SIZE = spacing.scale['20'];
 
+const DEFAULT_DATE_TIME = '10:39 PM';
+const DEFAULT_RANGE_START_TIME = '10:39 PM';
+const DEFAULT_RANGE_END_TIME = '09:12 AM';
+
+const borderAction = colors.semantic.theme.border.action;
+const borderSelect = colors.semantic.theme.border.select;
+
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
-const textAccent = colors.semantic.theme.text.accent;
 
 function toTypographyStyle(token: TypographyToken) {
   return {
@@ -135,6 +141,73 @@ function formatDateInput(date: Date): string {
   return `${month}/${day}/${year}`;
 }
 
+// Reads MM/DD/YYYY (one- or two-digit month and day; `/`, `.` or `-`).
+// Returns null for anything that isn't a real calendar date (e.g. 02/30/2026).
+function parseDateInput(text: string): Date | null {
+  const match = /^\s*(\d{1,2})\s*[/.-]\s*(\d{1,2})\s*[/.-]\s*(\d{4})\s*$/.exec(text);
+
+  if (!match) {
+    return null;
+  }
+
+  const month = Number(match[1]) - 1;
+  const day = Number(match[2]);
+  const year = Number(match[3]);
+  const date = new Date(year, month, day);
+
+  return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day ? date : null;
+}
+
+// Reads a time the way people type it — "9:05 pm", "09:05PM", "21:05", "905pm",
+// "2105", "오후 9:05" — and returns it as `hh:mm AM|PM`, or null if it isn't one.
+function normalizeTimeInput(text: string): string | null {
+  let value = text.trim();
+  let meridiem: 'a' | 'p' | undefined;
+
+  if (/^오전/.test(value) || /오전$/.test(value)) {
+    meridiem = 'a';
+    value = value.replace('오전', '').trim();
+  } else if (/^오후/.test(value) || /오후$/.test(value)) {
+    meridiem = 'p';
+    value = value.replace('오후', '').trim();
+  }
+
+  const match = /^(\d{1,2})(?::?(\d{2}))?\s*(?:([ap])\.?\s*m?\.?)?$/i.exec(value);
+
+  if (!match) {
+    return null;
+  }
+
+  let hour = Number(match[1]);
+  const minute = match[2] === undefined ? 0 : Number(match[2]);
+  meridiem = meridiem ?? (match[3]?.toLowerCase() as 'a' | 'p' | undefined);
+
+  if (minute > 59) {
+    return null;
+  }
+
+  if (meridiem) {
+    if (hour < 1 || hour > 12) {
+      return null;
+    }
+
+    if (meridiem === 'p' && hour !== 12) {
+      hour += 12;
+    }
+
+    if (meridiem === 'a' && hour === 12) {
+      hour = 0;
+    }
+  } else if (hour > 23) {
+    return null;
+  }
+
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  const suffix = hour >= 12 ? 'PM' : 'AM';
+
+  return `${String(hour12).padStart(2, '0')}:${String(minute).padStart(2, '0')} ${suffix}`;
+}
+
 function buildMonthGrid(year: number, month: number): CalendarDayCell[][] {
   const firstDayOfMonth = new Date(year, month, 1);
   const firstWeekday = firstDayOfMonth.getDay();
@@ -195,7 +268,84 @@ function ArrowIcon({ direction }: { direction: 'left' | 'right' }) {
   );
 }
 
-function FooterField({ label, value, showLabel }: { label: string; value: string; showLabel: boolean }) {
+type FooterFieldProps = {
+  label: string;
+  showLabel: boolean;
+  /** The committed value, already formatted. */
+  value: string;
+  placeholder: string;
+  inputMode: 'numeric' | 'text';
+  /** Try to apply what was typed; return false to reject it (the field then reverts). */
+  commit: (text: string) => boolean;
+  /** Apply as soon as the text is a complete, valid value (dates), not only on Enter/blur. */
+  commitWhileTyping?: boolean;
+};
+
+function FooterField({ label, showLabel, value, placeholder, inputMode, commit, commitWhileTyping = false }: FooterFieldProps) {
+  const inputId = useId();
+  const [draft, setDraft] = useState(value);
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [invalid, setInvalid] = useState(false);
+
+  // Follow the committed value unless the user is mid-edit.
+  useEffect(() => {
+    if (!focused) {
+      setDraft(value);
+      setInvalid(false);
+    }
+  }, [focused, value]);
+
+  const tryCommit = (): boolean => {
+    const text = draft.trim();
+
+    if (text === '' || text === value) {
+      return true;
+    }
+
+    return commit(text);
+  };
+
+  const handleBlur = () => {
+    tryCommit();
+    setFocused(false);
+    setDraft(value);
+    setInvalid(false);
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (tryCommit()) {
+        event.currentTarget.blur();
+      } else {
+        setInvalid(true);
+      }
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setDraft(value);
+      setInvalid(false);
+      event.currentTarget.blur();
+    }
+  };
+
+  const fieldBorderColor = invalid
+    ? borderSelect.destructive
+    : focused
+      ? borderAction.focusLight
+      : hovered
+        ? borderAction.hover
+        : borderAction.normal;
+  const fieldShadow = focused
+    ? invalid
+      ? shadows.focusRing.lightDestructive.css
+      : shadows.focusRing.light.css
+    : 'none';
+
   return (
     <div
       style={{
@@ -227,7 +377,8 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
               paddingBlock: spacing.scale['2'],
             }}
           >
-            <span
+            <label
+              htmlFor={inputId}
               style={{
                 color: textBase.primary,
                 ...toTypographyStyle(typography.scale.captionL.medium),
@@ -235,7 +386,7 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
               }}
             >
               {label}
-            </span>
+            </label>
           </div>
         </div>
       ) : null}
@@ -249,6 +400,8 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
         }}
       >
         <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
             display: 'flex',
             flex: '1 0 0',
@@ -260,9 +413,10 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
             paddingBlock: spacing.scale['6'],
             borderStyle: 'solid',
             borderWidth: border.width['1'],
-            borderColor: colors.semantic.theme.border.action.normal,
+            borderColor: fieldBorderColor,
             borderRadius: radius.scale.lg,
             backgroundColor: colors.semantic.theme.background.surface.default,
+            boxShadow: fieldShadow,
             overflow: 'hidden',
             boxSizing: 'border-box',
           }}
@@ -272,44 +426,47 @@ function FooterField({ label, value, showLabel }: { label: string; value: string
               display: 'flex',
               flex: '1 0 0',
               alignItems: 'center',
-              gap: spacing.scale['4'],
+              gap: spacing.scale['0'],
               minWidth: spacing.scale['0'],
               minHeight: spacing.scale['0'],
+              paddingInline: spacing.scale['4'],
+              paddingBlock: spacing.scale['0'],
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                flex: '1 0 0',
-                alignItems: 'center',
-                gap: spacing.scale['2'],
-                minWidth: spacing.scale['0'],
-                minHeight: spacing.scale['0'],
+            <input
+              id={inputId}
+              type="text"
+              inputMode={inputMode}
+              autoComplete="off"
+              spellCheck={false}
+              aria-label={showLabel ? undefined : label}
+              aria-invalid={invalid || undefined}
+              value={draft}
+              placeholder={placeholder}
+              onFocus={() => setFocused(true)}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+              onChange={(event) => {
+                const next = event.target.value;
+                setDraft(next);
+                setInvalid(false);
+
+                if (commitWhileTyping && next.trim() !== '' && next.trim() !== value) {
+                  commit(next.trim());
+                }
               }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flex: '1 0 0',
-                  alignItems: 'center',
-                  gap: spacing.scale['0'],
-                  minWidth: spacing.scale['0'],
-                  minHeight: spacing.scale['0'],
-                  paddingInline: spacing.scale['4'],
-                  paddingBlock: spacing.scale['0'],
-                }}
-              >
-                <span
-                  style={{
-                    color: textBase.primary,
-                    ...toTypographyStyle(typography.scale.captionL.regular),
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {value}
-                </span>
-              </div>
-            </div>
+              style={{
+                width: '100%',
+                minWidth: spacing.scale['0'],
+                padding: spacing.scale['0'],
+                margin: spacing.scale['0'],
+                border: 'none',
+                outline: 'none',
+                background: 'transparent',
+                color: textBase.primary,
+                ...toTypographyStyle(typography.scale.captionL.regular),
+              }}
+            />
           </div>
         </div>
       </div>
@@ -345,10 +502,10 @@ function ActionButton({
         paddingBlock: spacing.scale['6'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.border.action.normal,
+        borderColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
-        color: isPrimary ? colors.semantic.theme.background.surface.default : textBase.primary,
+        backgroundColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.background.surface.default,
+        color: isPrimary ? colors.semantic.theme.text.button.primary : textBase.primary,
         cursor: 'pointer',
       }}
     >
@@ -369,6 +526,25 @@ function ActionButton({
   );
 }
 
+type CalendarFooterProps = {
+  type: CalendarType;
+  showTimeSelection: boolean;
+  selectedDate: Date | null;
+  selectedRange: CalendarRangeSelection;
+  dateTime: string;
+  rangeStartTime: string;
+  rangeEndTime: string;
+  commitDate: (text: string) => boolean;
+  commitRangeStart: (text: string) => boolean;
+  commitRangeEnd: (text: string) => boolean;
+  commitTime: (field: 'date' | 'start' | 'end', text: string) => boolean;
+  onCancel?: () => void;
+  onApply?: () => void;
+};
+
+const DATE_PLACEHOLDER = 'MM/DD/YYYY';
+const TIME_PLACEHOLDER = 'hh:mm AM';
+
 function CalendarFooter({
   type,
   showTimeSelection,
@@ -377,22 +553,30 @@ function CalendarFooter({
   dateTime,
   rangeStartTime,
   rangeEndTime,
+  commitDate,
+  commitRangeStart,
+  commitRangeEnd,
+  commitTime,
   onCancel,
   onApply,
-}: {
-  type: CalendarType;
-  showTimeSelection: boolean;
-  selectedDate: Date | null;
-  selectedRange: CalendarRangeSelection;
-  dateTime: string;
-  rangeStartTime: string;
-  rangeEndTime: string;
-  onCancel?: () => void;
-  onApply?: () => void;
-}) {
-  const dateValue = selectedDate ? formatDateInput(selectedDate) : '--/--/----';
-  const rangeStartValue = selectedRange.start ? formatDateInput(selectedRange.start) : '--/--/----';
-  const rangeEndValue = selectedRange.end ? formatDateInput(selectedRange.end) : '--/--/----';
+}: CalendarFooterProps) {
+  const dateValue = selectedDate ? formatDateInput(selectedDate) : '';
+  const rangeStartValue = selectedRange.start ? formatDateInput(selectedRange.start) : '';
+  const rangeEndValue = selectedRange.end ? formatDateInput(selectedRange.end) : '';
+
+  const actions = (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: spacing.scale['8'],
+      }}
+    >
+      <ActionButton label="Cancel" appearance="secondary" onClick={onCancel} />
+      <ActionButton label="Apply" appearance="primary" onClick={onApply} />
+    </div>
+  );
 
   if (type === 'date') {
     return (
@@ -413,21 +597,28 @@ function CalendarFooter({
             gap: spacing.scale['8'],
           }}
         >
-          <FooterField label="Date" value={dateValue} showLabel />
-          {showTimeSelection ? <FooterField label="Time" value={dateTime} showLabel /> : null}
+          <FooterField
+            label="Date"
+            showLabel
+            value={dateValue}
+            placeholder={DATE_PLACEHOLDER}
+            inputMode="numeric"
+            commit={commitDate}
+            commitWhileTyping
+          />
+          {showTimeSelection ? (
+            <FooterField
+              label="Time"
+              showLabel
+              value={dateTime}
+              placeholder={TIME_PLACEHOLDER}
+              inputMode="text"
+              commit={(text) => commitTime('date', text)}
+            />
+          ) : null}
         </div>
 
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: spacing.scale['8'],
-          }}
-        >
-          <ActionButton label="Cancel" appearance="secondary" onClick={onCancel} />
-          <ActionButton label="Apply" appearance="primary" onClick={onApply} />
-        </div>
+        {actions}
       </div>
     );
   }
@@ -459,8 +650,25 @@ function CalendarFooter({
             gap: spacing.scale['8'],
           }}
         >
-          <FooterField label="Start" value={rangeStartValue} showLabel />
-          {showTimeSelection ? <FooterField label="Time" value={rangeStartTime} showLabel={false} /> : null}
+          <FooterField
+            label="Start"
+            showLabel
+            value={rangeStartValue}
+            placeholder={DATE_PLACEHOLDER}
+            inputMode="numeric"
+            commit={commitRangeStart}
+            commitWhileTyping
+          />
+          {showTimeSelection ? (
+            <FooterField
+              label="Start time"
+              showLabel={false}
+              value={rangeStartTime}
+              placeholder={TIME_PLACEHOLDER}
+              inputMode="text"
+              commit={(text) => commitTime('start', text)}
+            />
+          ) : null}
         </div>
 
         <div
@@ -471,22 +679,29 @@ function CalendarFooter({
             gap: spacing.scale['8'],
           }}
         >
-          <FooterField label="End" value={rangeEndValue} showLabel />
-          {showTimeSelection ? <FooterField label="Time" value={rangeEndTime} showLabel={false} /> : null}
+          <FooterField
+            label="End"
+            showLabel
+            value={rangeEndValue}
+            placeholder={DATE_PLACEHOLDER}
+            inputMode="numeric"
+            commit={commitRangeEnd}
+            commitWhileTyping
+          />
+          {showTimeSelection ? (
+            <FooterField
+              label="End time"
+              showLabel={false}
+              value={rangeEndTime}
+              placeholder={TIME_PLACEHOLDER}
+              inputMode="text"
+              commit={(text) => commitTime('end', text)}
+            />
+          ) : null}
         </div>
       </div>
 
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: spacing.scale['8'],
-        }}
-      >
-        <ActionButton label="Cancel" appearance="secondary" onClick={onCancel} />
-        <ActionButton label="Apply" appearance="primary" onClick={onApply} />
-      </div>
+      {actions}
     </div>
   );
 }
@@ -499,14 +714,17 @@ export function Calendar({
   selectedRange,
   currentDate = new Date(),
   showTimeSelection = true,
-  dateTime = '10:39 PM',
-  rangeStartTime = '10:39 PM',
-  rangeEndTime = '09:12 AM',
+  dateTime,
+  rangeStartTime,
+  rangeEndTime,
   locale = 'en-US',
   disabledDate,
   onSelectDate,
   onSelectRange,
   onMonthChange,
+  onDateTimeChange,
+  onRangeStartTimeChange,
+  onRangeEndTimeChange,
   onApply,
   onCancel,
   className,
@@ -524,6 +742,32 @@ export function Calendar({
       end: null,
     },
   );
+
+  // Footer times: seeded from the props, editable in the footer, replaced
+  // whenever a prop changes.
+  const [times, setTimes] = useState({
+    date: dateTime ?? DEFAULT_DATE_TIME,
+    start: rangeStartTime ?? DEFAULT_RANGE_START_TIME,
+    end: rangeEndTime ?? DEFAULT_RANGE_END_TIME,
+  });
+
+  useEffect(() => {
+    if (dateTime !== undefined) {
+      setTimes((previous) => ({ ...previous, date: dateTime }));
+    }
+  }, [dateTime]);
+
+  useEffect(() => {
+    if (rangeStartTime !== undefined) {
+      setTimes((previous) => ({ ...previous, start: rangeStartTime }));
+    }
+  }, [rangeStartTime]);
+
+  useEffect(() => {
+    if (rangeEndTime !== undefined) {
+      setTimes((previous) => ({ ...previous, end: rangeEndTime }));
+    }
+  }, [rangeEndTime]);
 
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
   const [focusedKey, setFocusedKey] = useState<string | null>(null);
@@ -652,6 +896,93 @@ export function Calendar({
       start: range.start,
       end: nextDate,
     });
+  };
+
+  // Show the month a typed date falls in.
+  const showMonthOf = (date: Date) => {
+    if (date.getMonth() === viewMonth && date.getFullYear() === viewYear) {
+      return;
+    }
+
+    setViewMonth(date.getMonth());
+    setViewYear(date.getFullYear());
+    onMonthChange?.({ month: date.getMonth(), year: date.getFullYear() });
+  };
+
+  const readTypedDate = (text: string): Date | null => {
+    const date = parseDateInput(text);
+
+    if (!date || disabledDate?.(date)) {
+      return null;
+    }
+
+    return atStartOfDay(date);
+  };
+
+  const commitTypedDate = (text: string): boolean => {
+    const date = readTypedDate(text);
+
+    if (!date) {
+      return false;
+    }
+
+    if (!areSameDate(date, resolvedDate)) {
+      commitDateSelection(date);
+    }
+
+    showMonthOf(date);
+    return true;
+  };
+
+  const commitTypedRangeStart = (text: string): boolean => {
+    const date = readTypedDate(text);
+
+    if (!date) {
+      return false;
+    }
+
+    if (!areSameDate(date, resolvedRange.start)) {
+      commitRangeSelection({ start: date, end: resolvedRange.end });
+    }
+
+    showMonthOf(date);
+    return true;
+  };
+
+  const commitTypedRangeEnd = (text: string): boolean => {
+    const date = readTypedDate(text);
+
+    if (!date) {
+      return false;
+    }
+
+    if (!areSameDate(date, resolvedRange.end)) {
+      // No start yet: the typed day becomes a one-day range.
+      commitRangeSelection({ start: resolvedRange.start ?? date, end: date });
+    }
+
+    showMonthOf(date);
+    return true;
+  };
+
+  const commitTypedTime = (field: 'date' | 'start' | 'end', text: string): boolean => {
+    const time = normalizeTimeInput(text);
+
+    if (!time) {
+      return false;
+    }
+
+    setTimes((previous) => ({ ...previous, [field]: time }));
+
+    if (field === 'date') {
+      onDateTimeChange?.(time);
+    } else if (field === 'start') {
+      onRangeStartTimeChange?.(time);
+    } else {
+      onRangeEndTimeChange?.(time);
+    }
+
+    return true;
   };
 
   return (
@@ -870,7 +1201,8 @@ export function Calendar({
                   }
 
                   if (isCurrentDate) {
-                    return textAccent.purpleAccent;
+                    // Today: brand text (dark brand green in light, lime in dark).
+                    return colors.semantic.theme.text.brand;
                   }
 
                   if (state === 'active' && type === 'date') {
@@ -908,7 +1240,7 @@ export function Calendar({
                   return border.width['0'];
                 })();
 
-                const innerBorderColor = palette.purple['8'];
+                const innerBorderColor = colors.semantic.theme.border.select.primary;
 
                 const innerRadius = (() => {
                   if (type === 'date') {
@@ -1079,9 +1411,13 @@ export function Calendar({
         showTimeSelection={showTimeSelection}
         selectedDate={resolvedDate}
         selectedRange={resolvedRange}
-        dateTime={dateTime}
-        rangeStartTime={rangeStartTime}
-        rangeEndTime={rangeEndTime}
+        dateTime={times.date}
+        rangeStartTime={times.start}
+        rangeEndTime={times.end}
+        commitDate={commitTypedDate}
+        commitRangeStart={commitTypedRangeStart}
+        commitRangeEnd={commitTypedRangeEnd}
+        commitTime={commitTypedTime}
         onCancel={onCancel}
         onApply={onApply}
       />

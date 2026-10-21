@@ -21,6 +21,8 @@ Single Source of Truth:
 - `colors.semantic.theme.text.base.staticDarkSecondary`
 - `colors.semantic.theme.text.base.staticDarkQuaternary`
 - `colors.semantic.theme.text.base.staticWhite`
+- `colors.semantic.theme.background.button.primary` (primary 버튼)
+- `colors.semantic.theme.text.button.primary` (primary 버튼)
 
 ### Typography
 - `typography.scale.bodyS.medium`

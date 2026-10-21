@@ -36,8 +36,8 @@ Single Source of Truth:
 - `colors.semantic.theme.background.button.destructiveGhostDisabled`
 
 ### Text
-- `colors.semantic.theme.text.base.inverted`
-- `colors.semantic.theme.text.base.invertedSecondary`
+- `colors.semantic.theme.text.button.primary` (primary 텍스트 — 라임 위 잉크)
+- `colors.semantic.theme.text.base.quaternary` (primary disabled 텍스트)
 - `colors.semantic.theme.text.base.primary`
 - `colors.semantic.theme.text.base.secondary`
 - `colors.semantic.theme.text.base.staticWhite`

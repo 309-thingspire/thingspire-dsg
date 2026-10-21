@@ -841,8 +841,8 @@ export function NavigationBar({
 
 
   if (type === '07') {
-    const ctaTextColor = componentDisabled ? textBase.quaternary : textBase.staticWhite;
-    const ctaBackground = componentDisabled ? colors.semantic.theme.border.action.normal : colors.semantic.theme.background.surface.inverted;
+    const ctaTextColor = componentDisabled ? textBase.quaternary : colors.semantic.theme.text.button.primary;
+    const ctaBackground = componentDisabled ? colors.semantic.theme.border.action.normal : colors.semantic.theme.background.button.primary;
 
     return (
       <header

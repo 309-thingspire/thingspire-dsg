@@ -18,17 +18,9 @@ type TypographyToken = {
   letterSpacing: number;
 };
 
-type GradientToken = {
-  rotation: number;
-  stops: ReadonlyArray<{
-    position: number;
-    color: string;
-  }>;
-};
-
 const palette = colors.primitive.palette;
 const textTokens = colors.semantic.theme.text.base;
-const gradientSolid04 = colors.gradients.solid['04'] as GradientToken;
+const gradientSolid04 = colors.gradients.solid['04'];
 
 const SIZE_260 = spacing.primitive['256'] + spacing.scale['4'];
 const SIZE_280 = spacing.scale['288'] - spacing.scale['8'];
@@ -41,11 +33,6 @@ function getTypographyStyle(token: TypographyToken): CSSProperties {
     lineHeight: `${token.lineHeight}px`,
     letterSpacing: `${token.letterSpacing}px`,
   };
-}
-
-function toLinearGradient(token: GradientToken): string {
-  const stops = token.stops.map((stop) => `${stop.color} ${stop.position * 100}%`).join(', ');
-  return `linear-gradient(${token.rotation}deg, ${stops})`;
 }
 
 function ActionButton({
@@ -70,10 +57,10 @@ function ActionButton({
         paddingBlock: spacing.scale['6'],
         borderStyle: 'solid',
         borderWidth: border.width['1'],
-        borderColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.border.action.normal,
+        borderColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.border.action.normal,
         borderRadius: radius.scale.lg,
-        backgroundColor: isPrimary ? colors.semantic.theme.background.surface.inverted : colors.semantic.theme.background.surface.default,
-        color: isPrimary ? colors.semantic.theme.background.surface.default : textTokens.primary,
+        backgroundColor: isPrimary ? colors.semantic.theme.background.button.primary : colors.semantic.theme.background.surface.default,
+        color: isPrimary ? colors.semantic.theme.text.button.primary : textTokens.primary,
         boxShadow: 'none',
         cursor: 'pointer',
       }}
@@ -107,9 +94,9 @@ function DefaultCustomSlot() {
         justifyContent: 'center',
         borderStyle: 'dashed',
         borderWidth: border.width['1'],
-        borderColor: palette.purple['8'],
+        borderColor: colors.semantic.theme.semantic.brand['8'],
         borderRadius: radius.scale.xl,
-        backgroundColor: palette.purple['2'],
+        backgroundColor: colors.semantic.theme.semantic.brand['2'],
         overflow: 'hidden',
         boxSizing: 'border-box',
       }}
@@ -117,7 +104,7 @@ function DefaultCustomSlot() {
       <span
         style={{
           ...getTypographyStyle(typography.scale.h6.medium),
-          color: palette.purple['11'],
+          color: colors.semantic.theme.semantic.brand['11'],
           textAlign: 'center',
           whiteSpace: 'nowrap',
         }}
@@ -140,8 +127,8 @@ function ImageBlock({ flat, imageSlot }: { flat: boolean; imageSlot: FeatureCard
         minWidth: spacing.scale['320'],
         minHeight: SIZE_260,
         borderRadius: flat ? radius.scale.xxl : radius.scale['0'],
-        backgroundImage: toLinearGradient(gradientSolid04),
-        backgroundColor: gradientSolid04.stops[0]?.color ?? colors.semantic.theme.background.surface.neutral,
+        backgroundImage: gradientSolid04.css,
+        backgroundColor: gradientSolid04.stops[0].color,
         overflow: 'hidden',
       }}
     >

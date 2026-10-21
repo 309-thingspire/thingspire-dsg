@@ -136,7 +136,7 @@ function InputActions({
           backgroundColor: colors.semantic.theme.background.surface.default,
           borderStyle: 'solid',
           borderWidth: border.width['1'],
-          borderColor: focused ? palette.purple['8'] : colors.semantic.theme.border.action.normal,
+          borderColor: focused ? colors.semantic.theme.border.action.focus : colors.semantic.theme.border.action.normal,
           borderRadius: radius.scale.xl,
           boxShadow: focused ? shadows.focusRing.light.css : 'none',
           boxSizing: 'border-box',

@@ -187,7 +187,9 @@ function resolveVisualState(state: ButtonGroupItemState): ResolvedVisualState {
 
   return {
     backgroundColor: isActive || state === 'hover' ? colors.semantic.theme.background.surface.neutral : colors.semantic.theme.background.surface.default,
-    borderColor: isFocused ? border.color.theme.action.focusLight : colors.semantic.theme.border.action.normal,
+    // The focus ring is drawn as an overlay (see FocusRing) so the item's own
+    // border — and therefore its size — never changes with focus.
+    borderColor: colors.semantic.theme.border.action.normal,
     borderWidth: isFocused ? border.width['2'] : border.width['1'],
     textColor: isDisabled ? textTokens.quaternary : isActive ? textTokens.primary : textTokens.secondary,
     badgeTextColor: isDisabled ? textTokens.quaternary : textTokens.secondary,
@@ -266,11 +268,18 @@ function ButtonGroupItemButton({
   const padding = resolveInlinePadding(type, shape, align, config);
   const edgeRadius = resolveEdgeRadius(shape, config);
   const showDivider = align !== 'right';
-  const borderSideWidth = visualState === 'focus' ? visual.borderWidth : border.width['1'];
+  // Resting borders only: the same in every state, so focus can't resize the item.
+  const borderSideWidth = border.width['1'];
   const borderTopWidth = borderSideWidth;
   const borderBottomWidth = borderSideWidth;
-  const borderLeftWidth = visualState === 'focus' || align === 'left' ? borderSideWidth : border.width['0'];
-  const borderRightWidth = visualState === 'focus' || align === 'right' ? borderSideWidth : border.width['0'];
+  const borderLeftWidth = align === 'left' ? borderSideWidth : border.width['0'];
+  const borderRightWidth = align === 'right' ? borderSideWidth : border.width['0'];
+  const cornerRadii = {
+    borderTopLeftRadius: align === 'left' ? edgeRadius : radius.scale['0'],
+    borderBottomLeftRadius: align === 'left' ? edgeRadius : radius.scale['0'],
+    borderTopRightRadius: align === 'right' ? edgeRadius : radius.scale['0'],
+    borderBottomRightRadius: align === 'right' ? edgeRadius : radius.scale['0'],
+  };
 
   const handleClick = () => {
     if (visualState === 'disabled') {
@@ -324,13 +333,12 @@ function ButtonGroupItemButton({
         borderBottomWidth,
         borderLeftWidth,
         borderRightWidth,
-        borderTopLeftRadius: align === 'left' ? edgeRadius : radius.scale['0'],
-        borderBottomLeftRadius: align === 'left' ? edgeRadius : radius.scale['0'],
-        borderTopRightRadius: align === 'right' ? edgeRadius : radius.scale['0'],
-        borderBottomRightRadius: align === 'right' ? edgeRadius : radius.scale['0'],
+        ...cornerRadii,
         backgroundColor: visual.backgroundColor,
         cursor: visualState === 'disabled' ? 'not-allowed' : 'pointer',
         boxSizing: 'border-box',
+        // The focus ring below replaces the browser outline.
+        outline: 'none',
       }}
     >
       {type === 'default' ? (
@@ -409,7 +417,7 @@ function ButtonGroupItemButton({
             position: 'absolute',
             top: -borderSideWidth,
             bottom: -borderSideWidth,
-            right: visualState === 'focus' ? -borderSideWidth : spacing.scale['0'],
+            right: spacing.scale['0'],
             width: spacing.scale['1'],
             display: 'flex',
             alignItems: 'stretch',
@@ -425,6 +433,28 @@ function ButtonGroupItemButton({
             }}
           />
         </span>
+      ) : null}
+
+      {visualState === 'focus' ? (
+        <span
+          aria-hidden="true"
+          style={{
+            // Covers the item's border box (offset by its own border widths),
+            // painted above the neighbours' edges, outside the layout.
+            position: 'absolute',
+            top: -borderTopWidth,
+            bottom: -borderBottomWidth,
+            left: -borderLeftWidth,
+            right: -borderRightWidth,
+            zIndex: 1,
+            borderStyle: 'solid',
+            borderWidth: visual.borderWidth,
+            borderColor: border.color.theme.action.focusLight,
+            ...cornerRadii,
+            boxSizing: 'border-box',
+            pointerEvents: 'none',
+          }}
+        />
       ) : null}
     </button>
   );

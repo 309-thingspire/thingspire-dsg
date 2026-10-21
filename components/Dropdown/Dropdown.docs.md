@@ -24,7 +24,7 @@ Single Source of Truth:
 - `colors.primitive.palette.blue.11`
 - `colors.primitive.palette.green.8`
 - `colors.primitive.palette.green.9`
-- `colors.primitive.palette.purple.6`
+- `colors.semantic.theme.border.action.focusLight` (focus border)
 - `colors.semantic.theme.text.base.staticDark`
 - `colors.semantic.theme.text.base.staticDarkSecondary`
 - `colors.semantic.theme.text.base.staticDarkTertiary`

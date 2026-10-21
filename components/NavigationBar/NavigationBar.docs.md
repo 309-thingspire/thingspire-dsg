@@ -23,6 +23,8 @@ Single Source of Truth:
 - `colors.semantic.theme.text.base.staticDarkTertiary`
 - `colors.semantic.theme.text.base.staticDarkQuaternary`
 - `colors.semantic.theme.text.base.staticWhite`
+- `colors.semantic.theme.background.button.primary` (Type 07 CTA)
+- `colors.semantic.theme.text.button.primary` (Type 07 CTA)
 - `colors.semantic.theme.text.accent.blueAccent`
 
 ### Typography
