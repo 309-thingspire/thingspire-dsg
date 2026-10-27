@@ -1,4 +1,4 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
 export type InputType = 'default' | 'external' | 'button';
 
@@ -39,6 +39,8 @@ export interface InputProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChan
   leadIcon?: ReactNode;
   tailIcon?: ReactNode;
   inputAriaLabel?: string;
+  /** Native `type` of the inner `<input>` (e.g. `password`, `email`). `type` is the Figma variant axis. */
+  htmlType?: InputHTMLAttributes<HTMLInputElement>['type'];
   onValueChange?: (value: string) => void;
   onButtonClick?: () => void;
 }

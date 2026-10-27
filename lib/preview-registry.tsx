@@ -30,6 +30,7 @@ const PREVIEWS: Record<string, ComponentType> = {
   'info-card': dynamic(() => import('@/components/InfoCard/InfoCard.preview'), { loading: Loading }),
   input: dynamic(() => import('@/components/Input/Input.preview'), { loading: Loading }),
   middle: dynamic(() => import('@/components/Middle/Middle.preview'), { loading: Loading }),
+  modal: dynamic(() => import('@/components/Modal/Modal.preview'), { loading: Loading }),
   'navigation-bar': dynamic(() => import('@/components/NavigationBar/NavigationBar.preview'), { loading: Loading }),
   'page-header': dynamic(() => import('@/components/PageHeader/PageHeader.preview'), { loading: Loading }),
   pagination: dynamic(() => import('@/components/Pagination/Pagination.preview'), { loading: Loading }),

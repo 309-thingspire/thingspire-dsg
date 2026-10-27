@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup'
 /* Library build for `@309-thingspire/dsg`.
  *
  * Three entry points map to the package's exports:
- *   .         → dist/index.{js,d.ts}    (component barrel, 44 components)
+ *   .         → dist/index.{js,d.ts}    (component barrel, 45 components)
  *   ./icons   → dist/icons.{js,d.ts}    (2,278 icon components)
  *   ./tokens  → dist/tokens.{js,d.ts}   (raw design tokens)
  *
