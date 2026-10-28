@@ -56,6 +56,7 @@
 ## Accessibility
 - `role="dialog"` + `aria-modal="true"`, `aria-labelledby` → headline, `aria-describedby` → description
 - 닫기 버튼 `aria-label` (`closeButtonLabel`), 비밀번호 토글 `aria-label` (`showPasswordLabel` / `hidePasswordLabel`)
+- `update`의 이전 / 다음 버튼 이름은 Pagination 기본값 (`Previous page` / `Next page`)
 - 키보드 포커스에만 focus ring (`shadows.focusRing.light`)
 - 초대 목록은 `<ul role="list">`
 - 대비 (WCAG AA 4.5:1): 다크 모드는 모든 조합 통과. 라이트 모드는 Figma가 지정한 두 색이 미달 — `text.base.tertiary`(초대 이메일, placeholder) 2.61:1, `text.status.success`(보상 금액) 2.45:1. 나머지(primary 18.2, secondary 4.8, 라임 위 잉크 11.4, Slot 8.2)는 통과.
@@ -114,10 +115,7 @@
 - 패널 `overflow`는 잘라내지 않음 — slot 안의 Dropdown 메뉴 등이 잘리지 않도록
 
 하위 컴포넌트에서 물려받은 차이 (Modal 밖에서 고칠 항목)
-- Button / Input / TabMenu는 테두리가 바깥에 더해져 Figma보다 2px씩 큽니다 → info 218, payment 390, login 454, invite 506 (update 510, slot 328은 일치)
-- Button `sm`의 아이콘 칸이 24px로 고정이라 아이콘 버튼(소셜, 공유)이 38px입니다 (Figma 32, 아이콘 16)
-- Button `tertiary`에 회색 테두리가 있습니다 (Figma 공유 버튼은 테두리 없음)
-- Pagination 화살표가 셰브론(`arrow-*-s-line`)입니다 (Figma `arrow-left/right-line`). 화살표 버튼에 접근성 이름이 없습니다.
+- Input / TabMenu는 테두리가 바깥에 더해져 Figma보다 2px씩 큽니다 → payment 388 (Figma 382), login 446 (442), invite 500 (498). info 214, update 510, slot 328은 Figma와 같습니다.
 
 ## Usage
 
