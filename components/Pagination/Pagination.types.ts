@@ -24,6 +24,10 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
   leftButtonLabel?: string;
   rightButtonLabel?: string;
   numberItems?: PaginationNumberItem[];
+  /** Accessible name of the previous arrow button (arrows / numbers). Default 'Previous page'. */
+  prevAriaLabel?: string;
+  /** Accessible name of the next arrow button (arrows / numbers). Default 'Next page'. */
+  nextAriaLabel?: string;
   onPrevClick?: () => void;
   onNextClick?: () => void;
   onNumberClick?: (id: string) => void;
