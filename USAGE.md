@@ -15,11 +15,11 @@ consume it (pick one — see [§2](#2-choosing-a-channel)):
 
 ## 1. What you get
 
-- **44 React components** (atoms + molecules + organisms) — Button,
+- **45 React components** (atoms + molecules + organisms) — Button,
   Input, Checkbox, Dropdown, Calendar, Tooltip, Badge, Sidebar
   (+ atoms), Accordion, Pagination, ProgressBar/Circle,
   TableCell/Header, TabMenu, Toggle, FeatureCard, TaskCard, Banner,
-  NavigationBar, PageHeader, …
+  Modal, NavigationBar, PageHeader, …
 - **2,278 icons** as tree-shakable React components
   (`@309-thingspire/dsg/icons` or the `@/components/icons` barrel)
 - **Design tokens** (`styles/tokens.css` + `@309-thingspire/dsg/tokens`)
@@ -53,7 +53,7 @@ npm install @309-thingspire/dsg react react-dom
 ```
 
 ```tsx
-// components (44 of them)
+// components (45 of them)
 import { Button, Calendar, Banner } from '@309-thingspire/dsg'
 
 // icons — tree-shaken, only what you import is bundled

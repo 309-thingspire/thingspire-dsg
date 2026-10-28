@@ -1,7 +1,7 @@
 {
   "name": "@309-thingspire/dsg",
   "version": "0.1.0",
-  "description": "Thingspire design library — 44 React components + 2,278 tree-shakable icons + design tokens.",
+  "description": "Thingspire design library — 45 React components + 2,278 tree-shakable icons + design tokens.",
   "type": "module",
   "sideEffects": [
     "**/*.css"

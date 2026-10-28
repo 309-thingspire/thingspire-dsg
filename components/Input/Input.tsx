@@ -223,6 +223,7 @@ export function Input({
   leadIcon,
   tailIcon,
   inputAriaLabel = 'Input field',
+  htmlType,
   onValueChange,
   onButtonClick,
   onMouseEnter,
@@ -485,6 +486,7 @@ export function Input({
                 }}
               >
                 <input
+                  type={htmlType}
                   aria-label={inputAriaLabel}
                   value={hasFilledValue ? (resolvedValue || 'Filled text') : resolvedValue}
                   placeholder={placeholder}

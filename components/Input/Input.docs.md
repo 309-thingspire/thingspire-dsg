@@ -65,6 +65,7 @@ Single Source of Truth:
 - `type=button`은 우측 액션 버튼 영역을 포함하고 `onButtonClick`을 제공합니다.
 - `type=external`은 좌측 외부 프리픽스 영역(`externalLabel`)을 포함합니다.
 - 너비는 부모를 채웁니다(`width: 100%`, 최소 `spacing.scale.144`). 폭은 감싸는 요소(폼 컬럼, 그리드 셀)에서 정합니다.
+- `htmlType`은 내부 `<input>`의 네이티브 `type`입니다 (`password`, `email` 등). `type`은 Figma variant 축이라 이름이 다릅니다 (Button의 `htmlType`과 같은 규칙). 미지정 시 기존처럼 text.
 
 ## Accessibility Notes
 - 실제 `<input>` 요소를 사용합니다.

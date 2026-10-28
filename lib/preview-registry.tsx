@@ -46,6 +46,7 @@ const PREVIEWS: Record<string, ComponentType> = {
   'info-card': lazyPreview(() => import('@/components/InfoCard/InfoCard.preview')),
   input: lazyPreview(() => import('@/components/Input/Input.preview')),
   middle: lazyPreview(() => import('@/components/Middle/Middle.preview')),
+  modal: lazyPreview(() => import('@/components/Modal/Modal.preview')),
   'navigation-bar': lazyPreview(() => import('@/components/NavigationBar/NavigationBar.preview')),
   'page-header': lazyPreview(() => import('@/components/PageHeader/PageHeader.preview')),
   pagination: lazyPreview(() => import('@/components/Pagination/Pagination.preview')),
