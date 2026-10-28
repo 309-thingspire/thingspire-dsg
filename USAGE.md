@@ -82,6 +82,17 @@ caret range, e.g. `^0.1.0`). A breaking major needs an explicit
 `react` / `react-dom` are **peer dependencies** (>=18) — your app
 provides them, the package never bundles its own copy.
 
+**Next.js App Router:** the components entry (`@309-thingspire/dsg`) is
+marked `"use client"`, so Server Components can render the components
+directly. Event handlers (`onClick`, `onOpenChange`, …) can't be passed
+from a Server Component, so keep interactive state in your own client
+component. `@309-thingspire/dsg/icons` and `@309-thingspire/dsg/tokens`
+are not client modules: Server Components can render the icons and read
+the token values. The `*_OPTIONS` arrays (e.g. `MODAL_TYPE_OPTIONS`) come
+from the components entry, so read them in client components. Versions
+up to 0.1.1 ship without the directive; with those, import the
+components from your own client components.
+
 ### Option B — CLI copy-paste
 
 Continue to [§4 Quick start](#4-quick-start). The rest of this guide
