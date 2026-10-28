@@ -20,6 +20,13 @@ const textStatusTokens = colors.semantic.theme.text.status;
 // Ink text on the lime primary fill (text.button.primary).
 const textOnPrimary = colors.semantic.theme.text.button.primary;
 
+// Figma draws the 1px stroke inside the frame, so it takes no layout space.
+// The CSS border does, so it is taken back out of the padding: the outer box
+// then matches Figma (xs 24 / sm 32 / md 40 / lg 48) for every variant.
+const BORDER_WIDTH = border.width['1'];
+
+// Icon slot per size follows the Figma Button set (977:47549):
+// xs 14 / sm 16 / md 20 / lg 20, for both the default and icon-only types.
 const SIZE_CONFIG: Record<
   ButtonSize,
   {
@@ -47,7 +54,7 @@ const SIZE_CONFIG: Record<
     defaultGap: spacing.scale['4'],
     iconOnlyPadding: spacing.scale['5'],
     iconOnlyGap: spacing.scale['0'],
-    iconSize: spacing.scale['24'],
+    iconSize: spacing.scale['14'],
     roundedRadius: radius.scale.md,
     typographyStyle: typography.scale.captionM.medium,
   },
@@ -58,7 +65,7 @@ const SIZE_CONFIG: Record<
     defaultGap: spacing.scale['2'],
     iconOnlyPadding: spacing.scale['8'],
     iconOnlyGap: spacing.scale['2'],
-    iconSize: spacing.scale['24'],
+    iconSize: spacing.scale['16'],
     roundedRadius: radius.scale.lg,
     typographyStyle: typography.scale.captionL.medium,
   },
@@ -69,7 +76,7 @@ const SIZE_CONFIG: Record<
     defaultGap: spacing.scale['4'],
     iconOnlyPadding: spacing.scale['10'],
     iconOnlyGap: spacing.scale['4'],
-    iconSize: spacing.scale['24'],
+    iconSize: spacing.scale['20'],
     roundedRadius: radius.scale.xl,
     typographyStyle: typography.scale.captionL.medium,
   },
@@ -80,7 +87,7 @@ const SIZE_CONFIG: Record<
     defaultGap: spacing.scale['4'],
     iconOnlyPadding: spacing.scale['14'],
     iconOnlyGap: spacing.scale['4'],
-    iconSize: spacing.scale['24'],
+    iconSize: spacing.scale['20'],
     roundedRadius: radius.scale.xl,
     typographyStyle: typography.scale.bodyL.medium,
   },
@@ -93,10 +100,13 @@ const DESTRUCTIVE_VARIANTS: ReadonlySet<ButtonVariant> = new Set([
   'destructiveGhost',
 ]);
 
-// Ghost variants render without a visible resting border per the Figma
-// carbonscope spec — only the focus ring color is allowed to surface so
-// keyboard focus stays accessible.
-const GHOST_VARIANTS: ReadonlySet<ButtonVariant> = new Set([
+// Tertiary and ghost variants have no stroke in the Figma carbonscope Button
+// set in default / hover / disabled (977:47366, 977:47444) — only the Focus
+// state draws the focus border + ring, so keyboard focus stays visible. The
+// 1px border box stays (transparent) so every variant keeps the same size.
+const BORDERLESS_VARIANTS: ReadonlySet<ButtonVariant> = new Set([
+  'tertiary',
+  'destructiveTertiary',
   'ghost',
   'destructiveGhost',
 ]);
@@ -194,9 +204,9 @@ function getBorderColor(variant: ButtonVariant, interactionState: InteractionSta
     return destructive ? buttonBorderTokens.focusDestructive : buttonBorderTokens.focus;
   }
 
-  // Ghost variants are intentionally borderless in default/hover/disabled
-  // states. Focus ring above already short-circuited so a11y is preserved.
-  if (GHOST_VARIANTS.has(variant)) {
+  // Tertiary and ghost variants are borderless in default/hover/disabled
+  // states. Focus above already short-circuited so a11y is preserved.
+  if (BORDERLESS_VARIANTS.has(variant)) {
     return 'transparent';
   }
 
@@ -328,9 +338,22 @@ export function Button({
   const iconOnly = type === 'iconOnly';
   const lead = leftIcon ?? rightIcon;
   const gap = iconOnly ? sizeConfig.iconOnlyGap : sizeConfig.defaultGap;
-  const paddingInline = iconOnly ? sizeConfig.iconOnlyPadding : sizeConfig.defaultPaddingX;
-  const paddingBlock = iconOnly ? sizeConfig.iconOnlyPadding : sizeConfig.defaultPaddingY;
+  // Padding tokens are measured from the outer edge like Figma's inside
+  // stroke, so the 1px CSS border is taken out of them (see BORDER_WIDTH).
+  const paddingInline = (iconOnly ? sizeConfig.iconOnlyPadding : sizeConfig.defaultPaddingX) - BORDER_WIDTH;
+  const paddingBlock = (iconOnly ? sizeConfig.iconOnlyPadding : sizeConfig.defaultPaddingY) - BORDER_WIDTH;
   const borderRadius = getBorderRadius(shape, sizeConfig.roundedRadius);
+  // fontSize matches the slot so `1em` icons (every icon in components/icons)
+  // fill it. Icons given their own width/height keep that size.
+  const iconSlotStyle: React.CSSProperties = {
+    width: sizeConfig.iconSize,
+    height: sizeConfig.iconSize,
+    fontSize: sizeConfig.iconSize,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  };
 
   const interactionState = getResolvedInteractionState(disabled, forceState, hovered, focused);
   const visualState = useMemo(() => getVisualState(variant, interactionState), [variant, interactionState]);
@@ -373,7 +396,7 @@ export function Button({
         paddingInline,
         paddingBlock,
         borderStyle: 'solid',
-        borderWidth: border.width['1'],
+        borderWidth: BORDER_WIDTH,
         borderRadius,
         backgroundColor: visualState.backgroundColor,
         borderColor: visualState.borderColor,
@@ -396,17 +419,7 @@ export function Button({
       {...props}
     >
       {!iconOnly && leftIcon ? (
-        <span
-          aria-hidden="true"
-          style={{
-            width: sizeConfig.iconSize,
-            height: sizeConfig.iconSize,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
+        <span aria-hidden="true" style={iconSlotStyle}>
           {leftIcon}
         </span>
       ) : null}
@@ -427,33 +440,13 @@ export function Button({
       ) : null}
 
       {!iconOnly && rightIcon ? (
-        <span
-          aria-hidden="true"
-          style={{
-            width: sizeConfig.iconSize,
-            height: sizeConfig.iconSize,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
+        <span aria-hidden="true" style={iconSlotStyle}>
           {rightIcon}
         </span>
       ) : null}
 
       {iconOnly && lead ? (
-        <span
-          aria-hidden="true"
-          style={{
-            width: sizeConfig.iconSize,
-            height: sizeConfig.iconSize,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
+        <span aria-hidden="true" style={iconSlotStyle}>
           {lead}
         </span>
       ) : null}

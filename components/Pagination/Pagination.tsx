@@ -1,6 +1,6 @@
 import React from 'react';
 import { border, colors, radius, shadows, spacing, typography } from '../../style-tokens';
-import { IconArrowLeftSLine, IconArrowRightSLine } from '../icons';
+import { IconArrowLeftLine, IconArrowRightLine } from '../icons';
 
 import type { PaginationInteractionState, PaginationNumberItem, PaginationProps, PaginationSize, PaginationType } from './Pagination.types';
 
@@ -29,6 +29,7 @@ type SizeConfig = {
 
 const palette = colors.primitive.palette;
 const textBase = colors.semantic.theme.text.base;
+const iconBase = colors.semantic.theme.icon.base;
 
 const SIZE_CONFIG: Record<PaginationSize, SizeConfig> = {
   md: {
@@ -108,9 +109,11 @@ function withFocusRing(baseShadow: string, interactionState: PaginationInteracti
   return `${baseShadow}, ${shadows.focusRing.light.css}`;
 }
 
+// Figma Pagination (Arrows 2382:17325, Numbers 2382:17329) uses the full
+// arrow-left-line / arrow-right-line glyphs, not the -s- chevrons.
 function ArrowIcon({ direction, size }: { direction: 'left' | 'right'; size: PaginationSize }) {
   const config = SIZE_CONFIG[size];
-  const Icon = direction === 'left' ? IconArrowLeftSLine : IconArrowRightSLine;
+  const Icon = direction === 'left' ? IconArrowLeftLine : IconArrowRightLine;
   return (
     <Icon
       aria-hidden="true"
@@ -130,6 +133,7 @@ function ArrowControlButton({
   disabled,
   onClick,
   ghost,
+  ariaLabel,
 }: {
   size: PaginationSize;
   direction: 'left' | 'right';
@@ -137,6 +141,7 @@ function ArrowControlButton({
   disabled: boolean;
   onClick?: () => void;
   ghost: boolean;
+  ariaLabel: string;
 }) {
   const config = SIZE_CONFIG[size];
 
@@ -145,8 +150,11 @@ function ArrowControlButton({
       type="button"
       disabled={disabled}
       onClick={!disabled ? onClick : undefined}
+      aria-label={ariaLabel}
       aria-disabled={disabled || undefined}
       style={{
+        // The arrow is currentColor; Figma tints it icon/base/secondary.
+        color: disabled ? iconBase.quaternary : iconBase.secondary,
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -327,6 +335,8 @@ export function Pagination({
   leftButtonLabel = 'Button',
   rightButtonLabel = 'Button',
   numberItems = DEFAULT_NUMBER_ITEMS,
+  prevAriaLabel = 'Previous page',
+  nextAriaLabel = 'Next page',
   onPrevClick,
   onNextClick,
   onNumberClick,
@@ -364,6 +374,7 @@ export function Pagination({
           disabled={disabled}
           onClick={onPrevClick}
           ghost={false}
+          ariaLabel={prevAriaLabel}
         />
 
         {showDots ? <Dots count={dotCount} activeIndex={activeDotIndex} /> : null}
@@ -375,6 +386,7 @@ export function Pagination({
           disabled={disabled}
           onClick={onNextClick}
           ghost={false}
+          ariaLabel={nextAriaLabel}
         />
       </div>
     );
@@ -464,6 +476,7 @@ export function Pagination({
         disabled={disabled}
         onClick={onPrevClick}
         ghost
+        ariaLabel={prevAriaLabel}
       />
 
       {numberItems.map((item) => (
@@ -484,6 +497,7 @@ export function Pagination({
         disabled={disabled}
         onClick={onNextClick}
         ghost
+        ariaLabel={nextAriaLabel}
       />
     </div>
   );

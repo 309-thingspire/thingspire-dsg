@@ -54,7 +54,7 @@ Single Source of Truth:
 - `border.color.theme.action.destructiveHover`
 - `border.color.theme.action.destructiveDisabled`
 - `border.color.theme.action.focusDestructive`
-- `border.width.1`
+- `border.width.1` (보더 굵기이자 padding 보정값 — 아래 Visual Validation 참고)
 
 ### Focus Ring / Shadow
 - `shadows.focusRing.light.css`
@@ -65,6 +65,7 @@ Single Source of Truth:
 - `spacing.scale.32`
 - `spacing.scale.40`
 - `spacing.scale.48`
+- `spacing.scale.20`
 - `spacing.scale.14`
 - `spacing.scale.12`
 - `spacing.scale.10`
@@ -105,18 +106,27 @@ Single Source of Truth:
 - `pill`
 
 ## Visual Validation
-- Size 비교
+Figma 기준: carbonscope-Library `Button` 컴포넌트 세트(`977:47549`).
+
+- Size 비교 (외곽 높이, 1px 보더 포함)
   - `xs`: `minHeight=spacing.scale.24`
   - `sm`: `minHeight=spacing.scale.32`
   - `md`: `minHeight=spacing.scale.40`
   - `lg`: `minHeight=spacing.scale.48`
-- Padding 비교
+- Padding 비교 (토큰 값 = 외곽선부터 잰 거리)
   - `type=default`: `xs(8,4)`, `sm(10,6)`, `md(12,10)`, `lg(16,12)` (`paddingX`,`paddingY`)
   - `type=iconOnly`: `xs(5)`, `sm(8)`, `md(10)`, `lg(14)` (all sides)
+  - Figma는 1px stroke를 프레임 안쪽에 그려 레이아웃 공간을 차지하지 않습니다. CSS 보더는 공간을 차지하므로, 실제 CSS padding은 `토큰 − border.width.1`입니다. 그래서 외곽 크기가 Figma와 같습니다(예: sm icon-only = 32×32, sm + 아이콘 = 높이 32).
+- Icon slot 비교
+  - `xs`: `spacing.scale.14`, `sm`: `spacing.scale.16`, `md`: `spacing.scale.20`, `lg`: `spacing.scale.20` (default / iconOnly 공통)
+  - 슬롯에 `fontSize=iconSize`를 지정해 `1em` 아이콘(`components/icons` 전체)이 슬롯 크기로 렌더링됩니다. width/height를 직접 지정한 아이콘은 그 크기를 유지합니다.
 - Alignment 비교
   - `display:inline-flex`, `alignItems:center`, `justifyContent:center`
-  - 아이콘 슬롯은 `iconSize=spacing.scale.24`
   - `shape=rounded`는 size별 radius(`md/lg/xl/xl`), `shape=pill`은 `radius.scale.full`
+- 알려진 차이 (이번 범위 밖)
+  - `lg` 라벨이 `typography.scale.bodyL.medium`(20/28)이라 라벨이 있는 lg 버튼은 높이 52입니다. Figma lg 라벨은 body-s(16/24)이고 높이 48입니다.
+  - Figma 라벨 프레임의 좌우 padding 4(sm/md/lg)가 코드에 없어, 라벨이 있는 버튼은 Figma보다 8px 좁습니다.
+  - Figma 아이콘 색은 `icon/base/secondary`이고, 코드 슬롯은 라벨 색을 그대로 씁니다.
 
 ## Behavior
 - 상태: `default`, `hover`, `focus`, `disabled`
@@ -125,13 +135,18 @@ Single Source of Truth:
 - Focus ring:
   - 일반 variant: `shadows.focusRing.light.css`
   - destructive 계열: `shadows.focusRing.lightDestructive.css`
+- Border (variant별)
+  - `primary`: 보더 색 = 배경 색 (한 덩어리로 보이게)
+  - `secondary`, `destructive`, `destructiveSecondary`: `border.color.theme.action.*` 토큰
+  - `tertiary`, `destructiveTertiary`, `ghost`, `destructiveGhost`: default / hover / disabled에서 보더 없음(투명). Figma tertiary(`977:47366`, `977:47444`)도 stroke가 없습니다. 1px 보더 박스는 투명하게 남겨 모든 variant의 크기를 같게 유지합니다.
+  - Focus: 모든 variant가 `focus` / `focusDestructive` 보더 + focus ring을 표시합니다(키보드 포커스 접근성 유지).
 - Transition: 토큰에 duration/easing 정의가 없어 즉시 상태 전환으로 구현
 
 ## Behavioral Validation
 - Interaction states
-  - Hover: 배경/보더/텍스트를 `*Hover` 토큰으로 변경
+  - Hover: 배경/보더/텍스트를 `*Hover` 토큰으로 변경 (tertiary·ghost 계열은 보더 투명 유지)
   - Focus: 보더 `focus` 계열 토큰 + focus ring shadow 토큰 적용
-  - Disabled: `*Disabled` 배경/보더/텍스트 토큰 고정 적용
+  - Disabled: `*Disabled` 배경/보더/텍스트 토큰 고정 적용 (tertiary·ghost 계열은 보더 투명 유지)
 - Transition logic
   - MCP 토큰에 motion duration/easing이 없어 transition 값을 추가하지 않음
 - Accessibility behavior
@@ -146,13 +161,16 @@ Single Source of Truth:
 ## Usage Examples
 ```tsx
 import { Button } from './Button';
+import { IconAddLine, IconLinkM } from '../icons';
 
 export function Example() {
   return (
     <>
       <Button variant="primary" type="default" shape="rounded" size="md">Primary</Button>
       <Button variant="secondary" type="default" shape="pill" size="sm">Pill</Button>
-      <Button variant="destructiveGhost" type="iconOnly" shape="pill" size="xs" leftIcon="+">Delete</Button>
+      {/* 1em 아이콘은 크기를 지정하지 않아도 슬롯 크기(sm=16)로 맞춰집니다 */}
+      <Button variant="tertiary" size="sm" leftIcon={<IconLinkM />}>Copy link</Button>
+      <Button variant="destructiveGhost" type="iconOnly" shape="pill" size="xs" leftIcon={<IconAddLine />} aria-label="Add" />
       <Button variant="tertiary" type="default" shape="rounded" size="md" disabled>Disabled</Button>
     </>
   );
